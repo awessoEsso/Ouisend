@@ -20,8 +20,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        setRootViewControllerIfNotLoggedIn()
+        
         return true
     }
+    
+    func setRootViewControllerIfNotLoggedIn() {
+        // Check if logged In
+        let currentUser = Auth.auth().currentUser
+        if currentUser == nil {
+            let loginViewController = UIStoryboard.loginViewController()
+            let rootViewController = UINavigationController(rootViewController: loginViewController)
+            window?.rootViewController = rootViewController
+        }
+    }
+    
+    
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }

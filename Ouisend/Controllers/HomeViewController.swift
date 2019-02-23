@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FacebookLogin
 
 class HomeViewController: UIViewController {
     
@@ -54,12 +56,23 @@ extension HomeViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    
+    
+    
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        try? Auth.auth().signOut()
+        LoginManager.init().logOut()
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth:CGFloat = collectionView.frame.width
-        let cellHeight:CGFloat = 160
+        let cellHeight:CGFloat = 180
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
