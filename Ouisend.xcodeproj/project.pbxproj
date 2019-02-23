@@ -7,21 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64F1B21EAC4B081D588A0AAD /* Pods_Ouisend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F8E4EEF0046FD50CAE222 /* Pods_Ouisend.framework */; };
+		6718524A2220791A0044CE1E /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 671852492220791A0044CE1E /* Podfile */; };
+		6718524C222083F60044CE1E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6718524B222083F60044CE1E /* LoginViewController.swift */; };
+		6718524E2220A7B30044CE1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6718524D2220A7B30044CE1E /* GoogleService-Info.plist */; };
 		67F7B7D6221FFF790006BD08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7D5221FFF790006BD08 /* AppDelegate.swift */; };
-		67F7B7D8221FFF790006BD08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7D7221FFF790006BD08 /* ViewController.swift */; };
+		67F7B7D8221FFF790006BD08 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7D7221FFF790006BD08 /* HomeViewController.swift */; };
 		67F7B7DB221FFF790006BD08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F7B7D9221FFF790006BD08 /* Main.storyboard */; };
 		67F7B7DD221FFF7A0006BD08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67F7B7DC221FFF7A0006BD08 /* Assets.xcassets */; };
 		67F7B7E0221FFF7A0006BD08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F7B7DE221FFF7A0006BD08 /* LaunchScreen.storyboard */; };
+		67F7B7E822200C1A0006BD08 /* BirdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7E722200C1A0006BD08 /* BirdCollectionViewCell.swift */; };
+		67F7B7EA2220312B0006BD08 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7E92220312B0006BD08 /* Extensions.swift */; };
+		67F7B7EC222042E40006BD08 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7EB222042E40006BD08 /* Bird.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		094F8E4EEF0046FD50CAE222 /* Pods_Ouisend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ouisend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29406D9312056B32F4BF6E98 /* Pods-Ouisend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ouisend.release.xcconfig"; path = "Target Support Files/Pods-Ouisend/Pods-Ouisend.release.xcconfig"; sourceTree = "<group>"; };
+		671852492220791A0044CE1E /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6718524B222083F60044CE1E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6718524D2220A7B30044CE1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		67F7B7D2221FFF790006BD08 /* Ouisend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ouisend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F7B7D5221FFF790006BD08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		67F7B7D7221FFF790006BD08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		67F7B7D7221FFF790006BD08 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		67F7B7DA221FFF790006BD08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67F7B7DC221FFF7A0006BD08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67F7B7DF221FFF7A0006BD08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67F7B7E1221FFF7A0006BD08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67F7B7E722200C1A0006BD08 /* BirdCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdCollectionViewCell.swift; sourceTree = "<group>"; };
+		67F7B7E92220312B0006BD08 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		67F7B7EB222042E40006BD08 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
+		B7C714589119BA27E48C6099 /* Pods-Ouisend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ouisend.debug.xcconfig"; path = "Target Support Files/Pods-Ouisend/Pods-Ouisend.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +45,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64F1B21EAC4B081D588A0AAD /* Pods_Ouisend.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52A00B327CA9960F7E01AF22 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				094F8E4EEF0046FD50CAE222 /* Pods_Ouisend.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		67F7B7C9221FFF780006BD08 = {
 			isa = PBXGroup;
 			children = (
 				67F7B7D4221FFF790006BD08 /* Ouisend */,
 				67F7B7D3221FFF790006BD08 /* Products */,
+				E706975D49CCCAE58B502F0D /* Pods */,
+				52A00B327CA9960F7E01AF22 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +82,28 @@
 			isa = PBXGroup;
 			children = (
 				67F7B7D5221FFF790006BD08 /* AppDelegate.swift */,
-				67F7B7D7221FFF790006BD08 /* ViewController.swift */,
+				67F7B7D7221FFF790006BD08 /* HomeViewController.swift */,
 				67F7B7D9221FFF790006BD08 /* Main.storyboard */,
 				67F7B7DC221FFF7A0006BD08 /* Assets.xcassets */,
 				67F7B7DE221FFF7A0006BD08 /* LaunchScreen.storyboard */,
 				67F7B7E1221FFF7A0006BD08 /* Info.plist */,
+				67F7B7E722200C1A0006BD08 /* BirdCollectionViewCell.swift */,
+				67F7B7E92220312B0006BD08 /* Extensions.swift */,
+				671852492220791A0044CE1E /* Podfile */,
+				67F7B7EB222042E40006BD08 /* Bird.swift */,
+				6718524D2220A7B30044CE1E /* GoogleService-Info.plist */,
+				6718524B222083F60044CE1E /* LoginViewController.swift */,
 			);
 			path = Ouisend;
+			sourceTree = "<group>";
+		};
+		E706975D49CCCAE58B502F0D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B7C714589119BA27E48C6099 /* Pods-Ouisend.debug.xcconfig */,
+				29406D9312056B32F4BF6E98 /* Pods-Ouisend.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +113,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67F7B7E4221FFF7A0006BD08 /* Build configuration list for PBXNativeTarget "Ouisend" */;
 			buildPhases = (
+				C57D4B900EE8BC1E5DD84FA5 /* [CP] Check Pods Manifest.lock */,
 				67F7B7CE221FFF790006BD08 /* Sources */,
 				67F7B7CF221FFF790006BD08 /* Frameworks */,
 				67F7B7D0221FFF790006BD08 /* Resources */,
+				EC6152116BC9DAFB639C7AA0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,19 +168,90 @@
 			files = (
 				67F7B7E0221FFF7A0006BD08 /* LaunchScreen.storyboard in Resources */,
 				67F7B7DD221FFF7A0006BD08 /* Assets.xcassets in Resources */,
+				6718524E2220A7B30044CE1E /* GoogleService-Info.plist in Resources */,
+				6718524A2220791A0044CE1E /* Podfile in Resources */,
 				67F7B7DB221FFF790006BD08 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C57D4B900EE8BC1E5DD84FA5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ouisend-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC6152116BC9DAFB639C7AA0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ouisend/Pods-Ouisend-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ouisend/Pods-Ouisend-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		67F7B7CE221FFF790006BD08 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67F7B7D8221FFF790006BD08 /* ViewController.swift in Sources */,
+				6718524C222083F60044CE1E /* LoginViewController.swift in Sources */,
+				67F7B7D8221FFF790006BD08 /* HomeViewController.swift in Sources */,
+				67F7B7EC222042E40006BD08 /* Bird.swift in Sources */,
 				67F7B7D6221FFF790006BD08 /* AppDelegate.swift in Sources */,
+				67F7B7E822200C1A0006BD08 /* BirdCollectionViewCell.swift in Sources */,
+				67F7B7EA2220312B0006BD08 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,9 +395,11 @@
 		};
 		67F7B7E5221FFF7A0006BD08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7C714589119BA27E48C6099 /* Pods-Ouisend.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9T5D737237;
 				INFOPLIST_FILE = Ouisend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -297,9 +414,11 @@
 		};
 		67F7B7E6221FFF7A0006BD08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29406D9312056B32F4BF6E98 /* Pods-Ouisend.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9T5D737237;
 				INFOPLIST_FILE = Ouisend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
