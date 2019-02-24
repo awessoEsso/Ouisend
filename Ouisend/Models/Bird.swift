@@ -39,7 +39,7 @@ class Bird {
     }
     
     
-    init(dictionnary: [String: Any]) {
+    init(dictionnary: [String: Any?]) {
         self.birdTravelerName = dictionnary["birderName"] as? String ?? ""
         self.birderProfilePicUrl = dictionnary["birderProfilePicUrl"] as? URL ?? URL(string: "http://google.com")!
         self.birdTravelerProfilePic = dictionnary["birderProfilePicUrl"] as? String ?? ""

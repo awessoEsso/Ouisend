@@ -9,6 +9,7 @@
 import UIKit
 import Eureka
 import NVActivityIndicatorView
+import SCLAlertView
 
 let ouiSendBlueColor = UIColor(red: 16/255, green: 82/255, blue: 150/255, alpha: 1)
 
@@ -26,9 +27,10 @@ class CreateBirdViewController: FormViewController {
         // Do any additional setup after loading the view.
         
         
-        //activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.init(rawValue: 12), color: ouiSendBlueColor, padding: 20)
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.init(rawValue: 30), color: ouiSendBlueColor, padding: 20)
         
         
+        view.addSubview(activityIndicatorView)
         
         
         form +++ Section("Départ")
@@ -142,13 +144,16 @@ class CreateBirdViewController: FormViewController {
                 row.title = "Prix"
                 row.value = 0
             }
-
+            
             
             +++ Section()
             <<< ButtonRow() {
                 $0.title = "Soumettre"
                 }
                 .onCellSelection { cell, row in
+                    
+                    self.activityIndicatorView.startAnimating()
+                    self.view.isUserInteractionEnabled = false
                     
                     let errors = self.form.validate()
                     if ( errors.isEmpty == true ){
@@ -158,28 +163,44 @@ class CreateBirdViewController: FormViewController {
                     }
                     else {
                         print(errors)
+                        self.activityIndicatorView.stopAnimating()
                     }
         }
     }
     
-    func handleFormValues( _ values: [String: Any]) {
-        guard let birder = Datas.shared.birder else {
-            
-            // Login User
-            return
-        }
+    func handleFormValues( _ values: [String: Any?]) {
+        guard let birder = Datas.shared.birder else { return }
         var birdDictionnary = values
         birdDictionnary["birderName"] = birder.displayName ?? ""
         birdDictionnary["birderProfilePicUrl"] = birder.photoURL?.absoluteString ?? ""
         
         let bird = Bird(dictionnary: birdDictionnary)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.createBird(bird)
+        })
+    }
+    
+    func createBird(_ bird: Bird) {
         FirebaseManager.shared.createBird(bird, success: {
             print("Bird Registred successfully")
+            self.handleBirdCreationSucceed()
         }) { (error) in
             print(error ?? "Error creating bird")
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
         }
-        
+    }
+    
+    func handleBirdCreationSucceed() {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertView.showInfo("Félicitations", subTitle: "Votre Bird a été créé avec succès")
+        activityIndicatorView.stopAnimating()
+        view.isUserInteractionEnabled = true
     }
     
     
