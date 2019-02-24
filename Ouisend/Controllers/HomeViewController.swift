@@ -12,7 +12,6 @@ import FacebookLogin
 
 class HomeViewController: UIViewController {
     
-    
     var birds: [Bird] = [
         Bird(birdTravelerName: "Kyle Loftus", birdTravelerProfilePic: "kyle", departureCity: "Paris", departureCountry: "France", arrivalCity: "Lome", arrivalCountry: "Togo", birdWeight: 23, birdPrice: 120, birdPriceIsPerKilo: false ),
         Bird(birdTravelerName: "Jonathan Borba", birdTravelerProfilePic: "jonathan", departureCity: "Montreal", departureCountry: "Canada", arrivalCity: "Bamako", arrivalCountry: "Burkina-Faso", birdWeight: 12, birdPrice: 60, birdPriceIsPerKilo: false ),

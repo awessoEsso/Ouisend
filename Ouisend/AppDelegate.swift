@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setRootViewControllerIfNotLoggedIn()
         
+        let testCountries = Datas.shared.countries
+        
+        print(testCountries)
+        
         return true
     }
     
@@ -31,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let currentUser = Auth.auth().currentUser
         if currentUser == nil {
             let loginViewController = UIStoryboard.loginViewController()
-            let rootViewController = UINavigationController(rootViewController: loginViewController)
-            window?.rootViewController = rootViewController
+            window?.rootViewController = loginViewController
         }
     }
     

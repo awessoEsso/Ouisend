@@ -26,6 +26,24 @@ class FirebaseManager {
         return userRef
     }()
     
+    lazy var birdsReference: DatabaseReference = {
+        let birdRef = self.datebaseReference.child("Bird")
+        birdRef.keepSynced(true)
+        return birdRef
+    }()
+    
+    lazy var citiesReference: DatabaseReference = {
+        let cityRef = self.datebaseReference.child("City")
+        cityRef.keepSynced(true)
+        return cityRef
+    }()
+    
+    lazy var countriesReference: DatabaseReference = {
+        let countryRef = self.datebaseReference.child("Country")
+        countryRef.keepSynced(true)
+        return countryRef
+    }()
+    
 
     
     // MARK: init method
