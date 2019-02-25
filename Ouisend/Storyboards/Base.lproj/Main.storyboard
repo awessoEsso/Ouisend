@@ -384,6 +384,23 @@
                                             <constraint firstItem="1du-eM-F1Y" firstAttribute="leading" secondItem="ShP-zA-7Z5" secondAttribute="trailing" constant="16" id="e3o-Mf-X5h"/>
                                             <constraint firstItem="DUf-1r-gQJ" firstAttribute="top" secondItem="ShP-zA-7Z5" secondAttribute="top" id="s4r-wI-CWV"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.8030616023379904" green="0.8030616023379904" blue="0.8030616023379904" alpha="0.74521346830985913" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

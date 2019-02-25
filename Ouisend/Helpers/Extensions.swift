@@ -39,4 +39,33 @@ import UIKit
             return layer.cornerRadius
         }
     }
+    
+    @IBInspectable var shadowBackgroundColor: UIColor {
+        get {
+            let color = layer.backgroundColor ?? UIColor.clear.cgColor
+            return UIColor(cgColor: color)
+        }
+        set {
+            layer.backgroundColor = newValue.cgColor
+        }
+    }
+    
+    @IBInspectable var shadowOpacity: Float {
+        get {
+            return layer.shadowOpacity
+        }
+        set {
+            layer.shadowOpacity = newValue
+            layer.shadowOffset = CGSize(width: 0, height: 1)
+        }
+    }
+    
+    @IBInspectable var shadowRadius: CGFloat {
+        get {
+            return layer.shadowRadius
+        }
+        set {
+            layer.shadowRadius = newValue
+        }
+    }
 }
