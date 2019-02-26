@@ -260,12 +260,12 @@
         <!--Paris - Lome -->
         <scene sceneID="blI-yr-KBj">
             <objects>
-                <viewController id="qrS-2l-SiG" sceneMemberID="viewController">
+                <viewController id="qrS-2l-SiG" customClass="BirdViewController" customModule="Ouisend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F8M-AC-ShP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="967"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYe-22-8Vh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="CYe-22-8Vh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="918"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzT-Ir-Jry">
@@ -381,10 +381,13 @@
                                                             <constraint firstAttribute="height" constant="40" id="EKA-ro-EsP"/>
                                                         </constraints>
                                                         <segments>
-                                                            <segment title="ENTIER"/>
                                                             <segment title="PARTIE"/>
+                                                            <segment title="ENTIER"/>
                                                         </segments>
                                                         <color key="tintColor" red="0.062745098040000002" green="0.32156862749999998" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <connections>
+                                                            <action selector="takeAllWeightChanged:" destination="qrS-2l-SiG" eventType="valueChanged" id="olS-15-2BD"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="OHe-OF-3x5">
                                                         <rect key="frame" x="0.0" y="52" width="359" height="72"/>
@@ -401,6 +404,9 @@
                                                                     <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="23" translatesAutoresizingMaskIntoConstraints="NO" id="BFp-bo-op5">
                                                                         <rect key="frame" x="-2" y="0.0" width="347" height="29.5"/>
                                                                         <color key="thumbTintColor" red="0.12941176469999999" green="0.26274509800000001" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <connections>
+                                                                            <action selector="sliderValueChanged:" destination="qrS-2l-SiG" eventType="valueChanged" id="AAb-YA-5tM"/>
+                                                                        </connections>
                                                                     </slider>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pag-zm-OgO">
                                                                         <rect key="frame" x="359" y="0.0" width="0.0" height="28.5"/>
@@ -507,6 +513,11 @@ Un commentaire, une précision?</string>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="icon-upload-outline" id="6ZG-L8-jzE"/>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="967"/>
+                    <connections>
+                        <outlet property="scrollView" destination="CYe-22-8Vh" id="H7h-Pt-SRs"/>
+                        <outlet property="weightDesiredLabel" destination="Pag-zm-OgO" id="rYC-db-6yp"/>
+                        <outlet property="weightDesiredStackView" destination="OHe-OF-3x5" id="w8L-d6-VWZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="phj-Ag-mcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
