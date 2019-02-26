@@ -63,8 +63,8 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        try? Auth.auth().signOut()
-        LoginManager.init().logOut()
+//        try? Auth.auth().signOut()
+//        LoginManager.init().logOut()
     }
 }
 
