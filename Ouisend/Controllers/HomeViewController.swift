@@ -9,23 +9,33 @@
 import UIKit
 import FirebaseAuth
 import FacebookLogin
+import SDWebImage
+import AFDateHelper
 
 class HomeViewController: UIViewController {
     
-    var birds: [Bird] = [
-        Bird(birdTravelerName: "Kyle Loftus", birdTravelerProfilePic: "kyle", departureCity: "Paris", departureCountry: "France", arrivalCity: "Lome", arrivalCountry: "Togo", birdWeight: 23, birdPrice: 120, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "Jonathan Borba", birdTravelerProfilePic: "jonathan", departureCity: "Montreal", departureCountry: "Canada", arrivalCity: "Bamako", arrivalCountry: "Burkina-Faso", birdWeight: 12, birdPrice: 60, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "Claudia Van Zyl", birdTravelerProfilePic: "claudia", departureCity: "Dakar", departureCountry: "Sénégal", arrivalCity: "Lyon", arrivalCountry: "France", birdWeight: 20, birdPrice: 100, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "James Barr", birdTravelerProfilePic: "james", departureCity: "New-York", departureCountry: "USA", arrivalCity: "Montreal", arrivalCountry: "Canada", birdWeight: 10, birdPrice: 80, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "Chase Fade", birdTravelerProfilePic: "chase", departureCity: "Bruxelles", departureCountry: "Belgique", arrivalCity: "Kinshasa", arrivalCountry: "Congo", birdWeight: 8, birdPrice: 75, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "Jose Ros", birdTravelerProfilePic: "jose", departureCity: "Paris", departureCountry: "France", arrivalCity: "San Franciso", arrivalCountry: "USA", birdWeight: 5, birdPrice: 70, birdPriceIsPerKilo: false ),
-        Bird(birdTravelerName: "Jayson Hinrichsen", birdTravelerProfilePic: "jayson", departureCity: "Lomé", departureCountry: "Togo", arrivalCity: "Paris", arrivalCountry: "France", birdWeight: 23, birdPrice: 120, birdPriceIsPerKilo: false ),
+    var dateToUse: Date = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'"
+        let date = dateFormatter.date(from: "2019-02-20") ?? Date()
+        return date
+    }()
     
-    ]
+    @IBOutlet weak var birdsCollectionView: UICollectionView!
+    
+    
+    var birds: [Bird] =  [Bird]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        FirebaseManager.shared.birds(with: { (birds) in
+            self.birds = birds
+            self.birdsCollectionView.reloadData()
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error loading birds")
+        }
     }
 
 
@@ -33,6 +43,8 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController: UICollectionViewDataSource {
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return birds.count
@@ -45,13 +57,17 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "birdcollectionviewcellid", for: indexPath) as! BirdCollectionViewCell
         
         cell.birderNameLabel.text = bird.birdTravelerName
-        cell.birderPicImageView.image = UIImage(named: bird.birdTravelerProfilePic)
+        
+        cell.birdPublishedTimeLabel.text = "Publié \(bird.createdAt.toStringWithRelativeTime(strings: relativeTimeDict))"
+        
+        cell.birderPicImageView.sd_setImage(with: bird.birderProfilePicUrl, completed: nil)
         cell.birdDepartureCityLabel.text = bird.departureCity
         cell.birdDepartureCountryLabel.text = bird.departureCountry
+        cell.departureDateLabel.text = FrenchDateFormatter.formatDate(bird.departureDate)
         cell.birdArrivalCityLabel.text = bird.arrivalCity
         cell.birdArrivalCountryLabel.text = bird.arrivalCountry
         cell.birdWeightLabel.text = "\(bird.birdWeight) Kg"
-        cell.birdPriceLabel.text = "\(bird.birdPrice)€"
+        cell.birdPriceLabel.text = "\(bird.birdTotalPrice)\(bird.currency)"
         
         return cell
     }
@@ -75,3 +91,34 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
+let relativeTimeDict: [RelativeTimeStringType: String] = [
+    RelativeTimeStringType.nowPast : "il y a quelques instants",
+    RelativeTimeStringType.nowFuture : "dans quelques instants",
+    RelativeTimeStringType.secondsPast: "il y a quelques secondes",
+    RelativeTimeStringType.secondsFuture: "dans quelques secondes",
+    RelativeTimeStringType.oneMinutePast: "il y a une minute",
+    RelativeTimeStringType.oneMinuteFuture: "dans une minute",
+    RelativeTimeStringType.minutesPast: "il y a %.f minutes",
+    RelativeTimeStringType.minutesFuture: "dans %.f minutes",
+    RelativeTimeStringType.oneHourPast: "il y a une heure",
+    RelativeTimeStringType.oneHourFuture: "dans une heure",
+    RelativeTimeStringType.hoursPast: "il y a %.f heures",
+    RelativeTimeStringType.hoursFuture: "dans %.f heures",
+    RelativeTimeStringType.oneDayPast: "il y a une journée",
+    RelativeTimeStringType.oneDayFuture: "demain",
+    RelativeTimeStringType.daysPast: "il y a %.f jours",
+    RelativeTimeStringType.daysFuture: "dans %.f jours",
+    RelativeTimeStringType.oneWeekPast: "la semaine dernière",
+    RelativeTimeStringType.oneWeekFuture: "la semaine prochaine",
+    RelativeTimeStringType.weeksPast: "il y a %.f semaines",
+    RelativeTimeStringType.weeksFuture: "dans %.f semaines",
+    RelativeTimeStringType.oneMonthPast: "il y a un mois",
+    RelativeTimeStringType.oneMonthFuture: "dans un mois",
+    RelativeTimeStringType.monthsPast: "il y a %.f mois",
+    RelativeTimeStringType.monthsFuture: "dans %.f mois",
+    RelativeTimeStringType.oneYearPast: "l'année dernière",
+    RelativeTimeStringType.oneYearFuture: "l' année prochaine",
+    RelativeTimeStringType.yearsPast: "il y a %.f années",
+    RelativeTimeStringType.yearsFuture: "dans %.f années"
+]

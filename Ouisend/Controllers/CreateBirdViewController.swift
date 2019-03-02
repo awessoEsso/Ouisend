@@ -10,8 +10,13 @@ import UIKit
 import Eureka
 import NVActivityIndicatorView
 import SCLAlertView
+import InstantSearchClient
 
 let ouiSendBlueColor = UIColor(red: 16/255, green: 82/255, blue: 150/255, alpha: 1)
+
+protocol CreateBirdViewControllerDelegate {
+    func didCreateBird(_ bird: Bird)
+}
 
 class CreateBirdViewController: FormViewController {
     
@@ -20,6 +25,8 @@ class CreateBirdViewController: FormViewController {
     var countries = Datas.shared.countries
     
     var cities = Datas.shared.cities
+    
+    var delegate: CreateBirdViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,19 +137,29 @@ class CreateBirdViewController: FormViewController {
             <<< IntRow(){ row in
                 row.tag = "cb_bird_weight"
                 row.title = "Poids à vendre"
-                row.value = 0
-            }
-            
-            <<< SwitchRow() {
-                $0.tag = "cb_bird_perkilo"
-                $0.title = "Prix par kg?"
-                $0.value = false
+                row.placeholder = "23"
+                //row.value = 0
             }
             
             <<< IntRow(){ row in
-                row.tag = "cb_bird_price"
-                row.title = "Prix"
-                row.value = 0
+                row.tag = "cb_bird_price_per_k"
+                row.title = "Prix par kilos"
+                row.placeholder = "6"
+                //row.value = 0
+            }
+            
+            <<< IntRow(){ row in
+                row.tag = "cb_bird_total_price"
+                row.title = "Prix Total"
+                row.placeholder = "230"
+                //row.value = 0
+            }
+            
+            <<< PickerInlineRow<String>("Monnaie"){
+                $0.tag = "cb_currency"
+                $0.title = "Monnaie"
+                $0.options = ["€", "$"]
+                $0.value = "€"
             }
             
             
@@ -184,6 +201,7 @@ class CreateBirdViewController: FormViewController {
     func createBird(_ bird: Bird) {
         FirebaseManager.shared.createBird(bird, success: {
             print("Bird Registred successfully")
+            self.delegate?.didCreateBird(bird)
             self.handleBirdCreationSucceed()
         }) { (error) in
             print(error ?? "Error creating bird")

@@ -211,6 +211,10 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="aUK-M9-AsN" secondAttribute="trailing" id="qtn-Cn-Jro"/>
                                         </constraints>
                                         <size key="customSize" width="346" height="180"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="bird"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="birdArrivalCityLabel" destination="wZG-wZ-0dX" id="YaU-vE-fjD"/>
                                             <outlet property="birdArrivalCountryLabel" destination="IvU-Vb-eVW" id="HIs-Nf-Jmh"/>
@@ -221,6 +225,7 @@
                                             <outlet property="birdWeightLabel" destination="jIN-l6-bpU" id="pHc-On-iyF"/>
                                             <outlet property="birderNameLabel" destination="GME-46-MOI" id="QWe-cL-KYw"/>
                                             <outlet property="birderPicImageView" destination="La0-9P-mZF" id="i1t-Lq-Np1"/>
+                                            <outlet property="departureDateLabel" destination="icO-D9-M0J" id="A50-mW-0Pk"/>
                                             <segue destination="qrS-2l-SiG" kind="show" id="imt-DU-Qnu"/>
                                         </connections>
                                     </collectionViewCell>
@@ -252,6 +257,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="birdsCollectionView" destination="X8n-me-Ne3" id="8fZ-qH-ibb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -488,6 +496,10 @@ Un commentaire, une précision?</string>
                                             <constraint firstAttribute="trailing" secondItem="8NV-pj-qnz" secondAttribute="trailing" id="tkW-ng-w2H"/>
                                             <constraint firstItem="PVI-3S-tUs" firstAttribute="leading" secondItem="FzT-Ir-Jry" secondAttribute="leading" constant="8" id="vyD-Du-EO4"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="bird"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -568,7 +580,7 @@ Un commentaire, une précision?</string>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mybirdcollectionviewcellid" id="YzU-lU-yXi">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mybirdcollectionviewcellid" id="YzU-lU-yXi" customClass="MyBirdCollectionViewCell" customModule="Ouisend" customModuleProvider="target">
                                         <rect key="frame" x="2.5" y="0.0" width="354" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -627,6 +639,9 @@ Un commentaire, une précision?</string>
                                                     </constraints>
                                                     <color key="tintColor" red="0.12941176469999999" green="0.26274509800000001" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button" image="icon-arrow-right"/>
+                                                    <connections>
+                                                        <action selector="showBirdDetailsAction:" destination="YzU-lU-yXi" eventType="touchUpInside" id="1xe-5B-WWx"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23kg (20 kg réservés)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1du-eM-F1Y">
                                                     <rect key="frame" x="104" y="63" width="124.5" height="14.5"/>
@@ -668,6 +683,13 @@ Un commentaire, une précision?</string>
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="birdWeightLabel" destination="1du-eM-F1Y" id="mrb-Qq-VRT"/>
+                                            <outlet property="birderProfilePic" destination="ShP-zA-7Z5" id="TOR-gc-Rgw"/>
+                                            <outlet property="requestNumberLabel" destination="3ge-ei-dbo" id="oh2-DI-6g2"/>
+                                            <outlet property="travelDateLabel" destination="0yB-19-rcx" id="CwR-gl-npi"/>
+                                            <outlet property="travelDescriptionLabel" destination="DUf-1r-gQJ" id="Z8T-h4-T8J"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -695,6 +717,9 @@ Un commentaire, une précision?</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myBirdsCollectionView" destination="FlK-Cg-Ihf" id="SP9-jM-nWv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7S-rQ-O76" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

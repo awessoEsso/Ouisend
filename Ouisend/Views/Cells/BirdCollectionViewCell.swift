@@ -22,6 +22,8 @@ class BirdCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var birdDepartureCountryLabel: UILabel!
     
+    @IBOutlet weak var departureDateLabel: UILabel!
+    
     @IBOutlet weak var birdArrivalCityLabel: UILabel!
     
     @IBOutlet weak var birdArrivalCountryLabel: UILabel!

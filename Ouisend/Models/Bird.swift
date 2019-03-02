@@ -7,53 +7,83 @@
 //
 
 import Foundation
-
+import SwiftDate
 
 class Bird {
     
+    var identifier: String
     var departureCity: String
     var departureCountry: String
+    var departureDate: Date
     var arrivalCity: String
     var arrivalCountry: String
+    var arrivalDate: Date
     var birdWeight: Int
-    var birdPrice: Int
-    var birdPriceIsPerKilo: Bool
+    var birdPricePerKilo: Int
+    var birdTotalPrice: Int
     var birdTravelerName: String
-    var birdTravelerProfilePic: String
     var birderProfilePicUrl: URL
+    var currency: String
     var createdAt: Date
     
     
-    init(birdTravelerName: String, birdTravelerProfilePic: String, departureCity: String, departureCountry: String, arrivalCity: String, arrivalCountry: String, birdWeight: Int, birdPrice: Int, birdPriceIsPerKilo: Bool, createdAt: Date = Date()) {
+    init(birdTravelerName: String, birdTravelerProfilePic: String, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, birdWeight: Int, birdTotalPrice: Int, birdPricePerKilo: Int, currency: String = "€", createdAt: Date = Date()) {
+        self.identifier = ""
         self.birdTravelerName = birdTravelerName
-        self.birdTravelerProfilePic = birdTravelerProfilePic
         self.birderProfilePicUrl = URL(string: birdTravelerProfilePic)!
         self.departureCity = departureCity
         self.departureCountry = departureCountry
+        self.departureDate = departureDate
         self.arrivalCity = arrivalCity
         self.arrivalCountry = arrivalCountry
+        self.arrivalDate = arrivalDate
         self.birdWeight = birdWeight
-        self.birdPrice = birdPrice
-        self.birdPriceIsPerKilo = birdPriceIsPerKilo
+        self.birdTotalPrice = birdTotalPrice
+        self.birdPricePerKilo = birdPricePerKilo
+        self.currency = currency
         self.createdAt = createdAt
     }
     
-    
     init(dictionnary: [String: Any?]) {
+        self.identifier = ""
         self.birdTravelerName = dictionnary["birderName"] as? String ?? ""
-        self.birderProfilePicUrl = dictionnary["birderProfilePicUrl"] as? URL ?? URL(string: "http://google.com")!
-        self.birdTravelerProfilePic = dictionnary["birderProfilePicUrl"] as? String ?? ""
-        
+        let profilePicUrlString = dictionnary["birderProfilePicUrl"] as? String ?? ""
+        self.birderProfilePicUrl = URL(string: profilePicUrlString) ?? URL(string: "http://google.com")!
         self.departureCity = dictionnary["cb_ville_depart"] as? String ?? ""
         self.departureCountry = dictionnary["cb_pays_depart"] as? String ?? ""
+        self.departureDate = dictionnary["cb_date_depart"] as? Date ?? Date()
         self.arrivalCity = dictionnary["cb_ville_arrivee"] as? String ?? ""
         self.arrivalCountry = dictionnary["cb_pays_arrivee"] as? String ?? ""
+         self.arrivalDate = dictionnary["cb_date_arrivee"] as? Date ?? Date()
         self.birdWeight = dictionnary["cb_bird_weight"] as? Int ?? 0
-        self.birdPrice = dictionnary["cb_bird_price"] as? Int ?? 0
-        self.birdPriceIsPerKilo = dictionnary["cb_bird_perkilo"] as? Bool ?? false
+        self.birdTotalPrice = dictionnary["cb_bird_total_price"] as? Int ?? 0
+        self.birdPricePerKilo = dictionnary["cb_bird_price_per_k"] as? Int ?? 0
+        self.currency = dictionnary["cb_currency"] as? String ?? ""
         self.createdAt = Date()
+    }
+    
+    init(identifier anIdentifier: String, dictionary: [String: Any]) {
+        self.identifier = anIdentifier
         
+        self.birdTravelerName = dictionary["birderName"] as? String ?? ""
+
+        self.birderProfilePicUrl = URL(string: (dictionary["birderProfilePicUrl"] as? String ?? "http://google.com"))!
         
+        self.departureCity = dictionary["departureCity"] as? String ?? ""
+        self.departureCountry = dictionary["departureCountry"] as? String ?? ""
+        
+        let departureDateString = dictionary["departureDate"] as? String ?? ""
+        let arrivalDateString = dictionary["arrivalDate"] as? String ?? ""
+        
+        self.departureDate = departureDateString.toDate()?.date ?? Date()
+        self.arrivalCity = dictionary["arrivalCity"] as? String ?? ""
+        self.arrivalCountry = dictionary["arrivalCountry"] as? String ?? ""
+        self.arrivalDate = arrivalDateString.toDate()?.date ?? Date()
+        self.birdWeight = dictionary["birdWeight"] as? Int ?? 0
+        self.birdTotalPrice = dictionary["birdTotalPrice"] as? Int ?? 0
+        self.birdPricePerKilo = dictionary["birdPricePerKilo"] as? Int ?? 0
+        self.currency = dictionary["currency"] as? String ?? ""
+        self.createdAt = Date(timeIntervalSince1970: ((dictionary["createdAt"] as? TimeInterval ?? 0) / 1000))
         
     }
     
