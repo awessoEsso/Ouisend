@@ -72,13 +72,14 @@ class Bird {
         self.departureCity = dictionary["departureCity"] as? String ?? ""
         self.departureCountry = dictionary["departureCountry"] as? String ?? ""
         
-        let departureDateString = dictionary["departureDate"] as? String ?? ""
-        let arrivalDateString = dictionary["arrivalDate"] as? String ?? ""
+        let departureDateTimestamp = dictionary["departureDate"] as? TimeInterval ?? 0
+        let arrivalDateTimestamp = dictionary["arrivalDate"] as? TimeInterval ?? 0
         
-        self.departureDate = departureDateString.toDate()?.date ?? Date()
+        self.departureDate = Date(timeIntervalSince1970: departureDateTimestamp / 1000)
+
         self.arrivalCity = dictionary["arrivalCity"] as? String ?? ""
         self.arrivalCountry = dictionary["arrivalCountry"] as? String ?? ""
-        self.arrivalDate = arrivalDateString.toDate()?.date ?? Date()
+        self.arrivalDate = Date(timeIntervalSince1970: arrivalDateTimestamp / 1000)
         self.birdWeight = dictionary["birdWeight"] as? Int ?? 0
         self.birdTotalPrice = dictionary["birdTotalPrice"] as? Int ?? 0
         self.birdPricePerKilo = dictionary["birdPricePerKilo"] as? Int ?? 0

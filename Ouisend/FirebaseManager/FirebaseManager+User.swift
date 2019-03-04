@@ -103,6 +103,8 @@ extension FirebaseManager {
             }
         })
     }
+    
+    
     /// Get All Users. This method should be used with caution as it will load large amount of data
     ///
     /// - Parameters:

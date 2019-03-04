@@ -25,6 +25,8 @@ class HomeViewController: UIViewController {
     
     
     var birds: [Bird] =  [Bird]()
+    
+    var selectedBird: Bird!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,19 @@ class HomeViewController: UIViewController {
             self.birdsCollectionView.reloadData()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        switch destination {
+        case is BirdViewController:
+            let birdViewController = destination as! BirdViewController
+            birdViewController.bird = self.selectedBird
+        default:
+            print("Unknown Segue")
         }
     }
 
@@ -79,6 +94,10 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bird = birds[indexPath.item]
+        self.selectedBird = bird
+        performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
+        
 //        try? Auth.auth().signOut()
 //        LoginManager.init().logOut()
     }

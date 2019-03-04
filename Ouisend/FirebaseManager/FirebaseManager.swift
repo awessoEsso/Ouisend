@@ -44,6 +44,30 @@ class FirebaseManager {
         return countryRef
     }()
     
+    lazy var joinBirdsReference: DatabaseReference = {
+        let joinBirdsRef = self.datebaseReference.child("_Join/_Bird")
+        joinBirdsRef.keepSynced(true)
+        return joinBirdsRef
+    }()
+    
+    lazy var joinRequestsReference: DatabaseReference = {
+        let joinRequestsRef = self.datebaseReference.child("_Join/_Request")
+        joinRequestsRef.keepSynced(true)
+        return joinRequestsRef
+    }()
+    
+    lazy var joinUsersReference: DatabaseReference = {
+        let joinUsersRef = self.datebaseReference.child("_Join/_User")
+        joinUsersRef.keepSynced(true)
+        return joinUsersRef
+    }()
+    
+    lazy var requestsReference: DatabaseReference = {
+        let requestRef = self.datebaseReference.child("Request")
+        requestRef.keepSynced(true)
+        return requestRef
+    }()
+    
 
     
     // MARK: init method

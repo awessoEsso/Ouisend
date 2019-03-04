@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MyBirdCollectionViewCellDelegate {
-    func showDetails()
+    func showDetails( cell: MyBirdCollectionViewCell)
 }
 
 class MyBirdCollectionViewCell: UICollectionViewCell {
@@ -26,7 +26,7 @@ class MyBirdCollectionViewCell: UICollectionViewCell {
     
     
     @IBAction func showBirdDetailsAction(_ sender: UIButton) {
-        delegate?.showDetails()
+        delegate?.showDetails(cell: self)
     }
     
     
