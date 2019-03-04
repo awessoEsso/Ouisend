@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var birdsCollectionView: UICollectionView!
     
+    private let refreshControl = UIRefreshControl()
+    
     
     var birds: [Bird] =  [Bird]()
     
@@ -31,6 +33,14 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.birdsCollectionView.refreshControl = refreshControl
+        
+        refreshControl.tintColor = UIColor.white
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
+
         
         FirebaseManager.shared.birds(with: { (birds) in
             self.birds = birds
@@ -50,6 +60,18 @@ class HomeViewController: UIViewController {
             birdViewController.bird = self.selectedBird
         default:
             print("Unknown Segue")
+        }
+    }
+    
+    @objc private func refreshBirdsData(_ sender: Any) {
+        // Fetch Birds Data
+        FirebaseManager.shared.birdsObserveSingle(with: { (birds) in
+            self.birds = birds
+            self.birdsCollectionView.reloadData()
+            self.refreshControl.endRefreshing()
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error loading birds")
+             self.refreshControl.endRefreshing()
         }
     }
 

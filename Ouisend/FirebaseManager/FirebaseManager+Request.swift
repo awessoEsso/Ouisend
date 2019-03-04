@@ -64,7 +64,7 @@ extension FirebaseManager {
     ///
     /// - Parameter identifier: the identifier
     func request(with identifier: String, success: @escaping ((Request) -> Void), failure: ((Error?) -> Void)?) {
-        requestsReference.child(identifier).observeSingleEvent(of: .value, with: { (snapshot) in
+        requestsReference.child(identifier).observe( .value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let request = Request(identifier: snapshot.key, dictionary: dictionary)
                 success(request)
@@ -135,7 +135,7 @@ extension FirebaseManager {
     func birdRequests(with birdIdentifier: String, success: @escaping (([Request]) -> Void), failure: ((Error?) -> Void)?) {
         
         var requests = [Request]()
-        joinBirdsReference.child(birdIdentifier).child("requests").queryOrderedByValue().observe(DataEventType.value, with: { (snapshot) in
+        joinBirdsReference.child(birdIdentifier).child("requests").queryOrderedByValue().observe(.value, with: { (snapshot) in
             let taskEvent = DispatchGroup()
             taskEvent.enter()
             requests.removeAll()
@@ -161,7 +161,7 @@ extension FirebaseManager {
     }
     
     func requests(_ success: @escaping (([Request]) -> Void), failure: ((Error?) -> Void)?) {
-        requestsReference.observeSingleEvent(of: .value, with: { (snapshot) in
+        requestsReference.observe(.value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? [String: Any] else {
                 let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)

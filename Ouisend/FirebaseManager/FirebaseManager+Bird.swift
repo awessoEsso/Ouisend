@@ -56,7 +56,7 @@ extension FirebaseManager {
     ///
     /// - Parameter identifier: the identifier
     func bird(with identifier: String, success: @escaping ((Bird) -> Void), failure: ((Error?) -> Void)?) {
-        birdsReference.child(identifier).observeSingleEvent(of: .value, with: { (snapshot) in
+        birdsReference.child(identifier).observe(.value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let bird = Bird(identifier: snapshot.key, dictionary: dictionary)
                 success(bird)
@@ -117,10 +117,34 @@ extension FirebaseManager {
     }
     
     func birds(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        birdsReference.observe(.value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? [String: Any] else {
+                let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                failure?(anError)
+                return
+            }
+            var birds = [Bird]()
+            for (key, item) in dictionary {
+                if let dict = item as? [String: Any] {
+                    let bird = Bird(identifier: key, dictionary: dict)
+                    if bird.departureDate > Date() {
+                        birds.append(bird)
+                    }
+                }
+            }
+            birds.sort(by: { (bird1, bird2) -> Bool in
+                return bird1.departureDate < bird2.departureDate
+            })
+            success(birds)
+        })
+    }
+    
+    func birdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
         birdsReference.observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? [String: Any] else {
-                let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)
+                let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
                 failure?(anError)
                 return
             }
