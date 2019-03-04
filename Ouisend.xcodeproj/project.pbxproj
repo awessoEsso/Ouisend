@@ -248,6 +248,7 @@
 				67F7B7CF221FFF790006BD08 /* Frameworks */,
 				67F7B7D0221FFF790006BD08 /* Resources */,
 				EC6152116BC9DAFB639C7AA0 /* [CP] Embed Pods Frameworks */,
+				6776A11A222CD9340008870F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -308,6 +309,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6776A11A222CD9340008870F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b8e822d70f83bd379d28eed2d0ca56d5a3679f73 c529366b428f16b4e40f9ffe8ecf96c73da8a712f6bd6f7e4266df00cbd3e113\n\n";
+		};
 		C57D4B900EE8BC1E5DD84FA5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,6 +587,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9T5D737237;
 				INFOPLIST_FILE = Ouisend/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

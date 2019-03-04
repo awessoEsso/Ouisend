@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import FacebookCore
+import Fabric
+import Crashlytics
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,13 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        Fabric.with([Crashlytics.self])
+
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         setRootViewControllerIfNotLoggedIn()
         
-        let testCountries = Datas.shared.countries
+        let _ = Datas.shared.countries
         
-        print(testCountries)
         
         return true
     }
