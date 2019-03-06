@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		64F1B21EAC4B081D588A0AAD /* Pods_Ouisend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F8E4EEF0046FD50CAE222 /* Pods_Ouisend.framework */; };
+		670E6206222F6E9E004EF5C5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670E6205222F6E9E004EF5C5 /* ProfileViewController.swift */; };
 		6718524C222083F60044CE1E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6718524B222083F60044CE1E /* LoginViewController.swift */; };
 		6718524E2220A7B30044CE1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6718524D2220A7B30044CE1E /* GoogleService-Info.plist */; };
 		671852582220F90B0044CE1E /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 671852572220F90B0044CE1E /* Podfile */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		094F8E4EEF0046FD50CAE222 /* Pods_Ouisend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ouisend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29406D9312056B32F4BF6E98 /* Pods-Ouisend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ouisend.release.xcconfig"; path = "Target Support Files/Pods-Ouisend/Pods-Ouisend.release.xcconfig"; sourceTree = "<group>"; };
+		670E6205222F6E9E004EF5C5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6718524B222083F60044CE1E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6718524D2220A7B30044CE1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		671852572220F90B0044CE1E /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -76,6 +78,7 @@
 		6776A114222BFFC60008870F /* MyRequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRequestCollectionViewCell.swift; sourceTree = "<group>"; };
 		6776A116222CC1310008870F /* MyBirdRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBirdRequestsViewController.swift; sourceTree = "<group>"; };
 		6776A118222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBirdRequestsCollectionViewCell.swift; sourceTree = "<group>"; };
+		67BD4E86222D88C300C1B3C7 /* Ouisend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ouisend.entitlements; sourceTree = "<group>"; };
 		67F7B7D2221FFF790006BD08 /* Ouisend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ouisend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F7B7D5221FFF790006BD08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F7B7D7221FFF790006BD08 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 				6776A112222BCC710008870F /* MyRequestsViewController.swift */,
 				6776A116222CC1310008870F /* MyBirdRequestsViewController.swift */,
 				674A9B02222D2FC3004B1372 /* LaunchScreenViewController.swift */,
+				670E6205222F6E9E004EF5C5 /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -220,6 +224,7 @@
 		67F7B7D4221FFF790006BD08 /* Ouisend */ = {
 			isa = PBXGroup;
 			children = (
+				67BD4E86222D88C300C1B3C7 /* Ouisend.entitlements */,
 				671852562220F7670044CE1E /* Storyboards */,
 				671852552220F74E0044CE1E /* Helpers */,
 				671852532220F6BB0044CE1E /* Controllers */,
@@ -280,6 +285,11 @@
 				TargetAttributes = {
 					67F7B7D1221FFF790006BD08 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -382,6 +392,7 @@
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/InstantSearchClient/InstantSearchClient.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
@@ -407,6 +418,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InstantSearchClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
@@ -439,6 +451,7 @@
 				6776A115222BFFC60008870F /* MyRequestCollectionViewCell.swift in Sources */,
 				672AC49D222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift in Sources */,
 				6718525A2220F9A20044CE1E /* FirebaseManager.swift in Sources */,
+				670E6206222F6E9E004EF5C5 /* ProfileViewController.swift in Sources */,
 				671852682222A5530044CE1E /* FirebaseManager+City.swift in Sources */,
 				6718525C2220FCAC0044CE1E /* FirebaseManager+User.swift in Sources */,
 				67F7B7EC222042E40006BD08 /* Bird.swift in Sources */,
@@ -600,7 +613,9 @@
 			baseConfigurationReference = B7C714589119BA27E48C6099 /* Pods-Ouisend.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Ouisend/Ouisend.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9T5D737237;
 				INFOPLIST_FILE = Ouisend/Info.plist;
@@ -611,6 +626,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zorobabel.Ouisend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Ouisend Development Profile";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -621,7 +637,9 @@
 			baseConfigurationReference = 29406D9312056B32F4BF6E98 /* Pods-Ouisend.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Ouisend/Ouisend.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9T5D737237;
 				INFOPLIST_FILE = Ouisend/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -631,6 +649,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zorobabel.Ouisend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Ouisend AdHoc Distribution Profile";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -21,6 +21,9 @@ class HomeViewController: UIViewController {
         return date
     }()
     
+    @IBOutlet weak var emptyListLabel: UILabel!
+    
+    
     @IBOutlet weak var birdsCollectionView: UICollectionView!
     
     private let refreshControl = UIRefreshControl()
@@ -43,10 +46,15 @@ class HomeViewController: UIViewController {
 
         
         FirebaseManager.shared.birds(with: { (birds) in
+            if birds.count == 0 {
+                self.emptyListLabel.isHidden = false
+            }
             self.birds = birds
             self.birdsCollectionView.reloadData()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
+            self.emptyListLabel.isHidden = false
+            self.emptyListLabel.text = "Sorry 😪, an error occured!!! "
         }
     }
     
@@ -134,7 +142,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 let relativeTimeDict: [RelativeTimeStringType: String] = [
-    RelativeTimeStringType.nowPast : "il y a quelques instants",
+    RelativeTimeStringType.nowPast : "à l'instant",
     RelativeTimeStringType.nowFuture : "dans quelques instants",
     RelativeTimeStringType.secondsPast: "il y a quelques secondes",
     RelativeTimeStringType.secondsFuture: "dans quelques secondes",

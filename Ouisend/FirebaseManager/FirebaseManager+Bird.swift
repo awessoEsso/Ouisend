@@ -119,48 +119,62 @@ extension FirebaseManager {
     func birds(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
         birdsReference.observe(.value, with: { (snapshot) in
             
-            guard let dictionary = snapshot.value as? [String: Any] else {
-                let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
-                failure?(anError)
-                return
-            }
-            var birds = [Bird]()
-            for (key, item) in dictionary {
-                if let dict = item as? [String: Any] {
-                    let bird = Bird(identifier: key, dictionary: dict)
-                    if bird.departureDate > Date() {
-                        birds.append(bird)
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
+                }
+                var birds = [Bird]()
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let bird = Bird(identifier: key, dictionary: dict)
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
                     }
                 }
+                birds.sort(by: { (bird1, bird2) -> Bool in
+                    return bird1.departureDate < bird2.departureDate
+                })
+                success(birds)
             }
-            birds.sort(by: { (bird1, bird2) -> Bool in
-                return bird1.departureDate < bird2.departureDate
-            })
-            success(birds)
+            else {
+                // Return empty list
+                success([Bird]())
+            }
         })
     }
     
     func birdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
         birdsReference.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            guard let dictionary = snapshot.value as? [String: Any] else {
-                let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
-                failure?(anError)
-                return
-            }
-            var birds = [Bird]()
-            for (key, item) in dictionary {
-                if let dict = item as? [String: Any] {
-                    let bird = Bird(identifier: key, dictionary: dict)
-                    if bird.departureDate > Date() {
-                        birds.append(bird)
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
+                }
+                var birds = [Bird]()
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let bird = Bird(identifier: key, dictionary: dict)
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
                     }
                 }
+                birds.sort(by: { (bird1, bird2) -> Bool in
+                    return bird1.departureDate < bird2.departureDate
+                })
+                success(birds)
             }
-            birds.sort(by: { (bird1, bird2) -> Bool in
-                return bird1.departureDate < bird2.departureDate
-            })
-            success(birds)
+            else {
+                // Return empty list
+                success([Bird]())
+            }
+            
+
         })
     }
     
