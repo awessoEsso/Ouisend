@@ -136,6 +136,24 @@ extension FirebaseManager {
             success(users)
         })
     }
+    
+    func currentBirder(success: @escaping ((Birder) -> Void), failure: ((Error?) -> Void)?) {
+        if let currentUser = Auth.auth().currentUser {
+            let userId = currentUser.uid
+            usersReference.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    let user = Birder(identifier: snapshot.key, dictionary: dictionary)
+                    success(user)
+                } else {
+                    failure?(nil)
+                }
+            })
+        }
+        else {
+            let anError = NSError(domain: "No User logged In", code: 30001, userInfo: nil)
+            failure?(anError)
+        }
+    }
 
     
 

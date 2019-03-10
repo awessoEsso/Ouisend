@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userBirthday ])
+        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
         loginButton.center = view.center
         loginButton.delegate = self
         
@@ -46,6 +46,11 @@ extension LoginViewController: LoginButtonDelegate {
             print("Success")
             let credentials = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
             
+            
+             getUserProfile()
+            
+            
+            
             Auth.auth().signInAndRetrieveData(with: credentials) { (authResult, error) in
                 if let error = error {
                     self.handleErrorOnSignIn()
@@ -70,6 +75,21 @@ extension LoginViewController: LoginButtonDelegate {
         }
     }
     
+    private func getUserProfile() {
+        let connection = GraphRequestConnection()
+        connection.add(MyProfileRequest()) { response, result in
+            switch result {
+            case .success(let response):
+                print("Custom Graph Request Succeeded: \(response)")
+//                print("My facebook id is \(response.dictionaryValue?["id"])")
+//                print("My name is \(response.dictionaryValue?["name"])")
+            case .failed(let error):
+                print("Custom Graph Request Failed: \(error)")
+            }
+        }
+        connection.start()
+    }
+    
     
     func handleErrorOnSignIn() {
         print("Error happens")
@@ -80,7 +100,6 @@ extension LoginViewController: LoginButtonDelegate {
             if userExist == false {
                 FirebaseManager.shared.createUser(user, success: {
                     print("Registration Done")
-                    
                 }, failure: { (error) in
                     print("Error when trying to register user")
                     print("Error Message: \(error.debugDescription)")
@@ -89,7 +108,25 @@ extension LoginViewController: LoginButtonDelegate {
             
             // Go to Main View
             self.performSegue(withIdentifier: "showMainStoryboardId", sender: self)
+            
+            let _ = Datas.shared.countries
         })
     }
    
+}
+
+
+
+struct MyProfileRequest: GraphRequestProtocol {
+    struct Response: GraphResponseProtocol {
+        init(rawResponse: Any?) {
+            // Decode JSON from rawResponse into other properties here.
+        }
+    }
+    
+    var graphPath = "/me"
+    var parameters: [String : Any]? = ["fields": "id, name"]
+    var accessToken = AccessToken.current
+    var httpMethod: GraphRequestHTTPMethod = .GET
+    var apiVersion: GraphAPIVersion = .defaultVersion
 }

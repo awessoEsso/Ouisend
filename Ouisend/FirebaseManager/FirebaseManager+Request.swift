@@ -37,7 +37,8 @@ extension FirebaseManager {
             "questerName": request.questerName ,
             "questerProfilePicUrl": request.questerProfilePicUrl.absoluteString,
             "status": request.status.rawValue,
-            "createdAt": ServerValue.timestamp()
+            "createdAt": ServerValue.timestamp(),
+            "creator": request.creator,
             ] as [String : Any]
         
         requestReference.setValue(newRequest) { (error, reference) in
@@ -64,7 +65,7 @@ extension FirebaseManager {
     ///
     /// - Parameter identifier: the identifier
     func request(with identifier: String, success: @escaping ((Request) -> Void), failure: ((Error?) -> Void)?) {
-        requestsReference.child(identifier).observe( .value, with: { (snapshot) in
+        requestsReference.child(identifier).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let request = Request(identifier: snapshot.key, dictionary: dictionary)
                 success(request)
@@ -72,6 +73,14 @@ extension FirebaseManager {
                 failure?(nil)
             }
         })
+    }
+    
+    func declineRequest(with identifier: String) {
+        requestsReference.child(identifier).child("status").setValue(2)
+    }
+    
+    func acceptRequest(with identifier: String) {
+        requestsReference.child(identifier).child("status").setValue(3)
     }
     
     fileprivate func createRequestJoinReference(_ request: Request , success: (() -> Void)?, failure: ((Error?) -> Void)?) {
@@ -107,28 +116,74 @@ extension FirebaseManager {
         }
         var requests = [Request]()
         let userIdentifier = currentUser.uid
-        joinUsersReference.child(userIdentifier).child("requests").queryOrderedByValue().observe(DataEventType.value, with: { (snapshot) in
-            let taskEvent = DispatchGroup()
-            taskEvent.enter()
-            requests.removeAll()
-            let dictionary = snapshot.value as? [String: Any]
-            // for each identifier we get the request noeud
-            dictionary?.forEach {
+        joinUsersReference.child(userIdentifier).child("requests").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
                 taskEvent.enter()
-                let RequestIdentifier = $0.key
-                self.request(with: RequestIdentifier, success: { (Request) in
-                    requests.append(Request)
-                    taskEvent.leave()
-                }, failure: { (error) in
-                    failure?(error)
-                    taskEvent.leave()
+                requests.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the request noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let RequestIdentifier = $0.key
+                    self.request(with: RequestIdentifier, success: { (Request) in
+                        requests.append(Request)
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(requests)
                 })
             }
-            taskEvent.leave()
-            taskEvent.notify(queue: .main, execute: {
-                requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+            else {
                 success(requests)
-            })
+            }
+            
+        })
+    }
+    
+    func myRequestsObserveSingle(_ success: @escaping (([Request]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            let error = NSError(domain: "user not loggedIn", code: 3001, userInfo: nil)
+            failure?(error)
+            return
+        }
+        var requests = [Request]()
+        let userIdentifier = currentUser.uid
+        joinUsersReference.child(userIdentifier).child("requests").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
+                taskEvent.enter()
+                requests.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the request noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let RequestIdentifier = $0.key
+                    self.request(with: RequestIdentifier, success: { (Request) in
+                        requests.append(Request)
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(requests)
+                })
+            }
+            else {
+                success(requests)
+            }
+
         })
     }
     
@@ -136,47 +191,92 @@ extension FirebaseManager {
         
         var requests = [Request]()
         joinBirdsReference.child(birdIdentifier).child("requests").queryOrderedByValue().observe(.value, with: { (snapshot) in
-            let taskEvent = DispatchGroup()
-            taskEvent.enter()
-            requests.removeAll()
-            let dictionary = snapshot.value as? [String: Any]
-            // for each identifier we get the request noeud
-            dictionary?.forEach {
-                taskEvent.enter()
-                let RequestIdentifier = $0.key
-                self.request(with: RequestIdentifier, success: { (Request) in
-                    requests.append(Request)
-                    taskEvent.leave()
-                }, failure: { (error) in
-                    failure?(error)
-                    taskEvent.leave()
+            if snapshot.childrenCount > 0 {
+                let taskBirdRequests = DispatchGroup()
+                taskBirdRequests.enter()
+                requests.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the request noeud
+                dictionary?.forEach {
+                    taskBirdRequests.enter()
+                    let requestIdentifier = $0.key
+                    self.request(with: requestIdentifier, success: { (request) in
+                        requests.append(request)
+                        taskBirdRequests.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskBirdRequests.leave()
+                    })
+                }
+                taskBirdRequests.leave()
+                taskBirdRequests.notify(queue: .main, execute: {
+                    requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(requests)
                 })
             }
-            taskEvent.leave()
-            taskEvent.notify(queue: .main, execute: {
-                requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+            else {
                 success(requests)
-            })
+            }
+
+        })
+    }
+    
+    func birdRequestsObserveSingle(with birdIdentifier: String, success: @escaping (([Request]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        var requests = [Request]()
+        joinBirdsReference.child(birdIdentifier).child("requests").queryOrderedByValue().observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
+                taskEvent.enter()
+                requests.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the request noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let RequestIdentifier = $0.key
+                    self.request(with: RequestIdentifier, success: { (Request) in
+                        requests.append(Request)
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(requests)
+                })
+            }
+            else {
+                success(requests)
+            }
+            
         })
     }
     
     func requests(_ success: @escaping (([Request]) -> Void), failure: ((Error?) -> Void)?) {
         requestsReference.observe(.value, with: { (snapshot) in
-            
-            guard let dictionary = snapshot.value as? [String: Any] else {
-                let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)
-                failure?(anError)
-                return
-            }
             var requests = [Request]()
-            for (key, item) in dictionary {
-                if let dict = item as? [String: Any] {
-                    let request = Request(identifier: key, dictionary: dict)
-                    requests.append(request)
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
                 }
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let request = Request(identifier: key, dictionary: dict)
+                        requests.append(request)
+                    }
+                }
+                requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
+                success(requests)
             }
-            requests = requests.sorted(by: {$0.departureDate < $1.departureDate})
-            success(requests)
+            else {
+                success(requests)
+            }
+
         })
     }
     

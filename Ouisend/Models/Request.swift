@@ -26,10 +26,11 @@ class Request {
     var arrivalCountry: String
     var arrivalDate: Date
     var status: RequestStatus
+    var creator: String
     var createdAt: Date
     
     
-    init(bird: String, weight: Int, details: String, birderName: String, birderProfilePicUrl: URL, questerName: String, questerProfilePicUrl: URL, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, createdAt: Date = Date()) {
+    init(bird: String, weight: Int, details: String, birderName: String, birderProfilePicUrl: URL, questerName: String, questerProfilePicUrl: URL, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, creator: String, createdAt: Date = Date()) {
         self.identifier = ""
         self.bird = bird
         self.weight = weight
@@ -45,6 +46,7 @@ class Request {
         self.arrivalCountry = arrivalCountry
         self.arrivalDate = arrivalDate
         self.status = .pending
+        self.creator = creator
         self.createdAt = createdAt
     }
     
@@ -74,6 +76,7 @@ class Request {
         self.arrivalDate = Date(timeIntervalSince1970: arrivalDateTimestamp / 1000)
         
         let statusValue = dictionary["status"] as? Int ?? 1
+        
         switch statusValue {
         case 2:
             self.status = .rejected
@@ -82,6 +85,8 @@ class Request {
         default:
             self.status = .pending
         }
+        
+        self.creator = dictionary["creator"] as? String ?? ""
         self.createdAt = Date(timeIntervalSince1970: ((dictionary["createdAt"] as? TimeInterval ?? 0) / 1000))
     }
     

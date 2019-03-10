@@ -12,12 +12,21 @@ class MyRequestsViewController: UIViewController {
     
     @IBOutlet weak var requestsCollectionView: UICollectionView!
     
+    private let refreshControl = UIRefreshControl()
+    
     var myRequests = [Request]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        self.requestsCollectionView.refreshControl = refreshControl
+        
+        refreshControl.tintColor = ouiSendBlueColor
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshRequestsData(_:)), for: .valueChanged)
         
         FirebaseManager.shared.myRequests({ (requests) in
             self.myRequests = requests
@@ -26,6 +35,18 @@ class MyRequestsViewController: UIViewController {
             print(error?.localizedDescription ?? "Error loading Requests")
         }
         
+    }
+    
+    @objc private func refreshRequestsData(_ sender: Any) {
+        // Fetch Birds Data
+        FirebaseManager.shared.myRequestsObserveSingle({ (requests) in
+            self.myRequests = requests
+            self.requestsCollectionView.reloadData()
+            self.refreshControl.endRefreshing()
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error loading birds")
+            self.refreshControl.endRefreshing()
+        }
     }
 
 }
@@ -39,29 +60,67 @@ extension MyRequestsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myRequest = myRequests[indexPath.item]
         let status = myRequest.status.rawValue
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyRequestCollectionViewCellId", for: indexPath) as! MyRequestCollectionViewCell
+        if status == 3 {
+            let acceptedCell = self.collectionView(collectionView, acceptedCellForItemAt: indexPath)
+            return acceptedCell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyRequestCollectionViewCellId", for: indexPath) as! MyRequestCollectionViewCell
+            
+            cell.travelDescriptionLabel.text = "\(myRequest.departureCity) - \(myRequest.arrivalCity) "
+            cell.weightLabel.text = "\(myRequest.weight) Kg"
+            cell.departureDateLabel.text = FrenchDateFormatter.formatDate(myRequest.departureDate)
+            cell.birderProfilePicImageView.sd_setImage(with: myRequest.birderProfilePicUrl, completed: nil)
+            cell.birdStatusDescriptionLabel.text = requestStatusDescriptions[status]
+            cell.backgroundColor = requestColors[status]
+            cell.birdStatusImageView.image = requestIconViews[status]
+            
+            return cell
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, acceptedCellForItemAt indexPath: IndexPath) -> AcceptedRequestCollectionViewCell {
+        let myRequest = myRequests[indexPath.item]
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcceptedRequestCollectionViewCellId", for: indexPath) as! AcceptedRequestCollectionViewCell
         
         cell.travelDescriptionLabel.text = "\(myRequest.departureCity) - \(myRequest.arrivalCity) "
         cell.weightLabel.text = "\(myRequest.weight) Kg"
+        cell.departureDateLabel.text = FrenchDateFormatter.formatDate(myRequest.departureDate)
         cell.birderProfilePicImageView.sd_setImage(with: myRequest.birderProfilePicUrl, completed: nil)
-        cell.birdStatusDescriptionLabel.text = requestStatusDescriptions[status]
-        cell.backgroundColor = requestColors[status]
-        cell.birdStatusImageView.image = requestIconViews[status]
+        cell.birdStatusDescriptionLabel.text = requestStatusDescriptions[3]
+        cell.backgroundColor = requestColors[3]
+        cell.birdStatusImageView.image = requestIconViews[3]
         
         return cell
     }
+    
 }
 
 extension MyRequestsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myRequest = myRequests[indexPath.item]
+        
+//        if myRequest.status == .accepted {
+//            performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+//        }
+        
         print(myRequest.status)
     }
 }
 
 extension MyRequestsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: 120)
+        
+        let myRequest = myRequests[indexPath.item]
+        let status = myRequest.status.rawValue
+        
+        if status == 3 {
+            return CGSize(width: collectionView.frame.width - 32, height: 180)
+        } else {
+            return CGSize(width: collectionView.frame.width - 32, height: 120)
+        }
     }
 }
 

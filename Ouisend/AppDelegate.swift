@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FacebookCore
+import FacebookLogin
 import Fabric
 import Crashlytics
 import UserNotifications
@@ -20,25 +21,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])
-
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
         registerRemoteNotifications(application)
-        
         Messaging.messaging().delegate = self
-        
-        setRootViewControllerIfNotLoggedIn()
-        
         let _ = Datas.shared.countries
         
+        let userDefaults = UserDefaults.standard
+        
+        if !userDefaults.bool(forKey: "hasRunBefore") {
+            // Remove Keychain items here
+            
+            // Update the flag indicator
+            userDefaults.set(true, forKey: "hasRunBefore")
+            userDefaults.synchronize() // Forces the app to update UserDefaults
+            try? Auth.auth().signOut()
+            LoginManager.init().logOut()
+        }
         
         
-        
+        setRootViewControllerIfNotLoggedIn()
         return true
     }
     
@@ -69,8 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
     }
     
-    
-    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
@@ -92,39 +94,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
-    }
-    
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("un will present")
-        print(notification.request.content.userInfo)
-        let options: UNNotificationPresentationOptions = [.alert, .sound]
-        completionHandler(options)
-    }
-    
-    
-    
-}
-
-
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-    }
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("Received data message: \(remoteMessage.appData)")
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        
-        let dataDict:[String: String] = ["token": fcmToken]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        
-    }
-    
-}

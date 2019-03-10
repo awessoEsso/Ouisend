@@ -62,10 +62,30 @@ class FirebaseManager {
         return joinUsersRef
     }()
     
+    lazy var notificationReference: DatabaseReference = {
+        return self.datebaseReference.child("Notification")
+    }()
+    
+    lazy var oneToOneNotificationReference: DatabaseReference = {
+        return self.notificationReference.child("to")
+    }()
+    
+    lazy var topicNotificationReference: DatabaseReference = {
+        return self.notificationReference.child("Topic")
+    }()
+    
+    lazy var topicReference: DatabaseReference = {
+        return self.datebaseReference.child("Topic")
+    }()
+    
     lazy var requestsReference: DatabaseReference = {
         let requestRef = self.datebaseReference.child("Request")
         requestRef.keepSynced(true)
         return requestRef
+    }()
+    
+    lazy var tokenReference: DatabaseReference = {
+        return self.datebaseReference.child("_Installation")
     }()
     
 

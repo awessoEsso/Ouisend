@@ -13,7 +13,11 @@ class MyBirdRequestsViewController: UIViewController {
     
     @IBOutlet weak var myBirdRequestsCollectionView: UICollectionView!
     
+    private let refreshControl = UIRefreshControl()
+    
     var bird: Bird!
+    
+    var selectedRequest: Request?
     
     var birdRequests = [Request]()
 
@@ -23,11 +27,32 @@ class MyBirdRequestsViewController: UIViewController {
         // Do any additional setup after loading the view.
         title = "\(bird.departureCity)  -  \(bird.arrivalCity)"
         
+        tabBarController?.tabBar.isHidden = true
+        
+        self.myBirdRequestsCollectionView.refreshControl = refreshControl
+        
+        refreshControl.tintColor = ouiSendBlueColor
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshBirdRequestsData(_:)), for: .valueChanged)
+        
         FirebaseManager.shared.birdRequests(with: bird.identifier, success: { (birdRequests) in
             self.birdRequests = birdRequests
             self.myBirdRequestsCollectionView.reloadData()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading bird Requests")
+        }
+    }
+    
+    @objc private func refreshBirdRequestsData(_ sender: Any) {
+        // Fetch Bird Requeuests Data
+        FirebaseManager.shared.birdRequestsObserveSingle(with: bird.identifier, success: { (birdRequests) in
+            self.birdRequests = birdRequests
+            self.myBirdRequestsCollectionView.reloadData()
+            self.refreshControl.endRefreshing()
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error loading birds")
+            self.refreshControl.endRefreshing()
         }
     }
 
@@ -46,7 +71,7 @@ extension MyBirdRequestsViewController: UICollectionViewDataSource {
         cell.sentSinceTimeLabel.text = "Envoyée \(birdRequest.createdAt.toStringWithRelativeTime(strings: relativeTimeDict))"
         cell.questerProfilePicImageView.sd_setImage(with: birdRequest.questerProfilePicUrl, completed: nil)
         cell.requestWeightLabel.text = "\(birdRequest.weight) kg"
-        cell.questerNameLabel.text = "QuesterName"
+        cell.questerNameLabel.text = birdRequest.questerName
         cell.requestStatusDescriptionLabel.text = requestStatusDescriptions[status]
         cell.requestStatusImageView.image = requestIconViews[status]
         cell.backgroundColor = requestColors[status]
@@ -64,6 +89,51 @@ extension MyBirdRequestsViewController: UICollectionViewDelegateFlowLayout {
 extension MyBirdRequestsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myRequest = birdRequests[indexPath.item]
+        self.selectedRequest = myRequest
         print(myRequest.status)
+        showActionSheet()
+    }
+    
+    func sendNotifToRequestCreator(message: String, creatorId: String) {
+        FirebaseManager.shared.tokenForUser(with: creatorId, success: { (creatorToken) in
+            FirebaseManager.shared.createOneToOneNotification(message, token: creatorToken)
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error getting Request creator token")
+        }
+        
+    }
+    
+    func showActionSheet() {
+        
+        let optionMenu = UIAlertController(title: nil, message: "Repondre", preferredStyle: .actionSheet)
+        
+        let declineAction = UIAlertAction(title: "Refuser", style: .destructive) { (action) in
+            // Change status to 2
+            if let selectedRequest = self.selectedRequest {
+                FirebaseManager.shared.declineRequest(with: selectedRequest.identifier)
+                let message = "Votre demande a été refusée"
+                self.sendNotifToRequestCreator(message: message, creatorId: selectedRequest.creator)
+                self.refreshBirdRequestsData(selectedRequest)
+            }
+            
+        }
+        let acceptAction = UIAlertAction(title: "Accepter", style: .default){ (action) in
+            // Change status to 3
+            if let selectedRequest = self.selectedRequest {
+                FirebaseManager.shared.acceptRequest(with: selectedRequest.identifier)
+                let message = "Votre demande a été acceptée"
+                self.sendNotifToRequestCreator(message: message, creatorId: selectedRequest.creator)
+                self.refreshBirdRequestsData(selectedRequest)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Annuler", style: .cancel){ (action) in
+            // Do nothing
+        }
+        
+        optionMenu.addAction(declineAction)
+        optionMenu.addAction(acceptAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
     }
 }

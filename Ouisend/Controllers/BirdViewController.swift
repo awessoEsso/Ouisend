@@ -54,6 +54,8 @@ class BirdViewController: UIViewController {
         
         title = "\(bird.departureCity)  -  \(bird.arrivalCity)"
         
+        tabBarController?.tabBar.isHidden = true
+        
         weightSlider.maximumValue = Float(bird.birdWeight)
         weightSlider.value = Float(weightValue)
         
@@ -119,8 +121,19 @@ class BirdViewController: UIViewController {
     
     @IBAction func createRequestAction(_ sender: UIButton) {
         
-        guard let quester = Datas.shared.birder else { return }
-        
+        if let quester = Datas.shared.birder {
+            handleCreateRequestAction(for: quester)
+        }
+        else {
+            FirebaseManager.shared.currentBirder(success: { (quester) in
+                self.handleCreateRequestAction(for: quester)
+            }) { (error) in
+                SCLAlertView().showError("Error", subTitle: "User not logged in")
+            }
+        }
+    }
+    
+    func handleCreateRequestAction(for quester: Birder) {
         let details = detailsTextView.text ?? ""
         let birderName = bird.birdTravelerName
         let birderProfilePicUrl = bird.birderProfilePicUrl
@@ -132,21 +145,32 @@ class BirdViewController: UIViewController {
         let arrivalCity = bird.arrivalCity
         let arrivalCountry = bird.arrivalCountry
         let arrivalDate = bird.arrivalDate
+        let creator = quester.identifier
         
-        let request = Request(bird: bird.identifier, weight: weightValue, details: details, birderName: birderName, birderProfilePicUrl: birderProfilePicUrl, questerName: questerName, questerProfilePicUrl: questerProfilePicUrl, departureCity: departureCity, departureCountry: departureCountry, departureDate: departureDate, arrivalCity: arrivalCity, arrivalCountry: arrivalCountry, arrivalDate: arrivalDate)
+        let request = Request(bird: bird.identifier, weight: weightValue, details: details, birderName: birderName, birderProfilePicUrl: birderProfilePicUrl, questerName: questerName, questerProfilePicUrl: questerProfilePicUrl, departureCity: departureCity, departureCountry: departureCountry, departureDate: departureDate, arrivalCity: arrivalCity, arrivalCountry: arrivalCountry, arrivalDate: arrivalDate, creator: creator)
         
         activityIndicatorView.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.createRequest(request)
         })
-        
-        
     }
+    
+    @IBAction func segmentedControlChangedValue(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex == 0 {
+            weightValue = Int(weightSlider.value)
+        }
+        else {
+            weightValue = bird.birdWeight
+        }
+        
+        print(weightValue)
+    }
+    
     
     func createRequest(_ request: Request) {
         FirebaseManager.shared.createRequest(request, success: {
             print("Request Sent successfully")
-            //self.delegate?.didCreateBird(bird)
             self.handleRequestCreationSucceed()
         }) { (error) in
             print(error ?? "Error creating request")

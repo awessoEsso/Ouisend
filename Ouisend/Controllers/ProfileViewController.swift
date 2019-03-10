@@ -25,7 +25,12 @@ class ProfileViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        guard let birder = Datas.shared.birder else { return }
+        guard let birder = Datas.shared.birder else {
+            
+            
+            return
+            
+        }
         
         birderNameLabel.text = birder.displayName
         birderEmailLabel.text = birder.email

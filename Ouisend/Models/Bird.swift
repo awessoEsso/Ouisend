@@ -24,10 +24,11 @@ class Bird {
     var birdTravelerName: String
     var birderProfilePicUrl: URL
     var currency: String
+    var creator: String
     var createdAt: Date
     
     
-    init(birdTravelerName: String, birdTravelerProfilePic: String, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, birdWeight: Int, birdTotalPrice: Int, birdPricePerKilo: Int, currency: String = "€", createdAt: Date = Date()) {
+    init(birdTravelerName: String, birdTravelerProfilePic: String, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, birdWeight: Int, birdTotalPrice: Int, birdPricePerKilo: Int, currency: String = "€", creator: String, createdAt: Date = Date()) {
         self.identifier = ""
         self.birdTravelerName = birdTravelerName
         self.birderProfilePicUrl = URL(string: birdTravelerProfilePic)!
@@ -41,6 +42,7 @@ class Bird {
         self.birdTotalPrice = birdTotalPrice
         self.birdPricePerKilo = birdPricePerKilo
         self.currency = currency
+        self.creator = creator
         self.createdAt = createdAt
     }
     
@@ -59,6 +61,7 @@ class Bird {
         self.birdTotalPrice = dictionnary["cb_bird_total_price"] as? Int ?? 0
         self.birdPricePerKilo = dictionnary["cb_bird_price_per_k"] as? Int ?? 0
         self.currency = dictionnary["cb_currency"] as? String ?? ""
+        self.creator = dictionnary["creator"] as? String ?? ""
         self.createdAt = Date()
     }
     
@@ -84,6 +87,7 @@ class Bird {
         self.birdTotalPrice = dictionary["birdTotalPrice"] as? Int ?? 0
         self.birdPricePerKilo = dictionary["birdPricePerKilo"] as? Int ?? 0
         self.currency = dictionary["currency"] as? String ?? ""
+        self.creator = dictionary["creator"] as? String ?? ""
         self.createdAt = Date(timeIntervalSince1970: ((dictionary["createdAt"] as? TimeInterval ?? 0) / 1000))
         
     }

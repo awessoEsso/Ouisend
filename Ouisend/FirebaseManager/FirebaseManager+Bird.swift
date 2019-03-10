@@ -35,7 +35,8 @@ extension FirebaseManager {
             "birderName": bird.birdTravelerName,
             "birderProfilePicUrl": bird.birderProfilePicUrl.absoluteString,
             "currency": bird.currency,
-            "createdAt": ServerValue.timestamp()
+            "createdAt": ServerValue.timestamp(),
+            "creator": bird.creator
             ] as [String : Any]
         
         birdReference.setValue(newBird) { (error, reference) in
@@ -173,7 +174,50 @@ extension FirebaseManager {
                 // Return empty list
                 success([Bird]())
             }
+        })
+    }
+    
+    
+    func myBirdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            let error = NSError(domain: "user not loggedIn", code: 3001, userInfo: nil)
+            failure?(error)
+            return
+        }
+        var birds = [Bird]()
+        let userIdentifier = currentUser.uid
+        
+        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observe(DataEventType.value, with: { (snapshot) in
             
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
+                taskEvent.enter()
+                birds.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the event noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let birdIdentifier = $0.key
+                    self.bird(with: birdIdentifier, success: { (bird) in
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    birds = birds.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(birds)
+                })
+            }
+            else {
+                success(birds)
+            }
 
         })
     }

@@ -12,6 +12,8 @@ class MyBirdsViewController: UIViewController {
     
     @IBOutlet weak var myBirdsCollectionView: UICollectionView!
     
+    private let refreshControl = UIRefreshControl()
+    
     var dateToUse: Date = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'"
@@ -28,11 +30,37 @@ class MyBirdsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        
+        
+        self.myBirdsCollectionView.refreshControl = refreshControl
+        
+        refreshControl.tintColor = ouiSendBlueColor
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
+        
         FirebaseManager.shared.myBirds({ (myBirds) in
             self.myBirds = myBirds
             self.myBirdsCollectionView.reloadData()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    @objc private func refreshBirdsData(_ sender: Any) {
+        // Fetch Birds Data
+        FirebaseManager.shared.myBirdsObserveSingle(with: { (birds) in
+            self.myBirds = birds
+            self.myBirdsCollectionView.reloadData()
+            self.refreshControl.endRefreshing()
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error loading birds")
+            self.refreshControl.endRefreshing()
         }
     }
     

@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
     
     var birds: [Bird] =  [Bird]()
     
+    var birder = Datas.shared.birder
+    
     var selectedBird: Bird!
 
     override func viewDidLoad() {
@@ -82,6 +84,11 @@ class HomeViewController: UIViewController {
              self.refreshControl.endRefreshing()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
 
 
 }
@@ -125,11 +132,11 @@ extension HomeViewController: UICollectionViewDataSource {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bird = birds[indexPath.item]
-        self.selectedBird = bird
-        performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
-        
-//        try? Auth.auth().signOut()
-//        LoginManager.init().logOut()
+        if bird.creator != birder?.identifier {
+            self.selectedBird = bird
+            performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
+        }
+       
     }
 }
 
