@@ -14,7 +14,6 @@ class MyBirdRequestsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var questerNameLabel: UILabel!
     
-    
     @IBOutlet weak var requestWeightLabel: UILabel!
     
     @IBOutlet weak var sentSinceTimeLabel: UILabel!

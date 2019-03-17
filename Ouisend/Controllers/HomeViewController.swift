@@ -60,11 +60,18 @@ class HomeViewController: UIViewController {
         }
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination
         
         switch destination {
+            
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let searchBirdViewController = navigationController.viewControllers.first as? SearchBirdViewController {
+                searchBirdViewController.birds = birds
+                searchBirdViewController.filteredBirds = birds
+            }
+            
         case is BirdViewController:
             let birdViewController = destination as! BirdViewController
             birdViewController.bird = self.selectedBird
@@ -150,6 +157,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
+
+
 
 let relativeTimeDict: [RelativeTimeStringType: String] = [
     RelativeTimeStringType.nowPast : "à l'instant",

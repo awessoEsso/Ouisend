@@ -126,6 +126,14 @@
             </objects>
             <point key="canvasLocation" x="13" y="-684"/>
         </scene>
+        <!--Search-->
+        <scene sceneID="U4Q-pN-bJa">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Search" id="C70-09-5N1" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pm-E2-L2i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="491" y="-596"/>
+        </scene>
         <!--Ouisend-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -352,7 +360,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="search" id="Ihj-lf-RbV"/>
+                            <barButtonItem systemItem="search" id="Ihj-lf-RbV">
+                                <connections>
+                                    <segue destination="C70-09-5N1" kind="presentation" id="qUf-f3-PIC"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="add" id="vxb-XQ-E4O">
                                 <connections>
                                     <segue destination="FB0-7t-uOP" kind="presentation" id="r54-90-wVr"/>
@@ -1120,22 +1132,6 @@
             </objects>
             <point key="canvasLocation" x="4330" y="2143"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="0Gw-4f-gfB">
-            <objects>
-                <viewController id="buH-wP-k5W" customClass="SearchViewController" customModule="Ouisend" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XHK-DH-ie1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="7q1-eb-NV6"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Search" id="YSr-lg-Mzg"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x7o-8X-Md3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1068" y="-1200"/>
-        </scene>
         <!--My Birds-->
         <scene sceneID="heu-Ux-g4p">
             <objects>
@@ -1493,7 +1489,7 @@
                                                             <rect key="frame" x="0.0" y="124" width="181" height="32"/>
                                                             <color key="backgroundColor" red="0.29403230041428574" green="0.92636718750000002" blue="0.50876170785714281" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                            <state key="normal" title="Contacter le voyageur">
+                                                            <state key="normal" title="Ecrire au voyageur">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <userDefinedRuntimeAttributes>
@@ -1501,6 +1497,9 @@
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="writeToBirderAction:" destination="pSa-uo-KD0" eventType="touchUpInside" id="ZST-ld-Sgx"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>

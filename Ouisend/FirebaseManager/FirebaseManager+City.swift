@@ -26,6 +26,11 @@ extension FirebaseManager {
                     cities.append(city)
                 }
             }
+            cities = cities.sorted(by: { (city1, city2) -> Bool in
+                let city1Name = city1.name ?? ""
+                let city2Name = city2.name ?? ""
+                return city1Name.localizedCaseInsensitiveCompare(city2Name) == ComparisonResult.orderedAscending
+            })
             success(cities)
         })
     }

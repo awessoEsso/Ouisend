@@ -109,6 +109,8 @@ extension MyRequestsViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcceptedRequestCollectionViewCellId", for: indexPath) as! AcceptedRequestCollectionViewCell
         
+        cell.delegate = self
+        
         cell.travelDescriptionLabel.text = "\(myRequest.departureCity) - \(myRequest.arrivalCity) "
         cell.weightLabel.text = "\(myRequest.weight) Kg"
         cell.departureDateLabel.text = FrenchDateFormatter.formatDate(myRequest.departureDate)
@@ -120,6 +122,20 @@ extension MyRequestsViewController: UICollectionViewDataSource {
         return cell
     }
     
+}
+
+extension MyRequestsViewController: AcceptedRequestCollectionViewCellDelegate {
+    func writeToBirder(cell: AcceptedRequestCollectionViewCell) {
+        
+        if let indexPath = requestsCollectionView.indexPath(for: cell) {
+            let myRequest = myRequests[indexPath.item]
+            if myRequest.status == .accepted {
+                selectedRequest = myRequest
+                performSegue(withIdentifier: "ouiChatViewControllerId", sender: nil)
+            }
+        }
+        
+    }
 }
 
 extension MyRequestsViewController: UICollectionViewDelegate {
