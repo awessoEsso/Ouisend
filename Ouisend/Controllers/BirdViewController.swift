@@ -135,6 +135,7 @@ class BirdViewController: UIViewController {
     
     func handleCreateRequestAction(for quester: Birder) {
         let details = detailsTextView.text ?? ""
+        let birderId = bird.creator
         let birderName = bird.birdTravelerName
         let birderProfilePicUrl = bird.birderProfilePicUrl
         let questerName = quester.displayName ?? ""
@@ -147,7 +148,7 @@ class BirdViewController: UIViewController {
         let arrivalDate = bird.arrivalDate
         let creator = quester.identifier
         
-        let request = Request(bird: bird.identifier, weight: weightValue, details: details, birderName: birderName, birderProfilePicUrl: birderProfilePicUrl, questerName: questerName, questerProfilePicUrl: questerProfilePicUrl, departureCity: departureCity, departureCountry: departureCountry, departureDate: departureDate, arrivalCity: arrivalCity, arrivalCountry: arrivalCountry, arrivalDate: arrivalDate, creator: creator)
+        let request = Request(bird: bird.identifier, weight: weightValue, details: details, birderId: birderId  , birderName: birderName, birderProfilePicUrl: birderProfilePicUrl, questerName: questerName, questerProfilePicUrl: questerProfilePicUrl, departureCity: departureCity, departureCountry: departureCountry, departureDate: departureDate, arrivalCity: arrivalCity, arrivalCountry: arrivalCountry, arrivalDate: arrivalDate, creator: creator)
         
         activityIndicatorView.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {

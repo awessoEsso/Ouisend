@@ -44,6 +44,12 @@ class FirebaseManager {
         return countryRef
     }()
     
+    lazy var channelReference: DatabaseReference = {
+        let channelRef = self.datebaseReference.child("Channel")
+        channelRef.keepSynced(true)
+        return channelRef
+    }()
+    
     lazy var joinBirdsReference: DatabaseReference = {
         let joinBirdsRef = self.datebaseReference.child("_Join/_Bird")
         joinBirdsRef.keepSynced(true)

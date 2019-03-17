@@ -19,6 +19,8 @@ class MyBirdRequestsViewController: UIViewController {
     
     var selectedRequest: Request?
     
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     var birdRequests = [Request]()
 
     override func viewDidLoad() {
@@ -37,6 +39,9 @@ class MyBirdRequestsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshBirdRequestsData(_:)), for: .valueChanged)
         
         FirebaseManager.shared.birdRequests(with: bird.identifier, success: { (birdRequests) in
+            if birdRequests.count == 0 {
+                self.emptyLabel.isHidden = false
+            }
             self.birdRequests = birdRequests
             self.myBirdRequestsCollectionView.reloadData()
         }) { (error) in
@@ -47,12 +52,36 @@ class MyBirdRequestsViewController: UIViewController {
     @objc private func refreshBirdRequestsData(_ sender: Any) {
         // Fetch Bird Requeuests Data
         FirebaseManager.shared.birdRequestsObserveSingle(with: bird.identifier, success: { (birdRequests) in
+            if birdRequests.count == 0 {
+                self.emptyLabel.isHidden = false
+            }
             self.birdRequests = birdRequests
             self.myBirdRequestsCollectionView.reloadData()
             self.refreshControl.endRefreshing()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
             self.refreshControl.endRefreshing()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        switch destination {
+            
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let ouiChatViewController = navigationController.viewControllers.first as? OuiChatViewController {
+                if let selectedRequest = selectedRequest {
+                    ouiChatViewController.destinataireName = selectedRequest.questerName
+                    ouiChatViewController.destinataireId = selectedRequest.creator
+                    ouiChatViewController.destinataireUrl = selectedRequest.questerProfilePicUrl
+                }
+                
+            }
+            
+        default:
+            print("Unknown")
         }
     }
 
@@ -90,8 +119,14 @@ extension MyBirdRequestsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myRequest = birdRequests[indexPath.item]
         self.selectedRequest = myRequest
-        print(myRequest.status)
-        showActionSheet()
+        
+        if myRequest.status == .accepted {
+            performSegue(withIdentifier: "openOuiChatViewControllerId", sender: nil)
+        }
+        else {
+           showActionSheet()
+        }
+        
     }
     
     func sendNotifToRequestCreator(message: String, creatorId: String) {

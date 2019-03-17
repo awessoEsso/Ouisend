@@ -16,6 +16,8 @@ class MyRequestsViewController: UIViewController {
     
     var myRequests = [Request]()
     
+    var selectedRequest: Request?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +50,28 @@ class MyRequestsViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        switch destination {
+            
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let ouiChatViewController = navigationController.viewControllers.first as? OuiChatViewController {
+                if let selectedRequest = selectedRequest {
+                    ouiChatViewController.destinataireName = selectedRequest.birderName
+                    ouiChatViewController.destinataireId = selectedRequest.birderId
+                    ouiChatViewController.destinataireUrl = selectedRequest.birderProfilePicUrl
+                }
+                
+            }
+            
+        default:
+            print("Unknown")
+        }
+    }
+    
 
 }
 
@@ -101,12 +125,10 @@ extension MyRequestsViewController: UICollectionViewDataSource {
 extension MyRequestsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myRequest = myRequests[indexPath.item]
-        
-//        if myRequest.status == .accepted {
-//            performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
-//        }
-        
-        print(myRequest.status)
+        if myRequest.status == .accepted {
+            selectedRequest = myRequest
+            performSegue(withIdentifier: "ouiChatViewControllerId", sender: nil)
+        }
     }
 }
 

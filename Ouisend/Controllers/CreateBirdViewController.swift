@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 import Eureka
 import NVActivityIndicatorView
 import SCLAlertView
@@ -81,7 +82,7 @@ class CreateBirdViewController: FormViewController {
             <<< DateRow(){
                 $0.tag = "cb_date_depart"
                 $0.title = "Date départ"
-                $0.value = Date()
+                $0.value = Date() + 1.days
         }
         
         
@@ -127,7 +128,7 @@ class CreateBirdViewController: FormViewController {
             <<< DateRow(){
                 $0.tag = "cb_date_arrivee"
                 $0.title = "Date arrivée"
-                $0.value = Date()
+                $0.value = Date() + 2.days
         }
         
         
@@ -150,7 +151,7 @@ class CreateBirdViewController: FormViewController {
             <<< IntRow(){ row in
                 row.tag = "cb_bird_total_price"
                 row.title = "Prix Total"
-                row.placeholder = "230"
+                row.placeholder = "120"
                 //row.value = 0
             }
             
@@ -183,6 +184,11 @@ class CreateBirdViewController: FormViewController {
                     }
         }
     }
+    
+    @IBAction func cancelAction(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     func handleFormValues( _ values: [String: Any?]) {
         guard let birder = Datas.shared.birder else { return }
@@ -230,7 +236,7 @@ class CreateBirdViewController: FormViewController {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Bird a été créé avec succès")
         activityIndicatorView.stopAnimating()

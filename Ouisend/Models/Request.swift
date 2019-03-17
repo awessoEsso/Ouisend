@@ -15,6 +15,7 @@ class Request {
     var bird: String
     var weight: Int
     var details: String
+    var birderId: String
     var birderName: String
     var birderProfilePicUrl: URL
     var questerName: String
@@ -30,11 +31,12 @@ class Request {
     var createdAt: Date
     
     
-    init(bird: String, weight: Int, details: String, birderName: String, birderProfilePicUrl: URL, questerName: String, questerProfilePicUrl: URL, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, creator: String, createdAt: Date = Date()) {
+    init(bird: String, weight: Int, details: String, birderId: String, birderName: String, birderProfilePicUrl: URL, questerName: String, questerProfilePicUrl: URL, departureCity: String, departureCountry: String, departureDate: Date, arrivalCity: String, arrivalCountry: String, arrivalDate: Date, creator: String, createdAt: Date = Date()) {
         self.identifier = ""
         self.bird = bird
         self.weight = weight
         self.details = details
+        self.birderId = birderId
         self.birderName = birderName
         self.birderProfilePicUrl = birderProfilePicUrl
         self.questerName = questerName
@@ -56,6 +58,7 @@ class Request {
         self.bird = dictionary["bird"] as? String ?? ""
         self.weight = dictionary["weight"] as? Int ?? 0
         self.details = dictionary["details"] as? String ?? ""
+        self.birderId = dictionary["birderId"] as? String ?? ""
         self.birderName = dictionary["birderName"] as? String ?? ""
         let birderProfilePicUrlString = dictionary["birderProfilePicUrl"] as? String ?? ""
         self.birderProfilePicUrl = URL(string: birderProfilePicUrlString)!

@@ -32,13 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefaults = UserDefaults.standard
         
         if !userDefaults.bool(forKey: "hasRunBefore") {
-            // Remove Keychain items here
             
             // Update the flag indicator
             userDefaults.set(true, forKey: "hasRunBefore")
             userDefaults.synchronize() // Forces the app to update UserDefaults
             try? Auth.auth().signOut()
             LoginManager.init().logOut()
+        }
+        
+        if UserDefaults.isFirstLaunch() {
+            // Enable Text Messages
+            UserDefaults.standard.set(true, forKey: "Text Messages")
         }
         
         

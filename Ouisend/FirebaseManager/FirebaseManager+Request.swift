@@ -32,6 +32,7 @@ extension FirebaseManager {
             "arrivalDate": request.arrivalDate.timeIntervalSince1970 * 1000 ,
             "weight": request.weight ,
             "details": request.details ,
+            "birderId": request.birderId ,
             "birderName": request.birderName ,
             "birderProfilePicUrl": request.birderProfilePicUrl.absoluteString,
             "questerName": request.questerName ,

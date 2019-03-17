@@ -76,6 +76,9 @@ class HomeViewController: UIViewController {
     @objc private func refreshBirdsData(_ sender: Any) {
         // Fetch Birds Data
         FirebaseManager.shared.birdsObserveSingle(with: { (birds) in
+            if birds.count == 0 {
+                self.emptyListLabel.isHidden = false
+            }
             self.birds = birds
             self.birdsCollectionView.reloadData()
             self.refreshControl.endRefreshing()

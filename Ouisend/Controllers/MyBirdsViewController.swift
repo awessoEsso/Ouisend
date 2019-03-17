@@ -68,6 +68,13 @@ class MyBirdsViewController: UIViewController {
         let destination = segue.destination
         
         switch destination {
+        
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let createBirdViewController = navigationController.viewControllers.first as? CreateBirdViewController {
+                createBirdViewController.delegate = self
+            }
+            
         case is CreateBirdViewController:
             let createBirdViewController = destination as! CreateBirdViewController
             createBirdViewController.delegate = self

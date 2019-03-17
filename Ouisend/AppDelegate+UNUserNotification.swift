@@ -6,7 +6,7 @@
 //  Copyright © 2019 Esso Awesso. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import UserNotifications
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -18,10 +18,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("un will present")
         print(notification.request.content.userInfo)
-        let options: UNNotificationPresentationOptions = [.alert, .sound]
-        completionHandler(options)
+//        let options: UNNotificationPresentationOptions = [.alert, .sound]
+//        completionHandler(options)
     }
     
 }
-
-
