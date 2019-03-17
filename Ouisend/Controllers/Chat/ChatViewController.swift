@@ -29,6 +29,8 @@ import MessageInputBar
 /// A base class for the example controllers
 class ChatViewController: MessagesViewController {
     
+    let outgoingAvatarOverlap: CGFloat = 17.5
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -47,6 +49,7 @@ class ChatViewController: MessagesViewController {
         super.viewDidLoad()
         
         configureMessageCollectionView()
+        configureMessageInputBar()
     }
 
     
@@ -63,12 +66,72 @@ class ChatViewController: MessagesViewController {
         }
     }
     
+    func configureMessageInputBar() {
+
+        messageInputBar.isTranslucent = true
+        messageInputBar.separatorLine.isHidden = true
+        messageInputBar.inputTextView.tintColor = ouiSendBlueColor
+        messageInputBar.sendButton.tintColor = ouiSendBlueColor
+        messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
+        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
+        messageInputBar.inputTextView.layer.borderWidth = 1.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
+        messageInputBar.inputTextView.layer.masksToBounds = true
+        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        configureInputBarItems()
+    }
+    
+    private func configureInputBarItems() {
+        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.sendButton.imageView?.backgroundColor = UIColor(white: 0.85, alpha: 1)
+        messageInputBar.sendButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        messageInputBar.sendButton.setSize(CGSize(width: 36, height: 36), animated: false)
+        messageInputBar.sendButton.image = UIImage(named: "ios-paperplane-100")
+        messageInputBar.sendButton.title = nil
+        messageInputBar.sendButton.imageView?.layer.cornerRadius = 16
+        messageInputBar.textViewPadding.right = -38
+        
+        // This just adds some more flare
+        messageInputBar.sendButton
+            .onEnabled { item in
+                UIView.animate(withDuration: 0.3, animations: {
+                    item.imageView?.backgroundColor = ouiSendBlueColor
+                })
+            }.onDisabled { item in
+                UIView.animate(withDuration: 0.3, animations: {
+                    item.imageView?.backgroundColor = UIColor(white: 0.85, alpha: 1)
+                })
+        }
+    }
+    
     func configureMessageCollectionView() {
         scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
+        let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
+        layout?.sectionInset = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
+        
+        // Hide the outgoing avatar and adjust the label alignment to line up with the messages
+        //layout?.setMessageOutgoingAvatarSize(.zero)
+        layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
+        layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)))
+        
+        // Set outgoing avatar to overlap with the message bubble
+        layout?.setMessageIncomingMessageTopLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 18, bottom: outgoingAvatarOverlap, right: 0)))
+        layout?.setMessageIncomingAvatarSize(CGSize(width: 30, height: 30))
+        layout?.setMessageIncomingMessagePadding(UIEdgeInsets(top: -outgoingAvatarOverlap, left: -18, bottom: outgoingAvatarOverlap, right: 18))
+        
+        layout?.setMessageIncomingAccessoryViewSize(CGSize(width: 30, height: 30))
+        layout?.setMessageIncomingAccessoryViewPadding(HorizontalEdgeInsets(left: 8, right: 0))
+        layout?.setMessageOutgoingAccessoryViewSize(CGSize(width: 30, height: 30))
+        layout?.setMessageOutgoingAccessoryViewPadding(HorizontalEdgeInsets(left: 0, right: 8))
         
         messagesCollectionView.addSubview(refreshControl)
     }
+    
+
     
 
     
@@ -87,6 +150,20 @@ class ChatViewController: MessagesViewController {
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         })
+    }
+    
+    func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {
+        return indexPath.section % 3 == 0 && !isPreviousMessageSameSender(at: indexPath)
+    }
+    
+    func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool {
+        guard indexPath.section - 1 >= 0 else { return false }
+        return messageList[indexPath.section].sender == messageList[indexPath.section - 1].sender
+    }
+    
+    func isNextMessageSameSender(at indexPath: IndexPath) -> Bool {
+        guard indexPath.section + 1 < messageList.count else { return false }
+        return messageList[indexPath.section].sender == messageList[indexPath.section + 1].sender
     }
     
     func isLastSectionVisible() -> Bool {

@@ -33,36 +33,43 @@ class CreateBirdViewController: FormViewController {
         
         // Do any additional setup after loading the view.
         
-        
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.init(rawValue: 30), color: ouiSendBlueColor, padding: 20)
         
         
         view.addSubview(activityIndicatorView)
         
+        LabelRow.defaultCellUpdate = { cell, row in
+            cell.contentView.backgroundColor = .red
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+            cell.textLabel?.textAlignment = .right
+            
+        }
+        
         
         form +++ Section("Départ")
             
-            <<< PickerInlineRow<String>("PaysDepart"){
-                $0.tag = "cb_pays_depart"
-                $0.title = "Pays Départ"
+            <<< PickerInlineRow<String>("PaysDepart"){ row in
+                row.tag = "cb_pays_depart"
+                row.title = "Pays Départ"
                 if countries?.isEmpty == true {
                     FirebaseManager.shared.countries(with: { (countries) in
-                        
+                        row.options = countries.map { $0.name ?? "" }
                     }) { (error) in
                         print(error ?? "error loading countries")
                     }
                 }
                 else {
                     if let countries = countries {
-                        $0.options = countries.map { $0.name ?? "" }
-                        //$0.value = countries.first?.name ?? ""
+                        row.options = countries.map { $0.name ?? "" }
                     }
-                    
                 }
                 
-                $0.add(rule: RuleRequired())
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesAlways
                 
                 }.onChange { row in
+                    
                     guard let countryName = row.value else { return }
                     if let departureCityRow = self.form.rowBy(tag: "cb_ville_depart") as? PickerInlineRow<String> {
                         let citiesNames = self.cities(for: countryName)
@@ -77,36 +84,58 @@ class CreateBirdViewController: FormViewController {
             <<< PickerInlineRow<String>("VilleDepart"){
                 $0.tag = "cb_ville_depart"
                 $0.title = "Ville Départ"
+                }
+                .cellUpdate { cell, row in
+                    let rowIndex = row.indexPath!.row
+                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                        row.section?.remove(at: rowIndex + 1)
+                    }
+                    if !row.isValid {
+                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
+                            let labelRow = LabelRow() {
+                                $0.title = validationMsg
+                                $0.cell.height = { 30 }
+                            }
+                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
+                        }
+                    }
             }
             
             <<< DateRow(){
                 $0.tag = "cb_date_depart"
                 $0.title = "Date départ"
                 $0.value = Date() + 1.days
+                $0.minimumDate = Date() + 1.days
+                }
+                .onChange { row in
+                    guard let departureDate = row.value else { return }
+                    if let arrivalDateRow = self.form.rowBy(tag: "cb_date_arrivee") as? DateRow {
+                        arrivalDateRow.value = departureDate + 1.days
+                        arrivalDateRow.minimumDate = departureDate + 1.days
+                        arrivalDateRow.reload()
+                    }
         }
         
         
         form +++ Section("Arrivée")
             
-            <<< PickerInlineRow<String>("PaysArrivee"){
-                $0.tag = "cb_pays_arrivee"
-                $0.title = "Pays Arrivée"
+            <<< PickerInlineRow<String>("PaysArrivee"){ row in
+                row.tag = "cb_pays_arrivee"
+                row.title = "Pays Arrivée"
                 if countries?.isEmpty == true {
                     FirebaseManager.shared.countries(with: { (countries) in
-                        
+                        row.options = countries.map { $0.name ?? "" }
                     }) { (error) in
                         print(error ?? "error loading countries")
                     }
                 }
                 else {
                     if let countries = countries {
-                        $0.options = countries.map { $0.name ?? "" }
-                        //$0.value = countries.first?.name ?? ""
+                        row.options = countries.map { $0.name ?? "" }
                     }
-                    
                 }
-                
-                $0.add(rule: RuleRequired())
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
                 
                 }.onChange { row in
                     guard let countryName = row.value else { return }
@@ -119,6 +148,7 @@ class CreateBirdViewController: FormViewController {
                         arrivalCityRow.reload() // not sure if needed
                     }
             }
+            
             
             <<< PickerInlineRow<String>("VilleArrivee"){
                 $0.tag = "cb_ville_arrivee"
@@ -138,21 +168,41 @@ class CreateBirdViewController: FormViewController {
                 row.tag = "cb_bird_weight"
                 row.title = "Poids à vendre"
                 row.placeholder = "23"
-                //row.value = 0
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleGreaterThan(min: 5))
+                row.add(rule: RuleSmallerThan(max: 200))
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< IntRow(){ row in
                 row.tag = "cb_bird_price_per_k"
                 row.title = "Prix par kilos"
                 row.placeholder = "6"
-                //row.value = 0
+                row.add(rule: RuleGreaterThan(min: 1))
+                row.add(rule: RuleRequired())
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< IntRow(){ row in
                 row.tag = "cb_bird_total_price"
                 row.title = "Prix Total"
                 row.placeholder = "120"
+                row.add(rule: RuleGreaterThan(min: 1))
+                row.add(rule: RuleRequired())
                 //row.value = 0
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
             }
             
             <<< PickerInlineRow<String>("Monnaie"){
@@ -160,6 +210,7 @@ class CreateBirdViewController: FormViewController {
                 $0.title = "Monnaie"
                 $0.options = ["€", "$"]
                 $0.value = "€"
+                $0.add(rule: RuleRequired())
             }
             
             
@@ -168,18 +219,17 @@ class CreateBirdViewController: FormViewController {
                 $0.title = "Soumettre"
                 }
                 .onCellSelection { cell, row in
-                    
-                    self.activityIndicatorView.startAnimating()
-                    self.view.isUserInteractionEnabled = false
-                    
                     let errors = self.form.validate()
                     if ( errors.isEmpty == true ){
+                        self.activityIndicatorView.startAnimating()
+                        self.view.isUserInteractionEnabled = false
                         let values = self.form.values()
                         print(values)
                         self.handleFormValues(values)
                     }
                     else {
                         print(errors)
+                        SCLAlertView().showError("Error", subTitle: "Remplissez correctement tous les champs svp")
                         self.activityIndicatorView.stopAnimating()
                     }
         }

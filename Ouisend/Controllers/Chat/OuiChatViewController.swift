@@ -34,7 +34,6 @@ final class OuiChatViewController: ChatViewController {
         
         loadMessages()
         
-        configureMessageInputBar()
     }
     
 
@@ -54,10 +53,9 @@ final class OuiChatViewController: ChatViewController {
         }
     }
     
-    func configureMessageInputBar() {
+    override func configureMessageInputBar() {
+        super.configureMessageInputBar()
         messageInputBar.delegate = self
-        messageInputBar.inputTextView.tintColor = ouiSendBlueColor
-        messageInputBar.sendButton.tintColor = ouiSendBlueColor
     }
     
     override func configureMessageCollectionView() {
@@ -97,8 +95,38 @@ extension OuiChatViewController: MessagesDisplayDelegate {
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         
-        let tail: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-        return .bubbleTail(tail, .curved)
+//        let tail: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+//        return .bubbleTail(tail, .curved)
+        
+        var corners: UIRectCorner = []
+        
+        if isFromCurrentSender(message: message) {
+            corners.formUnion(.topLeft)
+            corners.formUnion(.bottomLeft)
+            if !isPreviousMessageSameSender(at: indexPath) {
+                corners.formUnion(.topRight)
+            }
+            if !isNextMessageSameSender(at: indexPath) {
+                corners.formUnion(.bottomRight)
+            }
+        } else {
+            corners.formUnion(.topRight)
+            corners.formUnion(.bottomRight)
+            if !isPreviousMessageSameSender(at: indexPath) {
+                corners.formUnion(.topLeft)
+            }
+            if !isNextMessageSameSender(at: indexPath) {
+                corners.formUnion(.bottomLeft)
+            }
+        }
+        
+        return .custom { view in
+            let radius: CGFloat = 16
+            let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            view.layer.mask = mask
+        }
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
@@ -119,6 +147,9 @@ extension OuiChatViewController: MessagesDisplayDelegate {
             DispatchQueue.main.async() {
                 let avatar = Avatar(image: UIImage(data: data), initials: name)
                 avatarView.set(avatar: avatar)
+                avatarView.isHidden = self.isNextMessageSameSender(at: indexPath)
+                avatarView.layer.borderWidth = 2
+                avatarView.layer.borderColor = ouiSendBlueColor.cgColor
             }
         }
     }
@@ -136,15 +167,22 @@ extension OuiChatViewController: MessagesDisplayDelegate {
 extension OuiChatViewController: MessagesLayoutDelegate {
     
     func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 18
+        if isTimeLabelVisible(at: indexPath) {
+            return 18
+        }
+        return 0
     }
     
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 20
+        if isFromCurrentSender(message: message) {
+            return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
+        } else {
+            return !isPreviousMessageSameSender(at: indexPath) ? (20 + outgoingAvatarOverlap) : 0
+        }
     }
     
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 16
+        return (!isNextMessageSameSender(at: indexPath) && isFromCurrentSender(message: message)) ? 16 : 0
     }
     
 }

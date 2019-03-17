@@ -115,7 +115,7 @@ class BirdViewController: UIViewController {
         let roundedValue = round(sender.value / step) * step
         sender.value = roundedValue
         weightValue = Int(roundedValue)
-        weightDesiredLabel.text = "\(weightValue)Kg"
+        weightDesiredLabel.text = "\(weightValue) Kg"
     }
     
     
