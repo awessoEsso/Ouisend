@@ -46,6 +46,8 @@ extension FirebaseManager {
             if (error == nil) {
                 let newRequestValues = request
                 newRequestValues.identifier = reference.key!
+                
+                self.sendRequestNotificationToBirdCreator(request: request)
                 self.createRequestJoinReference(newRequestValues, success: {
                     self.createBirdJoinReference(newRequestValues, success: {
                         success?()
@@ -74,6 +76,16 @@ extension FirebaseManager {
                 failure?(nil)
             }
         })
+    }
+    
+    
+    func sendRequestNotificationToBirdCreator(request: Request) {
+        FirebaseManager.shared.tokenForUser(with: request.birderId, success: { (destinataireToken) in
+            let message = "Nouvelle demande de \(request.weight)Kg pour \(request.departureCity)-\(request.arrivalCity)"
+            FirebaseManager.shared.createOneToOneNotification(message, token: destinataireToken)
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error getting Request creator token")
+        }
     }
     
     func declineRequest(with identifier: String) {

@@ -20,6 +20,10 @@ class SearchBirdViewController: UIViewController {
     
     var arrivalCity = ""
     
+    var birder = Datas.shared.birder
+    
+    var selectedBird: Bird!
+    
     @IBOutlet weak var departureView: UIView!
     
     @IBOutlet weak var arrivalView: UIView!
@@ -38,8 +42,15 @@ class SearchBirdViewController: UIViewController {
     
     @IBOutlet weak var birdsCollectionView: UICollectionView!
     
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.birdsCollectionView.refreshControl = refreshControl
+        refreshControl.tintColor = UIColor.white
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(updateBirds), for: .valueChanged)
         
     }
     
@@ -70,16 +81,21 @@ class SearchBirdViewController: UIViewController {
                 searchCityViewController.seachForDeparture = departureSelected
             }
             
+        case is BirdViewController:
+            let birdViewController = destination as! BirdViewController
+            birdViewController.bird = self.selectedBird
+            
         default:
             print("Unknown Segue")
         }
     }
     
     
-    func updateBirds() {
+    @objc func updateBirds() {
         filterDeparture()
         filterArrival()
         birdsCollectionView.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     func filterDeparture() {
@@ -103,6 +119,17 @@ class SearchBirdViewController: UIViewController {
     
     
 }
+
+extension SearchBirdViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bird = filteredBirds[indexPath.item]
+        if bird.creator != birder?.identifier {
+            self.selectedBird = bird
+            performSegue(withIdentifier: "showBirdFromSearchSegueId", sender: nil)
+        }
+    }
+}
+
 
 extension SearchBirdViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -129,8 +156,6 @@ extension SearchBirdViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 extension SearchBirdViewController: SearchCityViewControllerDelegate {
