@@ -88,12 +88,14 @@ extension FirebaseManager {
         }
     }
     
-    func declineRequest(with identifier: String) {
-        requestsReference.child(identifier).child("status").setValue(2)
+    func declineRequest(_ request: Request) {
+        requestsReference.child(request.identifier).child("status").setValue(2)
+        birdsReference.child(request.bird).child("declined").updateChildValues([request.identifier: request.weight])
     }
     
-    func acceptRequest(with identifier: String) {
-        requestsReference.child(identifier).child("status").setValue(3)
+    func acceptRequest(_ request: Request) {
+        requestsReference.child(request.identifier).child("status").setValue(3)
+        birdsReference.child(request.bird).child("accepted").updateChildValues([request.identifier: request.weight])
     }
     
     fileprivate func createRequestJoinReference(_ request: Request , success: (() -> Void)?, failure: ((Error?) -> Void)?) {

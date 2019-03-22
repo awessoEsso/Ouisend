@@ -62,12 +62,32 @@ class BirdViewController: UIViewController {
         detailsTextView.delegate = self
         birderNameLabel.text = bird.birdTravelerName
         publishedDateLabel.text = "Publié \(bird.createdAt.toStringWithRelativeTime(strings: relativeTimeDict))"
-        birdDateLabel.text = FrenchDateFormatter.formatDate(bird.departureDate)
+        let departureDate = FrenchDateFormatter.formatDate(bird.departureDate)
+        birdDateLabel.text = "Départ: \(departureDate)"
         birderProfilePic.sd_setImage(with: bird.birderProfilePicUrl, completed: nil)
         totalWeightLabel.text =  "\(bird.birdWeight) Kg"
         totalPriceLabel.text = "\(bird.birdTotalPrice)\(bird.currency)"
         pricePerKiloLabel.text = "\(bird.birdPricePerKilo)\(bird.currency)"
         
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        switch destination {
+            
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let ouiChatViewController = navigationController.viewControllers.first as? OuiChatViewController {
+                ouiChatViewController.destinataireName = bird.birdTravelerName
+                ouiChatViewController.destinataireId = bird.creator
+                ouiChatViewController.destinataireUrl = bird.birderProfilePicUrl
+            }
+            
+        default:
+            print("Unknown")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

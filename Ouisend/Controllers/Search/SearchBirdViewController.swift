@@ -158,6 +158,15 @@ extension SearchBirdViewController: UICollectionViewDataSource {
     }
 }
 
+extension SearchBirdViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth:CGFloat = collectionView.frame.width
+        let cellHeight:CGFloat = 180
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+
 extension SearchBirdViewController: SearchCityViewControllerDelegate {
     func didSelect(city: City, for departure: Bool) {
         if departure == true {

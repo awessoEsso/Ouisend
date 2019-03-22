@@ -108,11 +108,15 @@ extension MyBirdsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myBird = myBirds[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mybirdcollectionviewcellid", for: indexPath) as! MyBirdCollectionViewCell
-        
         cell.travelDescriptionLabel.text = "\(myBird.departureCity) - \(myBird.arrivalCity)"
         cell.travelDateLabel.text = FrenchDateFormatter.formatDate(myBird.departureDate)
-        cell.birdWeightLabel.text = "\(myBird.birdWeight) (3 kg réservés)"
-        cell.requestNumberLabel.text = "3"
+        
+        var weightAccepted = 0
+        for (_, value) in myBird.accepted {
+            weightAccepted += value
+        }
+        cell.birdWeightLabel.text = "\(myBird.birdWeight) (\(weightAccepted) kg réservés)"
+        cell.requestNumberLabel.text = "\(myBird.accepted.count)"
         cell.delegate = self
         
         return cell

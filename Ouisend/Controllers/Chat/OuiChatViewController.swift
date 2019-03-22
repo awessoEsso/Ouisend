@@ -22,6 +22,8 @@ final class OuiChatViewController: ChatViewController {
     var destinataire: Birder!
     var channel = ""
     
+    var isRoot = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +41,16 @@ final class OuiChatViewController: ChatViewController {
 
     
     @IBAction func closeAction(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        if isRoot {
+            let homeActivityController = UIStoryboard.homeTabBarController()
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            appDelegate.window?.rootViewController = nil
+            appDelegate.window?.rootViewController = homeActivityController
+        }
+        else {
+            dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     @objc func loadMessages() {

@@ -31,10 +31,22 @@ class HomeViewController: UIViewController {
     
     var birds: [Bird] =  [Bird]()
     
+    var filteredBirds: [Bird] =  [Bird]()
+    
+    var departureCity = ""
+    
+    var arrivalCity = ""
+    
+    var departureSelected = true
+    
     var birder = Datas.shared.birder
     
     var selectedBird: Bird!
-
+    
+    @IBOutlet weak var departureButton: UIButton!
+    
+    @IBOutlet weak var arrivalButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,6 +57,14 @@ class HomeViewController: UIViewController {
         
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
+        
+        departureButton.titleLabel?.numberOfLines = 1
+        departureButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        departureButton.titleLabel?.lineBreakMode = .byClipping
+        
+        arrivalButton.titleLabel?.numberOfLines = 1
+        arrivalButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        arrivalButton.titleLabel?.lineBreakMode = .byClipping
 
         
         FirebaseManager.shared.birds(with: { (birds) in
@@ -52,6 +72,7 @@ class HomeViewController: UIViewController {
                 self.emptyListLabel.isHidden = false
             }
             self.birds = birds
+            self.filteredBirds = birds
             self.birdsCollectionView.reloadData()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
@@ -59,6 +80,48 @@ class HomeViewController: UIViewController {
             self.emptyListLabel.text = "Sorry 😪, an error occured!!! "
         }
     }
+    
+    @IBAction func searchBirdAction(_ sender: UIButton) {
+        print("Recherche")
+    }
+    
+    
+    @IBAction func selectDepartureAction(_ sender: UIButton) {
+        departureSelected = true
+        performSegue(withIdentifier: "selectCitySegueId", sender: nil)
+    }
+    
+    @IBAction func selectArrivalAction(_ sender: UIButton) {
+        departureSelected = false
+        performSegue(withIdentifier: "selectCitySegueId", sender: nil)
+    }
+    
+    @objc func updateBirds() {
+        filterDeparture()
+        filterArrival()
+        birdsCollectionView.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+    
+    func filterDeparture() {
+        if departureCity.isEmpty == true {
+            filteredBirds = birds
+        }
+        else {
+            filteredBirds = birds.filter{ $0.departureCity.lowercased().contains(departureCity.lowercased())}
+        }
+    }
+    
+    func filterArrival() {
+        let tampBirds: [Bird] = filteredBirds
+        if arrivalCity.isEmpty == true {
+            filteredBirds = tampBirds
+        }
+        else {
+            filteredBirds = tampBirds.filter{ $0.arrivalCity.lowercased().contains(arrivalCity.lowercased())}
+        }
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination
@@ -70,6 +133,10 @@ class HomeViewController: UIViewController {
             if let searchBirdViewController = navigationController.viewControllers.first as? SearchBirdViewController {
                 searchBirdViewController.birds = birds
                 searchBirdViewController.filteredBirds = birds
+            }
+            if let searchCityViewController = navigationController.viewControllers.first as? SearchCityViewController {
+                searchCityViewController.delegate = self
+                searchCityViewController.seachForDeparture = departureSelected
             }
             
         case is BirdViewController:
@@ -87,8 +154,8 @@ class HomeViewController: UIViewController {
                 self.emptyListLabel.isHidden = false
             }
             self.birds = birds
-            self.birdsCollectionView.reloadData()
-            self.refreshControl.endRefreshing()
+            self.filteredBirds = birds
+            self.updateBirds()
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading birds")
              self.refreshControl.endRefreshing()
@@ -98,6 +165,22 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let birdId = UserDefaults.init().string(forKey: "showBirdId") {
+            if birdId.isEmpty == false {
+                FirebaseManager.shared.bird(with: birdId, success: { (bird) in
+                    self.selectedBird = bird
+                    self.performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
+                    UserDefaults.init().removeObject(forKey: "showBirdId")
+                }) { (error) in
+                    print(error?.localizedDescription ?? "")
+                }
+            }
+        }
     }
 
 
@@ -109,12 +192,12 @@ extension HomeViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return birds.count
+        return filteredBirds.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let bird = birds[indexPath.item]
+        let bird = filteredBirds[indexPath.item]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "birdcollectionviewcellid", for: indexPath) as! BirdCollectionViewCell
         
@@ -141,7 +224,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let bird = birds[indexPath.item]
+        let bird = filteredBirds[indexPath.item]
         if bird.creator != birder?.identifier {
             self.selectedBird = bird
             performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
@@ -157,6 +240,24 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
+
+extension HomeViewController: SearchCityViewControllerDelegate {
+    func didSelect(city: City, for departure: Bool) {
+        let title = "\(city.name ?? "") - \(city.countryName ?? "")"
+        if departure == true {
+            departureCity = city.name ?? ""
+            departureButton.setTitle(title, for: .normal)
+        }
+        else {
+            arrivalCity = city.name ?? ""
+            arrivalButton.setTitle(title, for: .normal)
+        }
+        updateBirds()
+    }
+    
+}
+
 
 
 

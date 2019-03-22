@@ -25,6 +25,7 @@ extension UIStoryboard {
     enum Storyboard: String {
         case main
         case login
+        case chat
         
         var filename: String {
             return rawValue.capitalized
@@ -51,10 +52,37 @@ extension UIStoryboard {
     
     // MARK: MAIN View Controllers
     
+    
+    
+    static func homeNavigationController() -> UINavigationController {
+        let homeStoryboard = UIStoryboard(storyboard: .main)
+        guard let navigationController: UINavigationController = homeStoryboard.instantiateInitialViewController() as? UINavigationController else { return UINavigationController() }
+        return navigationController
+    }
+    
+    static func homeTabBarController() -> UITabBarController {
+        let homeStoryboard = UIStoryboard(storyboard: .main)
+        guard let tabBarController: UITabBarController = homeStoryboard.instantiateInitialViewController() as? UITabBarController else { return UITabBarController() }
+        return tabBarController
+    }
+    
     static func loginViewController() -> LoginViewController {
         let loginStoryboard = UIStoryboard(storyboard: .login)
         let loginViewController: LoginViewController = loginStoryboard.instantiateViewController()
         return loginViewController
+    }
+    
+    
+    static func ouiChatViewController() -> OuiChatViewController {
+        let mainStoryboard = UIStoryboard(storyboard: .main)
+        let ouiChatViewController: OuiChatViewController = mainStoryboard.instantiateViewController()
+        return ouiChatViewController
+    }
+    
+    static func chatViewController() -> UIViewController {
+        let chatStoryboard = UIStoryboard(storyboard: .chat)
+        let chatViewController = chatStoryboard.instantiateInitialViewController() as! UINavigationController
+        return chatViewController
     }
     
 }

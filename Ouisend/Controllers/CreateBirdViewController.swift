@@ -255,11 +255,12 @@ class CreateBirdViewController: FormViewController {
     }
     
     func createBird(_ bird: Bird) {
-        FirebaseManager.shared.createBird(bird, success: {
+        
+        FirebaseManager.shared.createBird(bird, success: { (newBird) in
             print("Bird Registred successfully")
-            self.delegate?.didCreateBird(bird)
+            self.delegate?.didCreateBird(newBird)
             self.handleBirdCreationSucceed()
-            self.sendTopicNotification(for: bird)
+            self.sendTopicNotification(for: newBird)
         }) { (error) in
             print(error ?? "Error creating bird")
             self.activityIndicatorView.stopAnimating()
@@ -278,8 +279,7 @@ class CreateBirdViewController: FormViewController {
     
     func sendTopicNotification(for bird: Bird) {
         let topicIdentifier = self.topicIdentifier(citiesName: [bird.departureCity, bird.arrivalCity])
-        let message = "Bird de \(bird.birdWeight) Kg dispo pour \(bird.departureCity) - \(bird.arrivalCity)"
-        FirebaseManager.shared.createTopicNotification(message, topic: topicIdentifier)
+        FirebaseManager.shared.createTopicNotificationForBird(bird, topic: topicIdentifier)
     }
     
     func handleBirdCreationSucceed() {

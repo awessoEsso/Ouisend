@@ -25,17 +25,18 @@ class ProfileViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        guard let birder = Datas.shared.birder else {
-            
-            
-            return
-            
-        }
-        
+        guard let birder = Datas.shared.birder else { return  }
         birderNameLabel.text = birder.displayName
         birderEmailLabel.text = birder.email
-        
         birderProfilePicImageView.sd_setImage(with: birder.photoURL, completed: nil)
+        
+        
+        FirebaseManager.shared.userJoins(success: { (results) in
+            self.birdsNumberLabel.text = "\(results["birds"] ?? 0 )"
+            self.requestsNumberLabel.text = "\(results["requests"] ?? 0 )"
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error getting user Joins")
+        }
         
     }
     

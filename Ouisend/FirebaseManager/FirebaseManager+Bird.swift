@@ -18,7 +18,7 @@ extension FirebaseManager {
     ///   - user: the user to add to the database
     ///   - success: closure called when the user created with success
     ///   - failure: closure called when error happaned during the operation
-    func createBird(_ bird: Bird, success: (() -> Void)?, failure: ((Error?) -> Void)?) {
+    func createBird(_ bird: Bird, success: ((Bird) -> Void)?, failure: ((Error?) -> Void)?) {
         
         let birdReference = birdsReference.childByAutoId()
         
@@ -41,8 +41,9 @@ extension FirebaseManager {
         
         birdReference.setValue(newBird) { (error, reference) in
             if (error == nil) {
+                bird.identifier = reference.key!
                 self.createBirdJoinReference(reference.key!, success: {
-                    success?()
+                    success?(bird)
                 }, failure: { (joinError) in
                     failure?(joinError)
                 })

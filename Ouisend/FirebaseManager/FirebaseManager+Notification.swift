@@ -34,7 +34,26 @@ extension FirebaseManager {
             ] as [String: Any]
         reference.setValue(newNotification) { (error, ref) in
             if let error = error {
-                print(error.localizedDescription ?? "Error saving topic notification")
+                print(error.localizedDescription )
+            }
+        }
+    }
+    
+    func createTopicNotificationForBird(_ bird: Bird, topic: String) {
+        let reference = topicNotificationReference.childByAutoId()
+        let message = "Bird de \(bird.birdWeight) Kg dispo pour \(bird.departureCity) - \(bird.arrivalCity)"
+        let newNotification = [
+            "message": message,
+            "topic": topic,
+            "sent": false,
+            "birdId": bird.identifier,
+            "createdAt": ServerValue.timestamp(),
+            "updatedAt": ServerValue.timestamp(),
+            "attempts": 0
+            ] as [String: Any]
+        reference.setValue(newNotification) { (error, ref) in
+            if let error = error {
+                print(error.localizedDescription )
             }
         }
     }
@@ -45,6 +64,20 @@ extension FirebaseManager {
             "message": message,
             "to": token,
             "sent": false,
+            "createdAt": ServerValue.timestamp(),
+            "updatedAt": ServerValue.timestamp(),
+            "attempts": 0
+            ] as [String: Any]
+        reference.setValue(newNotification)
+    }
+    
+    func createMessageNotification(_  message: String, senderId: String, token: String) {
+        let reference = oneToOneNotificationReference.childByAutoId()
+        let newNotification = [
+            "message": message,
+            "to": token,
+            "sent": false,
+            "senderId": senderId,
             "createdAt": ServerValue.timestamp(),
             "updatedAt": ServerValue.timestamp(),
             "attempts": 0

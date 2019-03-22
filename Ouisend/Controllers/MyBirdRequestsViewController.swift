@@ -130,6 +130,18 @@ extension MyBirdRequestsViewController: UICollectionViewDelegate {
         
     }
     
+    func answerRequest(request: Request, accepted: Bool) {
+        if accepted {
+            FirebaseManager.shared.acceptRequest(request)
+        }
+        else {
+            FirebaseManager.shared.declineRequest(request)
+        }
+        let message = accepted ? "Votre demande a été acceptée" : "Votre demande a été refusée"
+        self.sendNotifToRequestCreator(message: message, creatorId: request.creator)
+        self.refreshBirdRequestsData(request)
+    }
+    
     func sendNotifToRequestCreator(message: String, creatorId: String) {
         FirebaseManager.shared.tokenForUser(with: creatorId, success: { (creatorToken) in
             FirebaseManager.shared.createOneToOneNotification(message, token: creatorToken)
@@ -141,30 +153,17 @@ extension MyBirdRequestsViewController: UICollectionViewDelegate {
     
     func showActionSheet() {
         
+        guard let selectedRequest = selectedRequest else { return }
+        
         let optionMenu = UIAlertController(title: nil, message: "Repondre", preferredStyle: .actionSheet)
         
         let declineAction = UIAlertAction(title: "Refuser", style: .destructive) { (action) in
-            // Change status to 2
-            if let selectedRequest = self.selectedRequest {
-                FirebaseManager.shared.declineRequest(with: selectedRequest.identifier)
-                let message = "Votre demande a été refusée"
-                self.sendNotifToRequestCreator(message: message, creatorId: selectedRequest.creator)
-                self.refreshBirdRequestsData(selectedRequest)
-            }
-            
+            self.answerRequest(request: selectedRequest, accepted: false)
         }
         let acceptAction = UIAlertAction(title: "Accepter", style: .default){ (action) in
-            // Change status to 3
-            if let selectedRequest = self.selectedRequest {
-                FirebaseManager.shared.acceptRequest(with: selectedRequest.identifier)
-                let message = "Votre demande a été acceptée"
-                self.sendNotifToRequestCreator(message: message, creatorId: selectedRequest.creator)
-                self.refreshBirdRequestsData(selectedRequest)
-            }
+           self.answerRequest(request: selectedRequest, accepted: true)
         }
-        let cancelAction = UIAlertAction(title: "Annuler", style: .cancel){ (action) in
-            // Do nothing
-        }
+        let cancelAction = UIAlertAction(title: "Annuler", style: .cancel)
         
         optionMenu.addAction(declineAction)
         optionMenu.addAction(acceptAction)

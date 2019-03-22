@@ -35,7 +35,7 @@ extension FirebaseManager {
         
         FirebaseManager.shared.tokenForUser(with: to, success: { (destinataireToken) in
             let message = "You received a message from: \(birder.displayName ?? "a birder")"
-            FirebaseManager.shared.createOneToOneNotification(message, token: destinataireToken)
+            FirebaseManager.shared.createMessageNotification(message, senderId: birder.identifier, token: destinataireToken)
         }) { (error) in
             print(error?.localizedDescription ?? "Error getting Request creator token")
         }

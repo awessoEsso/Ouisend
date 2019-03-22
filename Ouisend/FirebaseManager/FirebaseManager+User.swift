@@ -154,7 +154,30 @@ extension FirebaseManager {
             failure?(anError)
         }
     }
-
+    
+    
+    func userJoins(success: @escaping (([String: Int]) -> Void), failure: ((Error?) -> Void)?) {
+        if let currentUser = Auth.auth().currentUser {
+            let userId = currentUser.uid
+            var results = [String: Int]()
+            joinUsersReference.child(userId).observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: Any] {
+                    for(key, value) in dictionary {
+                        if let values = value as? [String:Double] {
+                            results[key] = values.count
+                        }
+                    }
+                    success(results)
+                } else {
+                    failure?(nil)
+                }
+            }
+        }
+        else {
+            let anError = NSError(domain: "No User logged In", code: 30001, userInfo: nil)
+            failure?(anError)
+        }
+    }
     
 
     func signoutUser() {
