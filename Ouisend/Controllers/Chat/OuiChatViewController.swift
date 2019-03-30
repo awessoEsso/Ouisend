@@ -32,10 +32,16 @@ final class OuiChatViewController: ChatViewController {
         
         channel = FirebaseManager.shared.channelForUsers(userIds: [birder.identifier, destinataireId])
         
+        resetUnreadForChannel(channel)
+        
         title = destinataireName
         
         loadMessages()
         
+    }
+    
+    func  resetUnreadForChannel(_ channel: String)  {
+        FirebaseManager.shared.resetUnreadForChannel(channel)
     }
     
 

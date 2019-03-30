@@ -40,6 +40,11 @@ class ProfileViewController: UITableViewController {
         
     }
     
+    
+    @IBAction func closeAction(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
 
 }

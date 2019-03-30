@@ -33,12 +33,26 @@ extension FirebaseManager {
         
         reference.setValue(newMessage)
         
+        incrementUnreadFor(to: to, channel: channel)
+        
         FirebaseManager.shared.tokenForUser(with: to, success: { (destinataireToken) in
             let message = "You received a message from: \(birder.displayName ?? "a birder")"
             FirebaseManager.shared.createMessageNotification(message, senderId: birder.identifier, token: destinataireToken)
         }) { (error) in
             print(error?.localizedDescription ?? "Error getting Request creator token")
         }
+    }
+    
+    private func incrementUnreadFor(to: String, channel: String) {
+        joinUsersReference.child(to).child("channels").child(channel).observeSingleEvent(of: .value) { (snapshot) in
+            let unread = snapshot.value as? Int ?? 0
+            self.joinUsersReference.child(to).child("channels").child(channel).setValue(unread + 1)
+        }
+    }
+    
+    func resetUnreadForChannel(_ channel: String) {
+        guard let birder = Datas.shared.birder else { return }
+        self.joinUsersReference.child(birder.identifier).child("channels").child(channel).setValue(0)
     }
     
     

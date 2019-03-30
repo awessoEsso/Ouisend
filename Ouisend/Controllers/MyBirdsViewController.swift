@@ -14,13 +14,6 @@ class MyBirdsViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     
-    var dateToUse: Date = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'"
-        let date = dateFormatter.date(from: "2019-02-20") ?? Date()
-        return date
-    }()
-    
     var myBirds: [Bird] = [Bird]()
     
     var birdSelected: Bird!
@@ -31,7 +24,6 @@ class MyBirdsViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        
         self.myBirdsCollectionView.refreshControl = refreshControl
         
         refreshControl.tintColor = ouiSendBlueColor
@@ -39,7 +31,7 @@ class MyBirdsViewController: UIViewController {
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
         
-        FirebaseManager.shared.myBirds({ (myBirds) in
+        FirebaseManager.shared.myBirdsObserveSingle(with: { (myBirds) in
             self.myBirds = myBirds
             self.myBirdsCollectionView.reloadData()
         }) { (error) in
@@ -126,7 +118,7 @@ extension MyBirdsViewController: UICollectionViewDataSource {
 extension MyBirdsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth:CGFloat = collectionView.frame.width
-        let cellHeight:CGFloat = 120
+        let cellHeight:CGFloat = 124
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }

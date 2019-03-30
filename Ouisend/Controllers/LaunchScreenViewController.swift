@@ -38,7 +38,7 @@ class LaunchScreenViewController: UIViewController {
         animationView.animationSpeed = 1.25
         animationView.play()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
             self.openMainViewController()
         })
     }

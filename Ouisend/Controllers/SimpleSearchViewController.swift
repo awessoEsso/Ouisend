@@ -12,24 +12,114 @@ class SimpleSearchViewController: UIViewController {
     
     
     @IBOutlet weak var badgeButtonItem: BadgeBarButtonItem!
-
+    
+    @IBOutlet weak var departureButton: UIButton!
+    
+    @IBOutlet weak var destinationButton: UIButton!
+    
+    
+    
+    var departureCity = ""
+    
+    var destinationCity = ""
+    
+    var departureSelected = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
-        badgeButtonItem.badgeNumber = 2
+        FirebaseManager.shared.myChannelsUnreadCount({ (unreadCount) in
+            self.badgeButtonItem.badgeNumber = unreadCount
+        }) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+        
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func departureAction(_ sender: UIButton) {
+        departureSelected = true
+        performSegue(withIdentifier: "selectCitySegueId", sender: nil)
     }
-    */
+    
+    
+    @IBAction func destinationAction(_ sender: UIButton) {
+        departureSelected = false
+        performSegue(withIdentifier: "selectCitySegueId", sender: nil)
+    }
+    
+    func getSearchCase() -> SearchCase {
+        if departureCity.isEmpty && destinationCity.isEmpty {
+            //self.title = "Toutes les publications"
+            return .any
+        }
+        else if destinationCity.isEmpty == true && departureCity.isEmpty == false {
+            //Filter on Departure
+            return .onlyDeparture
+        }
+        else if departureCity.isEmpty && destinationCity.isEmpty == false {
+            //Filter on Destination
+            return .onlyDestination
+        }
+        else {
+            return .all
+        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        switch destination {
+            
+        case is UINavigationController:
+            let navigationController = destination as! UINavigationController
+            if let searchCityViewController = navigationController.viewControllers.first as? SearchCityViewController {
+                searchCityViewController.delegate = self
+                searchCityViewController.seachForDeparture = departureSelected
+            }
+            
+        case is SearchResultsViewController:
+            let searchResultsViewController = destination as! SearchResultsViewController
+            searchResultsViewController.departureCity = departureCity
+            searchResultsViewController.destinationCity = destinationCity
+            searchResultsViewController.searchCase = getSearchCase()
+            
+            
+        default:
+            print("Unknown Segue")
+        }
+    }
+    
+}
 
+
+extension SimpleSearchViewController: SearchCityViewControllerDelegate {
+    func didSelect(city: City, for departure: Bool) {
+        let title = "\(city.name ?? "") - \(city.countryName ?? "")"
+        if departure == true {
+            departureCity = city.name ?? ""
+            departureButton.setTitle(title, for: .normal)
+        }
+        else {
+            destinationCity = city.name ?? ""
+            destinationButton.setTitle(title, for: .normal)
+        }
+    }
+    
+}
+
+enum SearchCase {
+    case onlyDeparture
+    case onlyDestination
+    case any
+    case all
 }

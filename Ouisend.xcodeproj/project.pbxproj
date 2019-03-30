@@ -26,6 +26,9 @@
 		671852742222CE860044CE1E /* FirebaseManager+Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671852732222CE860044CE1E /* FirebaseManager+Bird.swift */; };
 		672AC49D222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AC49C222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift */; };
 		672AC49F222AD12D001F3B87 /* FrenchDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AC49E222AD12D001F3B87 /* FrenchDateFormatter.swift */; };
+		673A94EF224F0AC10036A94A /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94EE224F0AC10036A94A /* Channel.swift */; };
+		673A94F1224F12BC0036A94A /* FirebaseManager+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */; };
+		673A94F3224F21770036A94A /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */; };
 		6747582F224358CB00161A6C /* PresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747582E224358CB00161A6C /* PresenterController.swift */; };
 		6747583122435C0500161A6C /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6747583022435C0500161A6C /* Chat.storyboard */; };
 		674A9B03222D2FC3004B1372 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A9B02222D2FC3004B1372 /* LaunchScreenViewController.swift */; };
@@ -63,6 +66,8 @@
 		67EEE0E422306B2D00529AC5 /* SearchBirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEE0E322306B2D00529AC5 /* SearchBirdViewController.swift */; };
 		67F2A6C322456B5A00F58067 /* SimpleSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F2A6C222456B5A00F58067 /* SimpleSearchViewController.swift */; };
 		67F2A6C622456D9F00F58067 /* BadgeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F2A6C522456D9F00F58067 /* BadgeBarButtonItem.swift */; };
+		67F2A6C822458EFE00F58067 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F2A6C722458EFE00F58067 /* SearchResultsViewController.swift */; };
+		67F2A6CA2246DEAA00F58067 /* DiscussionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F2A6C92246DEAA00F58067 /* DiscussionsViewController.swift */; };
 		67F7B7D6221FFF790006BD08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7D5221FFF790006BD08 /* AppDelegate.swift */; };
 		67F7B7D8221FFF790006BD08 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7B7D7221FFF790006BD08 /* HomeViewController.swift */; };
 		67F7B7DB221FFF790006BD08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F7B7D9221FFF790006BD08 /* Main.storyboard */; };
@@ -95,6 +100,9 @@
 		671852732222CE860044CE1E /* FirebaseManager+Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Bird.swift"; sourceTree = "<group>"; };
 		672AC49C222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBirdCollectionViewCell.swift; sourceTree = "<group>"; };
 		672AC49E222AD12D001F3B87 /* FrenchDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchDateFormatter.swift; sourceTree = "<group>"; };
+		673A94EE224F0AC10036A94A /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Channel.swift"; sourceTree = "<group>"; };
+		673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
 		6747582E224358CB00161A6C /* PresenterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterController.swift; sourceTree = "<group>"; };
 		6747583022435C0500161A6C /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		674A9B00222D2F62004B1372 /* FakeLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FakeLaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -133,6 +141,8 @@
 		67EEE0E322306B2D00529AC5 /* SearchBirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBirdViewController.swift; sourceTree = "<group>"; };
 		67F2A6C222456B5A00F58067 /* SimpleSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchViewController.swift; sourceTree = "<group>"; };
 		67F2A6C522456D9F00F58067 /* BadgeBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeBarButtonItem.swift; sourceTree = "<group>"; };
+		67F2A6C722458EFE00F58067 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		67F2A6C92246DEAA00F58067 /* DiscussionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionsViewController.swift; sourceTree = "<group>"; };
 		67F7B7D2221FFF790006BD08 /* Ouisend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ouisend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F7B7D5221FFF790006BD08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F7B7D7221FFF790006BD08 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +191,7 @@
 				67EEE0E122305A3A00529AC5 /* FirebaseManager+Notification.swift */,
 				679A65F12233DEC6003202B4 /* FirebaseManager+Topic.swift */,
 				67507E9C223CFA3500CAB468 /* FirebaseManager+Message.swift */,
+				673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */,
 			);
 			path = FirebaseManager;
 			sourceTree = "<group>";
@@ -203,6 +214,7 @@
 				6776A10E222BA8940008870F /* Request.swift */,
 				679A65EF2233CE30003202B4 /* Topic.swift */,
 				67507E8F223CEAE900CAB468 /* OuiMessage.swift */,
+				673A94EE224F0AC10036A94A /* Channel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -233,6 +245,7 @@
 				670E6205222F6E9E004EF5C5 /* ProfileViewController.swift */,
 				67EEE0DD22302B5F00529AC5 /* NotificationsViewController.swift */,
 				67F2A6C222456B5A00F58067 /* SimpleSearchViewController.swift */,
+				67F2A6C722458EFE00F58067 /* SearchResultsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -245,6 +258,7 @@
 				6776A114222BFFC60008870F /* MyRequestCollectionViewCell.swift */,
 				6776A118222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift */,
 				679A65F322351647003202B4 /* AcceptedRequestCollectionViewCell.swift */,
+				673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -281,6 +295,7 @@
 			children = (
 				67507E8B223CE86200CAB468 /* OuiChatViewController.swift */,
 				67507E8D223CE91800CAB468 /* ChatViewController.swift */,
+				67F2A6C92246DEAA00F58067 /* DiscussionsViewController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -567,12 +582,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				673A94F1224F12BC0036A94A /* FirebaseManager+Channel.swift in Sources */,
 				6718526E2222A6E60044CE1E /* FirebaseManager+Country.swift in Sources */,
 				6718526C2222A6AD0044CE1E /* Country.swift in Sources */,
 				6718524C222083F60044CE1E /* LoginViewController.swift in Sources */,
 				671852702222A8A90044CE1E /* Datas.swift in Sources */,
 				67F7B7D8221FFF790006BD08 /* HomeViewController.swift in Sources */,
 				672AC49F222AD12D001F3B87 /* FrenchDateFormatter.swift in Sources */,
+				67F2A6C822458EFE00F58067 /* SearchResultsViewController.swift in Sources */,
 				674A9B03222D2FC3004B1372 /* LaunchScreenViewController.swift in Sources */,
 				67185264222100910044CE1E /* OuisendStoryboard.swift in Sources */,
 				6776A111222BBE800008870F /* FirebaseManager+Request.swift in Sources */,
@@ -598,6 +615,7 @@
 				6776A117222CC1310008870F /* MyBirdRequestsViewController.swift in Sources */,
 				6776A10F222BA8940008870F /* Request.swift in Sources */,
 				67F7B7D6221FFF790006BD08 /* AppDelegate.swift in Sources */,
+				673A94F3224F21770036A94A /* DiscussionTableViewCell.swift in Sources */,
 				67EEE0E222305A3A00529AC5 /* FirebaseManager+Notification.swift in Sources */,
 				679A65EC2233CD39003202B4 /* AlertsViewController.swift in Sources */,
 				678BF884223E810E004DC0F1 /* SearchCityViewController.swift in Sources */,
@@ -610,7 +628,9 @@
 				67EEE0E422306B2D00529AC5 /* SearchBirdViewController.swift in Sources */,
 				671852742222CE860044CE1E /* FirebaseManager+Bird.swift in Sources */,
 				679A65EA2233CD26003202B4 /* NewAlertViewController.swift in Sources */,
+				67F2A6CA2246DEAA00F58067 /* DiscussionsViewController.swift in Sources */,
 				679A65F02233CE30003202B4 /* Topic.swift in Sources */,
+				673A94EF224F0AC10036A94A /* Channel.swift in Sources */,
 				67507E9B223CEBB400CAB468 /* UserDefaults+Settings.swift in Sources */,
 				67FA4CEE2222FDF200A52B8C /* MyBirdsViewController.swift in Sources */,
 				67507E8E223CE91800CAB468 /* ChatViewController.swift in Sources */,

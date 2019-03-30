@@ -28,6 +28,7 @@ extension FirebaseManager {
             "departureDate": bird.departureDate.timeIntervalSince1970 * 1000 ,
             "arrivalCity": bird.arrivalCity,
             "arrivalCountry": bird.arrivalCountry,
+            "departureCity_arrivalCity": "\(bird.departureCity)_\(bird.arrivalCity)",
             "arrivalDate": bird.arrivalDate.timeIntervalSince1970 * 1000 ,
             "birdWeight": bird.birdWeight,
             "birdTotalPrice": bird.birdTotalPrice,
@@ -150,6 +151,106 @@ extension FirebaseManager {
     
     func birdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
         birdsReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
+                }
+                var birds = [Bird]()
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let bird = Bird(identifier: key, dictionary: dict)
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
+                    }
+                }
+                birds.sort(by: { (bird1, bird2) -> Bool in
+                    return bird1.departureDate < bird2.departureDate
+                })
+                success(birds)
+            }
+            else {
+                // Return empty list
+                success([Bird]())
+            }
+        })
+    }
+    
+    
+    func birdsObserveSingleWithDepartureAndDestination(departureCity: String, destinationCity: String, success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        let queryValue = "\(departureCity)_\(destinationCity)"
+        let query = birdsReference.queryOrdered(byChild: "departureCity_arrivalCity").queryEqual(toValue: queryValue)
+        
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
+                }
+                var birds = [Bird]()
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let bird = Bird(identifier: key, dictionary: dict)
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
+                    }
+                }
+                birds.sort(by: { (bird1, bird2) -> Bool in
+                    return bird1.departureDate < bird2.departureDate
+                })
+                success(birds)
+            }
+            else {
+                // Return empty list
+                success([Bird]())
+            }
+        })
+    }
+    
+    func birdsObserveSingleWithDeparture(departureCity: String, success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+
+        let query = birdsReference.queryOrdered(byChild: "departureCity").queryEqual(toValue: departureCity)
+        
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                guard let dictionary = snapshot.value as? [String: Any] else {
+                    let anError = NSError(domain: "error occured: can't retreive birds", code: 30001, userInfo: nil)
+                    failure?(anError)
+                    return
+                }
+                var birds = [Bird]()
+                for (key, item) in dictionary {
+                    if let dict = item as? [String: Any] {
+                        let bird = Bird(identifier: key, dictionary: dict)
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
+                    }
+                }
+                birds.sort(by: { (bird1, bird2) -> Bool in
+                    return bird1.departureDate < bird2.departureDate
+                })
+                success(birds)
+            }
+            else {
+                // Return empty list
+                success([Bird]())
+            }
+        })
+    }
+    
+    func birdsObserveSingleWithDestination(destinationCity: String, success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        let query = birdsReference.queryOrdered(byChild: "arrivalCity").queryEqual(toValue: destinationCity)
+        
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
             
             if snapshot.childrenCount > 0 {
                 guard let dictionary = snapshot.value as? [String: Any] else {
