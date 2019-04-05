@@ -58,6 +58,7 @@
 		679A65F02233CE30003202B4 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A65EF2233CE30003202B4 /* Topic.swift */; };
 		679A65F22233DEC6003202B4 /* FirebaseManager+Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A65F12233DEC6003202B4 /* FirebaseManager+Topic.swift */; };
 		679A65F422351647003202B4 /* AcceptedRequestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A65F322351647003202B4 /* AcceptedRequestCollectionViewCell.swift */; };
+		67E8F8D222570A74002E225B /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E8F8D122570A74002E225B /* Onboarding.storyboard */; };
 		67EEE0D82230215E00529AC5 /* FirebaseManager+Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEE0D72230215E00529AC5 /* FirebaseManager+Token.swift */; };
 		67EEE0DA2230242000529AC5 /* AppDelegate+MessagingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEE0D92230242000529AC5 /* AppDelegate+MessagingDelegate.swift */; };
 		67EEE0DC2230246F00529AC5 /* AppDelegate+UNUserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEE0DB2230246F00529AC5 /* AppDelegate+UNUserNotification.swift */; };
@@ -134,6 +135,7 @@
 		679A65F12233DEC6003202B4 /* FirebaseManager+Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Topic.swift"; sourceTree = "<group>"; };
 		679A65F322351647003202B4 /* AcceptedRequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedRequestCollectionViewCell.swift; sourceTree = "<group>"; };
 		67BD4E86222D88C300C1B3C7 /* Ouisend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ouisend.entitlements; sourceTree = "<group>"; };
+		67E8F8D122570A74002E225B /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		67EEE0D72230215E00529AC5 /* FirebaseManager+Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Token.swift"; sourceTree = "<group>"; };
 		67EEE0D92230242000529AC5 /* AppDelegate+MessagingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+MessagingDelegate.swift"; sourceTree = "<group>"; };
 		67EEE0DB2230246F00529AC5 /* AppDelegate+UNUserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+UNUserNotification.swift"; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				679A65E62232E230003202B4 /* Notifications.storyboard */,
 				678BF881223E7FA5004DC0F1 /* Search.storyboard */,
 				6747583022435C0500161A6C /* Chat.storyboard */,
+				67E8F8D122570A74002E225B /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				674A9B05222D300B004B1372 /* ouisendLoading.json in Resources */,
 				679A65E72232E230003202B4 /* Notifications.storyboard in Resources */,
 				671852582220F90B0044CE1E /* Podfile in Resources */,
+				67E8F8D222570A74002E225B /* Onboarding.storyboard in Resources */,
 				67F7B7E0221FFF7A0006BD08 /* LaunchScreen.storyboard in Resources */,
 				67F7B7DD221FFF7A0006BD08 /* Assets.xcassets in Resources */,
 				674A9B06222D31E4004B1372 /* FakeLaunchScreen.storyboard in Resources */,
