@@ -97,7 +97,6 @@ extension MyBirdRequestsViewController: UICollectionViewDataSource {
         let birdRequest = birdRequests[indexPath.item]
         let status = birdRequest.status.rawValue
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyBirdRequestsCollectionViewCellId", for: indexPath) as! MyBirdRequestsCollectionViewCell
-        //cell.delegate = self
         cell.sentSinceTimeLabel.text = "Envoyée \(birdRequest.createdAt.toStringWithRelativeTime(strings: relativeTimeDict))"
         cell.questerProfilePicImageView.sd_setImage(with: birdRequest.questerProfilePicUrl, completed: nil)
         cell.requestWeightLabel.text = "\(birdRequest.weight) kg"

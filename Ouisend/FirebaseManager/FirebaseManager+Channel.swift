@@ -65,7 +65,8 @@ extension FirebaseManager {
         }
         let userIdentifier = currentUser.uid
         var unreadCount = 0
-        joinUsersReference.child(userIdentifier).child("channels").queryOrderedByValue().observe(.value, with: { (snapshot) in
+        joinUsersReference.child(userIdentifier).child("channels").observe(.value, with: { (snapshot) in
+            unreadCount = 0
             if snapshot.childrenCount > 0 {
                 let dictionary = snapshot.value as? [String: Any]
                 // for each identifier we get the channel noeud

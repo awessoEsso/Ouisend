@@ -286,7 +286,8 @@ class CreateBirdViewController: FormViewController {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
+            self.tabBarController?.selectedIndex = 0
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Bird a été créé avec succès")
         activityIndicatorView.stopAnimating()

@@ -29,6 +29,9 @@
 		673A94EF224F0AC10036A94A /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94EE224F0AC10036A94A /* Channel.swift */; };
 		673A94F1224F12BC0036A94A /* FirebaseManager+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */; };
 		673A94F3224F21770036A94A /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */; };
+		673A94F62250448D0036A94A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F52250448D0036A94A /* OnboardingViewController.swift */; };
+		673A94F8225044EF0036A94A /* OnBoardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F7225044EF0036A94A /* OnBoardingCollectionViewCell.swift */; };
+		673A94FC225049A20036A94A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673A94FB225049A20036A94A /* Onboarding.storyboard */; };
 		6747582F224358CB00161A6C /* PresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747582E224358CB00161A6C /* PresenterController.swift */; };
 		6747583122435C0500161A6C /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6747583022435C0500161A6C /* Chat.storyboard */; };
 		674A9B03222D2FC3004B1372 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A9B02222D2FC3004B1372 /* LaunchScreenViewController.swift */; };
@@ -50,7 +53,6 @@
 		6776A119222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6776A118222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift */; };
 		678BF882223E7FA5004DC0F1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 678BF881223E7FA5004DC0F1 /* Search.storyboard */; };
 		678BF884223E810E004DC0F1 /* SearchCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BF883223E810E004DC0F1 /* SearchCityViewController.swift */; };
-		679A65E52232C4CB003202B4 /* OnBoarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 679A65E42232C4CB003202B4 /* OnBoarding.storyboard */; };
 		679A65E72232E230003202B4 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 679A65E62232E230003202B4 /* Notifications.storyboard */; };
 		679A65EA2233CD26003202B4 /* NewAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A65E92233CD26003202B4 /* NewAlertViewController.swift */; };
 		679A65EC2233CD39003202B4 /* AlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A65EB2233CD39003202B4 /* AlertsViewController.swift */; };
@@ -103,6 +105,9 @@
 		673A94EE224F0AC10036A94A /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Channel.swift"; sourceTree = "<group>"; };
 		673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
+		673A94F52250448D0036A94A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		673A94F7225044EF0036A94A /* OnBoardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnBoardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		673A94FB225049A20036A94A /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		6747582E224358CB00161A6C /* PresenterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterController.swift; sourceTree = "<group>"; };
 		6747583022435C0500161A6C /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		674A9B00222D2F62004B1372 /* FakeLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FakeLaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -124,7 +129,6 @@
 		6776A118222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBirdRequestsCollectionViewCell.swift; sourceTree = "<group>"; };
 		678BF881223E7FA5004DC0F1 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		678BF883223E810E004DC0F1 /* SearchCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityViewController.swift; sourceTree = "<group>"; };
-		679A65E42232C4CB003202B4 /* OnBoarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnBoarding.storyboard; sourceTree = "<group>"; };
 		679A65E62232E230003202B4 /* Notifications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
 		679A65E92233CD26003202B4 /* NewAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlertViewController.swift; sourceTree = "<group>"; };
 		679A65EB2233CD39003202B4 /* AlertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 		671852532220F6BB0044CE1E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				673A94F4225044740036A94A /* Onboarding */,
 				678BF880223E7F8E004DC0F1 /* Search */,
 				67507E8A223CE52900CAB468 /* Chat */,
 				679A65E82233CCE7003202B4 /* Notifications */,
@@ -253,6 +258,7 @@
 		671852542220F7390044CE1E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				673A94F7225044EF0036A94A /* OnBoardingCollectionViewCell.swift */,
 				67F7B7E722200C1A0006BD08 /* BirdCollectionViewCell.swift */,
 				672AC49C222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift */,
 				6776A114222BFFC60008870F /* MyRequestCollectionViewCell.swift */,
@@ -282,12 +288,20 @@
 				67F7B7DE221FFF7A0006BD08 /* LaunchScreen.storyboard */,
 				6718525F2220FF290044CE1E /* Login.storyboard */,
 				674A9B00222D2F62004B1372 /* FakeLaunchScreen.storyboard */,
-				679A65E42232C4CB003202B4 /* OnBoarding.storyboard */,
 				679A65E62232E230003202B4 /* Notifications.storyboard */,
 				678BF881223E7FA5004DC0F1 /* Search.storyboard */,
 				6747583022435C0500161A6C /* Chat.storyboard */,
+				673A94FB225049A20036A94A /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		673A94F4225044740036A94A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				673A94F52250448D0036A94A /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		67507E8A223CE52900CAB468 /* Chat */ = {
@@ -455,6 +469,7 @@
 				674A9B05222D300B004B1372 /* ouisendLoading.json in Resources */,
 				679A65E72232E230003202B4 /* Notifications.storyboard in Resources */,
 				671852582220F90B0044CE1E /* Podfile in Resources */,
+				673A94FC225049A20036A94A /* Onboarding.storyboard in Resources */,
 				67F7B7E0221FFF7A0006BD08 /* LaunchScreen.storyboard in Resources */,
 				67F7B7DD221FFF7A0006BD08 /* Assets.xcassets in Resources */,
 				674A9B06222D31E4004B1372 /* FakeLaunchScreen.storyboard in Resources */,
@@ -463,7 +478,6 @@
 				678BF882223E7FA5004DC0F1 /* Search.storyboard in Resources */,
 				6718524E2220A7B30044CE1E /* GoogleService-Info.plist in Resources */,
 				67F7B7DB221FFF790006BD08 /* Main.storyboard in Resources */,
-				679A65E52232C4CB003202B4 /* OnBoarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +609,7 @@
 				6776A111222BBE800008870F /* FirebaseManager+Request.swift in Sources */,
 				6718525E2220FD1C0044CE1E /* Birder.swift in Sources */,
 				67F2A6C622456D9F00F58067 /* BadgeBarButtonItem.swift in Sources */,
+				673A94F62250448D0036A94A /* OnboardingViewController.swift in Sources */,
 				6776A115222BFFC60008870F /* MyRequestCollectionViewCell.swift in Sources */,
 				672AC49D222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift in Sources */,
 				6718525A2220F9A20044CE1E /* FirebaseManager.swift in Sources */,
@@ -622,6 +637,7 @@
 				6776A113222BCC710008870F /* MyRequestsViewController.swift in Sources */,
 				67EEE0DC2230246F00529AC5 /* AppDelegate+UNUserNotification.swift in Sources */,
 				67507E98223CEB8A00CAB468 /* Lorem.swift in Sources */,
+				673A94F8225044EF0036A94A /* OnBoardingCollectionViewCell.swift in Sources */,
 				67F7B7E822200C1A0006BD08 /* BirdCollectionViewCell.swift in Sources */,
 				67EEE0D82230215E00529AC5 /* FirebaseManager+Token.swift in Sources */,
 				6776A119222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift in Sources */,
