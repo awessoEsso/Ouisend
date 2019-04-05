@@ -31,7 +31,6 @@
 		673A94F3224F21770036A94A /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */; };
 		673A94F62250448D0036A94A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F52250448D0036A94A /* OnboardingViewController.swift */; };
 		673A94F8225044EF0036A94A /* OnBoardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F7225044EF0036A94A /* OnBoardingCollectionViewCell.swift */; };
-		673A94FC225049A20036A94A /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673A94FB225049A20036A94A /* Onboarding.storyboard */; };
 		6747582F224358CB00161A6C /* PresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747582E224358CB00161A6C /* PresenterController.swift */; };
 		6747583122435C0500161A6C /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6747583022435C0500161A6C /* Chat.storyboard */; };
 		674A9B03222D2FC3004B1372 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A9B02222D2FC3004B1372 /* LaunchScreenViewController.swift */; };
@@ -107,7 +106,6 @@
 		673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
 		673A94F52250448D0036A94A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		673A94F7225044EF0036A94A /* OnBoardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnBoardingCollectionViewCell.swift; sourceTree = "<group>"; };
-		673A94FB225049A20036A94A /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		6747582E224358CB00161A6C /* PresenterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterController.swift; sourceTree = "<group>"; };
 		6747583022435C0500161A6C /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		674A9B00222D2F62004B1372 /* FakeLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FakeLaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -291,7 +289,6 @@
 				679A65E62232E230003202B4 /* Notifications.storyboard */,
 				678BF881223E7FA5004DC0F1 /* Search.storyboard */,
 				6747583022435C0500161A6C /* Chat.storyboard */,
-				673A94FB225049A20036A94A /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -469,7 +466,6 @@
 				674A9B05222D300B004B1372 /* ouisendLoading.json in Resources */,
 				679A65E72232E230003202B4 /* Notifications.storyboard in Resources */,
 				671852582220F90B0044CE1E /* Podfile in Resources */,
-				673A94FC225049A20036A94A /* Onboarding.storyboard in Resources */,
 				67F7B7E0221FFF7A0006BD08 /* LaunchScreen.storyboard in Resources */,
 				67F7B7DD221FFF7A0006BD08 /* Assets.xcassets in Resources */,
 				674A9B06222D31E4004B1372 /* FakeLaunchScreen.storyboard in Resources */,
