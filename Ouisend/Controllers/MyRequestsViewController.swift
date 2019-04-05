@@ -116,7 +116,6 @@ extension MyRequestsViewController: UICollectionViewDataSource {
         cell.departureDateLabel.text = FrenchDateFormatter.formatDate(myRequest.departureDate)
         cell.birderProfilePicImageView.sd_setImage(with: myRequest.birderProfilePicUrl, completed: nil)
         cell.birdStatusDescriptionLabel.text = requestStatusDescriptions[3]
-        cell.backgroundColor = requestColors[3]
         cell.birdStatusImageView.image = requestIconViews[3]
         
         return cell

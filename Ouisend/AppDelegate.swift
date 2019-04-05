@@ -43,11 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.isFirstLaunch() {
             // Enable Text Messages
             UserDefaults.standard.set(true, forKey: "Text Messages")
+            showOnBoarding(window: window)
         }
-        
-        
-        setRootViewControllerIfNotLoggedIn()
+        else {
+            setRootViewControllerIfNotLoggedIn()
+        }
         return true
+    }
+    
+    func showOnBoarding(window: UIWindow?) {
+        let onBoardingController = UIStoryboard.onBoardingViewController()
+        window?.rootViewController = onBoardingController
+        window?.makeKeyAndVisible()
     }
     
     func setRootViewControllerIfNotLoggedIn() {
