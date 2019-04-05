@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class ProfileViewController: UITableViewController {
     
@@ -24,26 +23,13 @@ class ProfileViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        if let birder = Datas.shared.birder {
-            setupDatasWithBirder(birder)
-        }
-        else {
-            if let currentUser = Auth.auth().currentUser {
-                FirebaseManager.shared.user(with: currentUser.uid, success: { (birder) in
-                    self.setupDatasWithBirder(birder)
-                }) { (error) in
-                    print(error?.localizedDescription ?? "")
-                }
-            }
-        }
-    }
-    
-    func setupDatasWithBirder(_ birder: Birder) {
+        guard let birder = Datas.shared.birder else { return  }
         birderNameLabel.text = birder.displayName
         birderEmailLabel.text = birder.email
         birderProfilePicImageView.sd_setImage(with: birder.photoURL, completed: nil)
+        
         
         FirebaseManager.shared.userJoins(success: { (results) in
             self.birdsNumberLabel.text = "\(results["birds"] ?? 0 )"
@@ -51,6 +37,7 @@ class ProfileViewController: UITableViewController {
         }) { (error) in
             print(error?.localizedDescription ?? "Error getting user Joins")
         }
+        
     }
     
     
@@ -58,6 +45,6 @@ class ProfileViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    
+
+
 }

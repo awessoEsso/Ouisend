@@ -27,7 +27,7 @@ extension UserDefaults {
     }
     
     static func isFirstLaunch() -> Bool {
-        let hasBeenLaunchedBeforeFlag = "hasBeenLaunchedBefore"
+        let hasBeenLaunchedBeforeFlag = "hasBeenLaunchedBeforeFlag"
         let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasBeenLaunchedBeforeFlag)
         if isFirstLaunch {
             UserDefaults.standard.set(true, forKey: hasBeenLaunchedBeforeFlag)

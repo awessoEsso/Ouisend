@@ -26,7 +26,6 @@ extension UIStoryboard {
         case main
         case login
         case chat
-        case onBoarding
         
         var filename: String {
             return rawValue.capitalized
@@ -84,12 +83,6 @@ extension UIStoryboard {
         let chatStoryboard = UIStoryboard(storyboard: .chat)
         let chatViewController = chatStoryboard.instantiateInitialViewController() as! UINavigationController
         return chatViewController
-    }
-    
-    static func onBoardingViewController() -> OnboardingViewController {
-        let onBoardingStoryboard = UIStoryboard(storyboard: .onBoarding)
-        let onBoardingViewController: OnboardingViewController = onBoardingStoryboard.instantiateViewController()
-        return onBoardingViewController
     }
     
 }
