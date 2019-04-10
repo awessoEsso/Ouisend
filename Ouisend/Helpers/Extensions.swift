@@ -69,3 +69,10 @@ import UIKit
         }
     }
 }
+
+
+extension UIColor {
+    struct Blue {
+        static let ouiSendBlueColor = UIColor(red: 16/255, green: 82/255, blue: 150/255, alpha: 1)
+    }
+}

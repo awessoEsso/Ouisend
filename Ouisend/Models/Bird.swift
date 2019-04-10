@@ -60,7 +60,7 @@ class Bird {
         self.departureDate = dictionnary["cb_date_depart"] as? Date ?? Date()
         self.arrivalCity = dictionnary["cb_ville_arrivee"] as? String ?? ""
         self.arrivalCountry = dictionnary["cb_pays_arrivee"] as? String ?? ""
-         self.arrivalDate = dictionnary["cb_date_arrivee"] as? Date ?? Date()
+        self.arrivalDate = dictionnary["cb_date_arrivee"] as? Date ?? Date()
         self.birdWeight = dictionnary["cb_bird_weight"] as? Int ?? 0
         self.birdTotalPrice = dictionnary["cb_bird_total_price"] as? Int ?? 0
         self.birdPricePerKilo = dictionnary["cb_bird_price_per_k"] as? Int ?? 0
@@ -75,7 +75,7 @@ class Bird {
         self.identifier = anIdentifier
         
         self.birdTravelerName = dictionary["birderName"] as? String ?? ""
-
+        
         self.birderProfilePicUrl = URL(string: (dictionary["birderProfilePicUrl"] as? String ?? "http://google.com"))!
         
         self.departureCity = dictionary["departureCity"] as? String ?? ""
@@ -85,7 +85,7 @@ class Bird {
         let arrivalDateTimestamp = dictionary["arrivalDate"] as? TimeInterval ?? 0
         
         self.departureDate = Date(timeIntervalSince1970: departureDateTimestamp / 1000)
-
+        
         self.arrivalCity = dictionary["arrivalCity"] as? String ?? ""
         self.arrivalCountry = dictionary["arrivalCountry"] as? String ?? ""
         self.arrivalDate = Date(timeIntervalSince1970: arrivalDateTimestamp / 1000)

@@ -107,7 +107,7 @@ extension OuiChatViewController: MessagesDisplayDelegate {
     // MARK: - All Messages
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? ouiSendBlueColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        return isFromCurrentSender(message: message) ? UIColor.Blue.ouiSendBlueColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
@@ -166,7 +166,7 @@ extension OuiChatViewController: MessagesDisplayDelegate {
                 avatarView.set(avatar: avatar)
                 avatarView.isHidden = self.isNextMessageSameSender(at: indexPath)
                 avatarView.layer.borderWidth = 2
-                avatarView.layer.borderColor = ouiSendBlueColor.cgColor
+                avatarView.layer.borderColor = UIColor.Blue.ouiSendBlueColor.cgColor
             }
         }
     }

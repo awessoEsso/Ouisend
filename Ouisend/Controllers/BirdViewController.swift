@@ -49,7 +49,7 @@ class BirdViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.orbit, color: ouiSendBlueColor, padding: 20)
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
         
         view.addSubview(activityIndicatorView)
         
@@ -204,7 +204,7 @@ class BirdViewController: UIViewController {
     func handleRequestCreationSucceed() {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
+        alertView.addButton("Fermer", backgroundColor: UIColor.Blue.ouiSendBlueColor, textColor: .white) {
             self.navigationController?.popViewController(animated: true)
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Demande a été envoyée avec succès")
@@ -221,7 +221,7 @@ extension BirdViewController: UITextViewDelegate {
         if (textView.text == "Précisez le contenu de votre colis")
         {
             textView.text = ""
-            textView.textColor = ouiSendBlueColor
+            textView.textColor = UIColor.Blue.ouiSendBlueColor
         }
         textView.becomeFirstResponder() //Optional
     }

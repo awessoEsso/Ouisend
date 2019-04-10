@@ -30,7 +30,7 @@ class NewAlertViewController: FormViewController {
 
         // Do any additional setup after loading the view.
         
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: .orbit, color: ouiSendBlueColor, padding: 20)
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: .orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
         
         
         view.addSubview(activityIndicatorView)
@@ -188,7 +188,7 @@ class NewAlertViewController: FormViewController {
     func handleTopicCreationSucceed() {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
+        alertView.addButton("Fermer", backgroundColor: UIColor.Blue.ouiSendBlueColor, textColor: .white) {
             self.dismiss(animated: true, completion: nil)
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Topic a été créé avec succès")

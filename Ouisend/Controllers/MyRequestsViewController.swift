@@ -25,7 +25,7 @@ class MyRequestsViewController: UIViewController {
         
         self.requestsCollectionView.refreshControl = refreshControl
         
-        refreshControl.tintColor = ouiSendBlueColor
+        refreshControl.tintColor = UIColor.Blue.ouiSendBlueColor
         
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshRequestsData(_:)), for: .valueChanged)

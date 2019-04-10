@@ -33,7 +33,7 @@ class MyBirdRequestsViewController: UIViewController {
         
         self.myBirdRequestsCollectionView.refreshControl = refreshControl
         
-        refreshControl.tintColor = ouiSendBlueColor
+        refreshControl.tintColor = UIColor.Blue.ouiSendBlueColor
         
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdRequestsData(_:)), for: .valueChanged)

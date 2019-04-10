@@ -22,8 +22,7 @@ class LaunchScreenViewController: UIViewController {
         
         self.loadLottieAnimation()
         
-        //view.backgroundColor = UIColor(red: 52/255, green: 144/255, blue: 220/255, alpha: 1)
-        view.backgroundColor = ouiSendBlueColor
+        view.backgroundColor = UIColor.Blue.ouiSendBlueColor
     }
     
     func loadLottieAnimation() {

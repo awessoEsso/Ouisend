@@ -36,7 +36,7 @@ class SearchResultsViewController: UIViewController {
         
         setTitle()
 
-        refreshControl.tintColor = ouiSendBlueColor
+        refreshControl.tintColor = UIColor.Blue.ouiSendBlueColor
 
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
