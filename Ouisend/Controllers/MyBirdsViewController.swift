@@ -71,6 +71,10 @@ class MyBirdsViewController: UIViewController {
             let createBirdViewController = destination as! CreateBirdViewController
             createBirdViewController.delegate = self
             
+        case is CreatorBirdViewController:
+            let creatorBirdViewController = destination as! CreatorBirdViewController
+            creatorBirdViewController.bird = birdSelected
+            
         case is MyBirdRequestsViewController:
             let myBirdRequestsViewController = destination as! MyBirdRequestsViewController
             myBirdRequestsViewController.bird = self.birdSelected
@@ -87,7 +91,7 @@ extension MyBirdsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.birdSelected = myBirds[indexPath.item]
-        performSegue(withIdentifier: "showMyBirdRequestsId", sender: nil)
+        performSegue(withIdentifier: "showCreatorBirdSegueId", sender: nil)
     }
     
 }

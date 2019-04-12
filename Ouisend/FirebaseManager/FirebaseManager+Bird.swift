@@ -55,11 +55,44 @@ extension FirebaseManager {
         }
     }
     
+    
+    func updateBird(_ bird: Bird, success: ((Bird) -> Void)?, failure: ((Error?) -> Void)?) {
+        
+        let birdReference = birdsReference.child(bird.identifier)
+        
+        let newBird = [
+            "departureCity": bird.departureCity ,
+            "departureCountry": bird.departureCountry ,
+            "departureDate": bird.departureDate.timeIntervalSince1970 * 1000 ,
+            "arrivalCity": bird.arrivalCity,
+            "arrivalCountry": bird.arrivalCountry,
+            "departureCity_arrivalCity": "\(bird.departureCity)_\(bird.arrivalCity)",
+            "arrivalDate": bird.arrivalDate.timeIntervalSince1970 * 1000 ,
+            "birdWeight": bird.birdWeight,
+            "birdTotalPrice": bird.birdTotalPrice,
+            "birdPricePerKilo": bird.birdPricePerKilo,
+            "birderName": bird.birdTravelerName,
+            "birderProfilePicUrl": bird.birderProfilePicUrl.absoluteString,
+            "currency": bird.currency,
+            "createdAt": ServerValue.timestamp(),
+            "creator": bird.creator
+            ] as [String : Any]
+        
+        birdReference.setValue(newBird) { (error, reference) in
+            if (error == nil) {
+                success?(bird)
+            }
+            else {
+                failure?(error)
+            }
+        }
+    }
+    
     /// Get User by identifier
     ///
     /// - Parameter identifier: the identifier
     func bird(with identifier: String, success: @escaping ((Bird) -> Void), failure: ((Error?) -> Void)?) {
-        birdsReference.child(identifier).observe(.value, with: { (snapshot) in
+        birdsReference.child(identifier).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let bird = Bird(identifier: snapshot.key, dictionary: dictionary)
                 success(bird)
@@ -290,8 +323,7 @@ extension FirebaseManager {
         var birds = [Bird]()
         let userIdentifier = currentUser.uid
         
-        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observe(DataEventType.value, with: { (snapshot) in
-            
+        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 let taskEvent = DispatchGroup()
                 taskEvent.enter()

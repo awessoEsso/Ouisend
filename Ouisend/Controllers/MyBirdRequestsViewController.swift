@@ -38,14 +38,19 @@ class MyBirdRequestsViewController: UIViewController {
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdRequestsData(_:)), for: .valueChanged)
         
-        FirebaseManager.shared.birdRequests(with: bird.identifier, success: { (birdRequests) in
-            if birdRequests.count == 0 {
-                self.emptyLabel.isHidden = false
+        if birdRequests.isEmpty {
+            FirebaseManager.shared.birdRequests(with: bird.identifier, success: { (birdRequests) in
+                if birdRequests.count == 0 {
+                    self.emptyLabel.isHidden = false
+                }
+                self.birdRequests = birdRequests
+                self.myBirdRequestsCollectionView.reloadData()
+            }) { (error) in
+                print(error?.localizedDescription ?? "Error loading bird Requests")
             }
-            self.birdRequests = birdRequests
-            self.myBirdRequestsCollectionView.reloadData()
-        }) { (error) in
-            print(error?.localizedDescription ?? "Error loading bird Requests")
+        }
+        else {
+            myBirdRequestsCollectionView.reloadData()
         }
     }
     
