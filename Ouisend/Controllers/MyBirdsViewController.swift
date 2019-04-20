@@ -31,12 +31,12 @@ class MyBirdsViewController: UIViewController {
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshBirdsData(_:)), for: .valueChanged)
         
-        FirebaseManager.shared.myBirdsObserveSingle(with: { (myBirds) in
-            self.myBirds = myBirds
-            self.myBirdsCollectionView.reloadData()
-        }) { (error) in
-            print(error?.localizedDescription ?? "Error loading birds")
-        }
+       refreshBirdsData(self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshBirdsData(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,8 +44,12 @@ class MyBirdsViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    
+    
     @objc private func refreshBirdsData(_ sender: Any) {
         // Fetch Birds Data
+        
+        self.refreshControl.beginRefreshing()
         FirebaseManager.shared.myBirdsObserveSingle(with: { (birds) in
             self.myBirds = birds
             self.myBirdsCollectionView.reloadData()

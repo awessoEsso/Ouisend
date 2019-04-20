@@ -17,7 +17,7 @@ class SimpleSearchViewController: UIViewController {
     
     @IBOutlet weak var destinationButton: UIButton!
     
-    
+    @IBOutlet weak var searchButton: UIButton!
     
     var departureCity = ""
     
@@ -104,6 +104,7 @@ class SimpleSearchViewController: UIViewController {
 
 extension SimpleSearchViewController: SearchCityViewControllerDelegate {
     func didSelect(city: City, for departure: Bool) {
+        searchButton.setTitle("Rechercher", for: .normal)
         let title = "\(city.name ?? "") - \(city.countryName ?? "")"
         if departure == true {
             departureCity = city.name ?? ""

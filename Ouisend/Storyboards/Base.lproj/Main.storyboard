@@ -2112,7 +2112,7 @@
                                     <constraint firstAttribute="height" constant="56" id="9SH-MP-bX1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <state key="normal" title="Rechercher">
+                                <state key="normal" title="Voir tous les birds">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -2161,6 +2161,7 @@
                         <outlet property="badgeButtonItem" destination="gFa-U2-xmE" id="h7J-44-d1R"/>
                         <outlet property="departureButton" destination="xRg-dX-LBg" id="V0P-HB-M8C"/>
                         <outlet property="destinationButton" destination="TL3-6o-xkh" id="Yhl-r0-8mI"/>
+                        <outlet property="searchButton" destination="66D-Jf-WMz" id="6Vb-AB-LlF"/>
                         <segue destination="L1d-Lm-RtW" kind="presentation" identifier="selectCitySegueId" id="o98-eJ-gwk"/>
                     </connections>
                 </viewController>
