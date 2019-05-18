@@ -561,7 +561,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Paris - Lome " id="YuQ-S8-249">
                         <barButtonItem key="backBarButtonItem" title=" " id="ZhC-28-DrT"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="icon-upload-outline" id="6ZG-L8-jzE"/>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="967"/>
                     <connections>
@@ -814,7 +813,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xvf-lW-n1h">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Zsf-GA-7Y4">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -898,7 +897,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aeq-f4-cbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8082" y="-1525"/>
+            <point key="canvasLocation" x="-7380" y="-1689"/>
         </scene>
         <!--Oui Chat View Controller-->
         <scene sceneID="3pO-iT-0Ou">
@@ -940,10 +939,19 @@
                                     <segment title="ARCHIVEES"/>
                                 </segments>
                                 <color key="tintColor" red="0.062745098040000002" green="0.32156862749999998" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="filteringChanged:" destination="c8G-St-Z8y" eventType="valueChanged" id="ERr-9J-6uQ"/>
+                                </connections>
                             </segmentedControl>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="La liste des Birds est vide " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzW-g0-rHl">
+                                <rect key="frame" x="76.5" y="323" width="222.5" height="21.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="0.22352941179999999" green="0.3294117647" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FlK-Cg-Ihf">
                                 <rect key="frame" x="8" y="160" width="359" height="450"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LDm-sg-aIQ">
                                     <size key="itemSize" width="354" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1021,6 +1029,7 @@
                                                 </button>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="tE2-b5-EwK" secondAttribute="trailing" constant="8" id="4b4-Dg-hl1"/>
                                             <constraint firstItem="tE2-b5-EwK" firstAttribute="centerY" secondItem="YzU-lU-yXi" secondAttribute="centerY" id="AUl-zZ-LbU"/>
@@ -1076,15 +1085,17 @@
                             <constraint firstItem="ecT-wX-7IF" firstAttribute="trailing" secondItem="FlK-Cg-Ihf" secondAttribute="trailing" constant="8" id="Ayv-cZ-8Eq"/>
                             <constraint firstItem="H26-zW-EUX" firstAttribute="leading" secondItem="ecT-wX-7IF" secondAttribute="leading" constant="16" id="SzD-wT-Z7w"/>
                             <constraint firstItem="FlK-Cg-Ihf" firstAttribute="top" secondItem="H26-zW-EUX" secondAttribute="bottom" constant="32" id="T3N-Nm-QTS"/>
+                            <constraint firstItem="RzW-g0-rHl" firstAttribute="centerY" secondItem="Ud4-lS-3Qc" secondAttribute="centerY" id="jTQ-Vp-ZK8"/>
                             <constraint firstItem="ecT-wX-7IF" firstAttribute="bottom" secondItem="FlK-Cg-Ihf" secondAttribute="bottom" constant="8" id="jnm-s9-WFa"/>
                             <constraint firstItem="FlK-Cg-Ihf" firstAttribute="leading" secondItem="ecT-wX-7IF" secondAttribute="leading" constant="8" id="pHV-Dv-3oi"/>
+                            <constraint firstItem="RzW-g0-rHl" firstAttribute="centerX" secondItem="Ud4-lS-3Qc" secondAttribute="centerX" id="xyn-B5-oCi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ecT-wX-7IF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My Birds" id="cA4-Z2-gSQ">
-                        <barButtonItem key="rightBarButtonItem" image="ios-plus-empty" id="JCF-ed-lgV"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="My Birds" id="cA4-Z2-gSQ"/>
                     <connections>
+                        <outlet property="emptyListLabel" destination="RzW-g0-rHl" id="rHi-Vf-c6T"/>
+                        <outlet property="filteringSegmentedControl" destination="H26-zW-EUX" id="pS7-85-8tu"/>
                         <outlet property="myBirdsCollectionView" destination="FlK-Cg-Ihf" id="SP9-jM-nWv"/>
                         <segue destination="vGk-qz-NXZ" kind="show" identifier="showCreatorBirdSegueId" id="Bp9-rH-EAD"/>
                     </connections>
@@ -1599,7 +1610,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <segue destination="L2R-JA-dDq" kind="show" id="dml-cM-0N4"/>
+                                        <segue destination="NH9-7v-dTj" kind="presentation" id="5cP-Py-gus"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1773,6 +1784,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alertsNumberLabel" destination="gcZ-E0-ipw" id="e9o-Qg-4aK"/>
                         <outlet property="birderEmailLabel" destination="ej6-j9-M5g" id="jQ5-Sa-TQF"/>
                         <outlet property="birderNameLabel" destination="pn5-C5-kGr" id="t7R-dj-hdN"/>
                         <outlet property="birderProfilePicImageView" destination="cUK-2r-LQc" id="Pu7-B9-PSo"/>
@@ -1783,6 +1795,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="66M-4p-RLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8945" y="-1525"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="zdl-3A-HTi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Notifications" id="NH9-7v-dTj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CWt-RW-V2L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8202" y="-1526"/>
         </scene>
         <!--Profile-->
         <scene sceneID="3k1-Dg-Q7B">
@@ -2291,7 +2311,6 @@
     <resources>
         <image name="clouds4" width="2848" height="4272"/>
         <image name="icon-arrow-right" width="192" height="320"/>
-        <image name="icon-upload-outline" width="16" height="21"/>
         <image name="ios-chatbubble-outline" width="32" height="27"/>
         <image name="ios-contact-outline" width="32" height="32"/>
         <image name="ios-help-outline" width="416" height="416"/>
@@ -2305,6 +2324,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uc6-M1-e0F"/>
-        <segue reference="jWt-ag-QVX"/>
+        <segue reference="aCr-WY-2wV"/>
     </inferredMetricsTieBreakers>
 </document>

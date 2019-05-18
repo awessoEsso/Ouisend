@@ -7,19 +7,29 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-class Birder {
+class Birder: NSObject, NSCoding {
     
     // MARK: properties
-    internal(set) var identifier: String
-    internal(set) var displayName: String?
-    internal(set) var email: String?
-    internal(set) var photoURL: URL?
-    internal(set) var phoneNumber: String?
-    internal(set) var isEnabled: Bool?
+    var identifier: String
+    var displayName: String?
+    var email: String?
+    var photoURL: URL?
+    var phoneNumber: String?
+    var isEnabled: Bool?
     
     init(identifier anIdentifier: String) {
         identifier = anIdentifier
+    }
+    
+    convenience init(user: User) {
+        self.init(identifier: user.uid)
+        displayName = user.displayName
+        email = user.email
+        photoURL = user.photoURL
+        phoneNumber = user.phoneNumber
+        isEnabled = true
     }
     
     convenience init(identifier anIdentifier: String, dictionary: [String: Any]) {
@@ -37,5 +47,24 @@ class Birder {
             return
         }
         photoURL = URL(string: photoURLAbsoluteString)
+    }
+    
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(identifier, forKey: "identifier")
+        aCoder.encode(displayName, forKey: "displayName")
+        aCoder.encode(email, forKey: "email")
+        aCoder.encode(phoneNumber, forKey: "phoneNumber")
+        aCoder.encode(photoURL, forKey: "photoURL")
+        aCoder.encode(isEnabled, forKey: "isEnabled")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.identifier = aDecoder.decodeObject(forKey: "identifier") as? String ?? ""
+        self.displayName = aDecoder.decodeObject(forKey: "displayName") as? String ?? ""
+        self.email = aDecoder.decodeObject(forKey: "email") as? String ?? ""
+        self.phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String ?? ""
+        self.photoURL = aDecoder.decodeObject(forKey: "photoURL") as? URL ?? URL(string: "http://www.ouisend.fr")
+        self.isEnabled = aDecoder.decodeObject(forKey: "isEnabled") as? Bool ?? true
     }
 }

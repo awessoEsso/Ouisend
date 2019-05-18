@@ -19,103 +19,75 @@ class NewAlertViewController: FormViewController {
     
     var activityIndicatorView: NVActivityIndicatorView!
     
-    var countries = Datas.shared.countries
-    
     var cities = Datas.shared.cities
     
     var delegate: NewAlertViewControllerDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: .orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
         
-        
         view.addSubview(activityIndicatorView)
         
-        
         form +++ Section("Départ")
-            
-            <<< PickerInlineRow<String>("PaysDepart"){
-                $0.tag = "na_pays_depart"
-                $0.title = "Pays Départ"
-                if countries?.isEmpty == true {
-                    FirebaseManager.shared.countries(with: { (countries) in
+            <<< PickerInlineRow<String>("VilleDepart"){
+                $0.tag = "na_ville_depart"
+                $0.title = "Ville Départ"
+                if cities?.isEmpty == true {
+                    FirebaseManager.shared.cities(with: { (cities) in
+                        //$0.options = cities.map { $0.name ?? "" }
+                    }) { (error) in
+                        print(error ?? "error loading countries")
+                    }
+                }
+                else {
+                    if let cities = cities {
+                        $0.options = cities.map { $0.name ?? "" }
+                    }
+                    
+                }
+                
+                }.onChange { row in
+                    guard let cityName = row.value else { return }
+                    if let arrivalCityRow = self.form.rowBy(tag: "na_ville_arrivee") as? PickerInlineRow<String> {
+                        let citiesNames = self.cities(without: cityName)
+                        arrivalCityRow.options = citiesNames
+                        arrivalCityRow.reload() // not sure if needed
+                    }
+        }
+        
+        form +++ Section("Arrivée")
+            <<< PickerInlineRow<String>("VilleArrivee") {
+                $0.tag = "na_ville_arrivee"
+                $0.title = "Ville Arrivée"
+                $0.add(rule: RuleRequired())
+                if cities?.isEmpty == true {
+                    FirebaseManager.shared.cities(with: { (cities) in
                         
                     }) { (error) in
                         print(error ?? "error loading countries")
                     }
                 }
                 else {
-                    if let countries = countries {
-                        $0.options = countries.map { $0.name ?? "" }
+                    if let cities = cities {
+                        $0.options = cities.map { $0.name ?? "" }
                         //$0.value = countries.first?.name ?? ""
                     }
                     
                 }
-                
-                $0.add(rule: RuleRequired())
-                
                 }.onChange { row in
-                    guard let countryName = row.value else { return }
+                    guard let cityName = row.value else { return }
                     if let departureCityRow = self.form.rowBy(tag: "na_ville_depart") as? PickerInlineRow<String> {
-                        let citiesNames = self.cities(for: countryName)
+                        let citiesNames = self.cities(without: cityName)
                         departureCityRow.options = citiesNames
-                        if citiesNames.count > 0 {
-                            departureCityRow.value = citiesNames[0]
-                        }
                         departureCityRow.reload() // not sure if needed
                     }
             }
             
-            <<< PickerInlineRow<String>("VilleDepart"){
-                $0.tag = "na_ville_depart"
-                $0.title = "Ville Départ"
-        }
-        
-        
-        
-        
-        form +++ Section("Arrivée")
             
-            <<< PickerInlineRow<String>("PaysArrivee"){
-                $0.tag = "na_pays_arrivee"
-                $0.title = "Pays Arrivée"
-                if countries?.isEmpty == true {
-                    FirebaseManager.shared.countries(with: { (countries) in
-                        
-                    }) { (error) in
-                        print(error ?? "error loading countries")
-                    }
-                }
-                else {
-                    if let countries = countries {
-                        $0.options = countries.map { $0.name ?? "" }
-                    }
-                    
-                }
-                
-                $0.add(rule: RuleRequired())
-                
-                }.onChange { row in
-                    guard let countryName = row.value else { return }
-                    if let arrivalCityRow = self.form.rowBy(tag: "na_ville_arrivee") as? PickerInlineRow<String> {
-                        let citiesNames = self.cities(for: countryName)
-                        arrivalCityRow.options = citiesNames
-                        if citiesNames.count > 0 {
-                            arrivalCityRow.value = citiesNames[0]
-                        }
-                        arrivalCityRow.reload() // not sure if needed
-                    }
-            }
-            
-            <<< PickerInlineRow<String>("VilleArrivee"){
-                $0.tag = "na_ville_arrivee"
-                $0.title = "Ville Arrivée"
-        }
-        
             +++ Section()
             <<< ButtonRow() {
                 $0.title = "Enregistrer"
@@ -135,6 +107,7 @@ class NewAlertViewController: FormViewController {
                         print(errors)
                         self.activityIndicatorView.stopAnimating()
                     }
+                    
         }
         
         
@@ -196,13 +169,10 @@ class NewAlertViewController: FormViewController {
         view.isUserInteractionEnabled = true
     }
     
-    func cities(for countryName: String) -> [String] {
-        if let filteredCities = cities?.filter({ $0.countryName == countryName }) {
+    func cities(without cityName: String) -> [String] {
+        if let filteredCities = cities?.filter({ $0.name != cityName }) {
             return filteredCities.map { $0.name ?? "" }
         }
         return [String]()
     }
-    
-
-
 }

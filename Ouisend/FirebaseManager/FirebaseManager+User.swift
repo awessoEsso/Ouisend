@@ -163,7 +163,7 @@ extension FirebaseManager {
             joinUsersReference.child(userId).observeSingleEvent(of: .value) { (snapshot) in
                 if let dictionary = snapshot.value as? [String: Any] {
                     for(key, value) in dictionary {
-                        if let values = value as? [String:Double] {
+                        if let values = value as? [String:Any] {
                             results[key] = values.count
                         }
                     }

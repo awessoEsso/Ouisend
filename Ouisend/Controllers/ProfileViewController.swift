@@ -21,12 +21,17 @@ class ProfileViewController: UITableViewController {
     
     @IBOutlet weak var birderProfilePicImageView: UIImageView!
     
+    @IBOutlet weak var alertsNumberLabel: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if let birder = Datas.shared.birder {
+        
+        if let birderData = defaults.object(forKey: "birder") as? Data,
+            let birder = NSKeyedUnarchiver.unarchiveObject(with: birderData) as? Birder {
             setupDatasWithBirder(birder)
         }
         else {
@@ -38,6 +43,7 @@ class ProfileViewController: UITableViewController {
                 }
             }
         }
+        
     }
     
     func setupDatasWithBirder(_ birder: Birder) {
@@ -48,9 +54,11 @@ class ProfileViewController: UITableViewController {
         FirebaseManager.shared.userJoins(success: { (results) in
             self.birdsNumberLabel.text = "\(results["birds"] ?? 0 )"
             self.requestsNumberLabel.text = "\(results["requests"] ?? 0 )"
+            self.alertsNumberLabel.text = "\(results["topics"] ?? 0 )"
         }) { (error) in
             print(error?.localizedDescription ?? "Error getting user Joins")
         }
+        
     }
     
     

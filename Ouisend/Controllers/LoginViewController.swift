@@ -11,6 +11,9 @@ import FirebaseAuth
 import FirebaseCore
 import FacebookCore
 import FacebookLogin
+import SCLAlertView
+
+let defaults = UserDefaults.standard
 
 class LoginViewController: UIViewController {
     
@@ -20,15 +23,45 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
-        loginButton.center = view.center
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.delegate = self
-        
         view.addSubview(loginButton)
+        
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+        loginButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+
+        loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
     }
     
+    @IBAction func whyFacebookAction(_ sender: UIButton) {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: true)
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.showInfo("Pourquoi Facebook?", subTitle: "Pour rassurer nos utilisateurs 📦, on a besoin de nous assurer que tu es une vraie personne du monde réel et Facebook Connect fait cela très bien. \n Nous récupérons uniquement votre nom, prénoms, photo de profil et votre adresse email - rien de plus. \n  🤗")
+        
+    }
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
 }
@@ -45,12 +78,7 @@ extension LoginViewController: LoginButtonDelegate {
         case .success( _, _, let accessToken):
             print("Success")
             let credentials = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            
-            
-             getUserProfile()
-            
-            
-            
+            getUserProfile()
             Auth.auth().signInAndRetrieveData(with: credentials) { (authResult, error) in
                 if let error = error {
                     self.handleErrorOnSignIn()
@@ -93,9 +121,11 @@ extension LoginViewController: LoginButtonDelegate {
     
     func handleErrorOnSignIn() {
         print("Error happens")
+        SCLAlertView().showError("Error", subTitle: "Error Login User")
     }
     
     func handleUserLoggedIn(user: User) {
+        saveUserInUserDefaults(Birder(user: user))
         FirebaseManager.shared.existUser(user, completion: { (userExist) in
             if userExist == false {
                 FirebaseManager.shared.createUser(user, success: {
@@ -111,6 +141,16 @@ extension LoginViewController: LoginButtonDelegate {
             
             let _ = Datas.shared.countries
         })
+    }
+    //SKeyedArchiver.archivedData(withRootObject: user)
+    func saveUserInUserDefaults(_ birder: Birder) {
+        do {
+            let birderData = try NSKeyedArchiver.archivedData(withRootObject: birder)
+            defaults.set(birderData , forKey: "birder")
+        } catch let error {
+            print(error)
+        }
+        
     }
    
 }
