@@ -11,6 +11,7 @@ import SwiftDate
 import Eureka
 import NVActivityIndicatorView
 import SCLAlertView
+import Firebase
 
 
 
@@ -205,15 +206,26 @@ class CreateBirdViewController: FormViewController {
     
     
     func handleFormValues( _ values: [String: Any?]) {
-        guard let birder = Datas.shared.birder else { return }
+        
+        var birder = Datas.shared.birder
+        
+        if birder == nil {
+            if let currentUSer = Auth.auth().currentUser {
+                birder = Birder(user: currentUSer)
+            }
+            else {
+                self.handleBirdCreationFailed()
+            }
+        }
+        
         var birdDictionnary = values
         let departureCityName = birdDictionnary["cb_ville_depart"] as? String ?? ""
         let arrivalCityName = birdDictionnary["cb_ville_arrivee"] as? String ?? ""
         birdDictionnary["cb_pays_depart"] = cityWithName(departureCityName)?.countryName
         birdDictionnary["cb_pays_arrivee"] = cityWithName(arrivalCityName)?.countryName
-        birdDictionnary["creator"] = birder.identifier
-        birdDictionnary["birderName"] = birder.displayName ?? ""
-        birdDictionnary["birderProfilePicUrl"] = birder.photoURL?.absoluteString ?? ""
+        birdDictionnary["creator"] = birder!.identifier
+        birdDictionnary["birderName"] = birder!.displayName ?? ""
+        birdDictionnary["birderProfilePicUrl"] = birder!.photoURL?.absoluteString ?? ""
         
         
         let bird = Bird(dictionnary: birdDictionnary)
@@ -232,9 +244,7 @@ class CreateBirdViewController: FormViewController {
             self.handleBirdCreationSucceed()
             self.sendTopicNotification(for: newBird)
         }) { (error) in
-            print(error ?? "Error creating bird")
-            self.activityIndicatorView.stopAnimating()
-            self.view.isUserInteractionEnabled = true
+            self.handleBirdCreationFailed()
         }
     }
     
@@ -260,6 +270,14 @@ class CreateBirdViewController: FormViewController {
             self.resetForm()
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Bird a été créé avec succès")
+        activityIndicatorView.stopAnimating()
+        view.isUserInteractionEnabled = true
+    }
+    
+    func handleBirdCreationFailed() {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: true)
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.showError("Error", subTitle: "An error occured while creating bird")
         activityIndicatorView.stopAnimating()
         view.isUserInteractionEnabled = true
     }

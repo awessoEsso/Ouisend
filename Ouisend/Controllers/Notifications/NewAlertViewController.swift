@@ -10,6 +10,7 @@ import UIKit
 import Eureka
 import NVActivityIndicatorView
 import SCLAlertView
+import Firebase
 
 protocol NewAlertViewControllerDelegate {
     func didCreateTopic(_ topicJoin: TopicJoin)
@@ -119,8 +120,20 @@ class NewAlertViewController: FormViewController {
     
     
     func handleFormValues( _ values: [String: Any?]) {
-        guard let birder = Datas.shared.birder else { return }
-        let creator = birder.identifier
+        
+        var birder = Datas.shared.birder
+        
+        if birder == nil {
+            if let currentUSer = Auth.auth().currentUser {
+                birder = Birder(user: currentUSer)
+            }
+            else {
+                self.handleBirdCreationFailed()
+            }
+        }
+        
+        
+        let creator = birder!.identifier
         var topicDictionnary = values
         let departureCity = values["na_ville_depart"] as? String ?? ""
         let arrivalCity = values["na_ville_arrivee"] as? String ?? ""
@@ -165,6 +178,14 @@ class NewAlertViewController: FormViewController {
             self.dismiss(animated: true, completion: nil)
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Topic a été créé avec succès")
+        activityIndicatorView.stopAnimating()
+        view.isUserInteractionEnabled = true
+    }
+    
+    func handleBirdCreationFailed() {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: true)
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.showError("Error", subTitle: "An error occured while creating bird")
         activityIndicatorView.stopAnimating()
         view.isUserInteractionEnabled = true
     }

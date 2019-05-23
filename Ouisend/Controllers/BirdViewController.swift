@@ -42,11 +42,19 @@ class BirdViewController: UIViewController {
     
     var bird: Bird!
     
+    var birder: Birder!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        FirebaseManager.shared.user(with: bird.creator, success: { (birder) in
+            self.birder = birder
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error getting birder")
+        }
         
         
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
@@ -84,6 +92,20 @@ class BirdViewController: UIViewController {
                 ouiChatViewController.destinataireName = bird.birdTravelerName
                 ouiChatViewController.destinataireId = bird.creator
                 ouiChatViewController.destinataireUrl = bird.birderProfilePicUrl
+            }
+            
+            if let birderProfileViewController = navigationController.viewControllers.first as? BirderProfileViewController {
+                
+                if let birder = birder {
+                    birderProfileViewController.birder = birder
+                }
+                else {
+                    FirebaseManager.shared.user(with: bird.creator, success: { (birder) in
+                        birderProfileViewController.birder = birder
+                    }) { (error) in
+                        print(error?.localizedDescription ?? "Error getting birder")
+                    }
+                }    
             }
             
         default:

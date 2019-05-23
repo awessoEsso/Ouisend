@@ -68,6 +68,16 @@ class SimpleSearchViewController: UIViewController {
         }
     }
     
+    @IBAction func cancelFilters(_ sender: UIButton) {
+        
+        departureButton.setTitle("Départ", for: .normal)
+        destinationButton.setTitle("Destination", for: .normal)
+        searchButton.setTitle("Voir tous les birds", for: .normal)
+        departureCity = ""
+        destinationCity = ""
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
