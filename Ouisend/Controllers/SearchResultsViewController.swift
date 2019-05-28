@@ -185,15 +185,10 @@ extension SearchResultsViewController: UICollectionViewDataSource {
 extension SearchResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bird = birds[indexPath.item]
-//        if bird.creator != birder?.identifier {
-//            self.selectedBird = bird
-//            performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
-//        }
-        
-        
-        self.selectedBird = bird
-        performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
-        
+        if bird.creator != birder?.identifier {
+            self.selectedBird = bird
+            performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
+        }
     }
 }
 
