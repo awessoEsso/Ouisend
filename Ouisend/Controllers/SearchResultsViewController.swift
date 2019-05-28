@@ -190,6 +190,7 @@ extension SearchResultsViewController: UICollectionViewDelegate {
 //            performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
 //        }
         
+        
         self.selectedBird = bird
         performSegue(withIdentifier: "showBirdDetailsId", sender: nil)
         

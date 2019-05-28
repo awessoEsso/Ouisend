@@ -140,10 +140,37 @@ extension MyRequestsViewController: AcceptedRequestCollectionViewCellDelegate {
 extension MyRequestsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let myRequest = myRequests[indexPath.item]
+        selectedRequest = myRequest
         if myRequest.status == .accepted {
-            selectedRequest = myRequest
             performSegue(withIdentifier: "ouiChatViewControllerId", sender: nil)
         }
+        else {
+            if myRequest.status == .pending {
+                showActionSheet()
+            }
+        }
+    }
+    
+    func showActionSheet() {
+        
+        guard let selectedRequest = selectedRequest else { return }
+        
+        let optionMenu = UIAlertController(title: nil, message: "Options", preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Supprimer la demande", style: .destructive) { (action) in
+            self.deleteRequest(request: selectedRequest)
+        }
+        let cancelAction = UIAlertAction(title: "Annuler", style: .cancel)
+        
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func deleteRequest(request: Request) {
+        FirebaseManager.shared.deleteRequest(request)
+        refreshRequestsData(self)
     }
 }
 

@@ -24,6 +24,8 @@ class BirdViewController: UIViewController {
     
     @IBOutlet weak var weightDesiredLabel: UILabel!
     
+    @IBOutlet weak var weightDesiredPriceLabel: UILabel!
+    
     @IBOutlet weak var birderNameLabel: UILabel!
     
     @IBOutlet weak var publishedDateLabel: UILabel!
@@ -77,6 +79,10 @@ class BirdViewController: UIViewController {
         totalWeightLabel.text =  "\(bird.birdWeight) Kg"
         totalPriceLabel.text = "\(bird.birdTotalPrice)\(bird.currency)"
         pricePerKiloLabel.text = "\(bird.birdPricePerKilo)\(bird.currency)"
+        
+        
+        let weightDesiredPrice = weightValue * bird.birdPricePerKilo
+        weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
         
     }
     
@@ -145,11 +151,15 @@ class BirdViewController: UIViewController {
     
     @IBAction func takeAllWeightChanged(_ sender: UISegmentedControl) {
         let value  = sender.selectedSegmentIndex
+        var weightDesiredPrice = weightValue * bird.birdPricePerKilo
         if value == 0 {
             weightDesiredStackView.isHidden = false
+             weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
         }
         else {
             weightDesiredStackView.isHidden = true
+            weightDesiredPrice = bird.birdTotalPrice
+            weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
         }
     }
     
@@ -158,7 +168,9 @@ class BirdViewController: UIViewController {
         let roundedValue = round(sender.value / step) * step
         sender.value = roundedValue
         weightValue = Int(roundedValue)
+        let weightDesiredPrice = weightValue * bird.birdPricePerKilo
         weightDesiredLabel.text = "\(weightValue) Kg"
+        weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
     }
     
     

@@ -56,7 +56,7 @@
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="La liste des Birds est vide " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Qe-M2e">
                                 <rect key="frame" x="76.333333333333329" y="395.33333333333331" width="222.66666666666669" height="21.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" red="0.22352941179999999" green="0.3294117647" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eyU-Rl-lOs">
@@ -228,10 +228,6 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="4xC-zU-dwi" secondAttribute="trailing" id="Tfa-3O-RHA"/>
                                         </constraints>
                                         <size key="customSize" width="346" height="180"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="bird"/>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="birdArrivalCityLabel" destination="i1P-XV-2wx" id="fce-jh-TCD"/>
                                             <outlet property="birdArrivalCountryLabel" destination="S2q-fR-Ue0" id="38H-f2-fjS"/>
@@ -324,14 +320,14 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8NV-pj-qnz">
-                                                <rect key="frame" x="8" y="156" width="359" height="1"/>
+                                                <rect key="frame" x="8" y="164" width="359" height="1"/>
                                                 <color key="backgroundColor" red="0.80306160230000001" green="0.80306160230000001" blue="0.80306160230000001" alpha="0.74521346830000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="vh5-Uq-64H"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="foe-Qe-hug">
-                                                <rect key="frame" x="8" y="173" width="359" height="90"/>
+                                                <rect key="frame" x="8" y="181" width="359" height="90"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="112" translatesAutoresizingMaskIntoConstraints="NO" id="38w-m8-Jcm">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
@@ -390,7 +386,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PVI-3S-tUs">
-                                                <rect key="frame" x="8" y="279" width="359" height="256"/>
+                                                <rect key="frame" x="8" y="287" width="359" height="312.33333333333326"/>
                                                 <subviews>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZY4-yU-OjZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="41"/>
@@ -410,7 +406,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="OHe-OF-3x5">
                                                         <rect key="frame" x="0.0" y="52" width="359" height="72"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quel poids désirez-vous réserver?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6QF-aF-MUt">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Quel poids désirez-vous réserver?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6QF-aF-MUt">
                                                                 <rect key="frame" x="53.000000000000014" y="0.0" width="253.33333333333337" height="19.333333333333332"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                 <color key="textColor" red="0.12941176469999999" green="0.26274509800000001" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -441,8 +437,14 @@
                                                             <constraint firstItem="26w-kF-khy" firstAttribute="leading" secondItem="OHe-OF-3x5" secondAttribute="leading" constant="32" id="pEf-7Q-HEP"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="80 €" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jrj-RN-FqM">
+                                                        <rect key="frame" x="0.0" y="136" width="359" height="44.333333333333343"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="37"/>
+                                                        <color key="textColor" red="0.99607843139999996" green="0.0" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Précisez le contenu de votre colis" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tny-5E-KbG">
-                                                        <rect key="frame" x="0.0" y="136" width="359" height="120"/>
+                                                        <rect key="frame" x="0.0" y="192.33333333333331" width="359" height="120"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="120" id="6ca-yp-Zbh"/>
@@ -462,7 +464,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FpX-9S-XuM">
-                                                <rect key="frame" x="121.66666666666669" y="547" width="132" height="40"/>
+                                                <rect key="frame" x="121.66666666666669" y="611.33333333333337" width="132" height="40"/>
                                                 <color key="backgroundColor" red="0.062745098040000002" green="0.32156862749999998" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="EWD-v9-i4J"/>
@@ -535,7 +537,6 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="createRequestAction:" destination="qrS-2l-SiG" eventType="touchUpInside" id="kn3-p8-Axr"/>
                                                             <segue destination="1SO-GY-OOm" kind="presentation" identifier="showBirderProfileSegueId" id="jCI-11-jjG"/>
                                                         </connections>
                                                     </button>
@@ -553,7 +554,7 @@
                                             <constraint firstAttribute="trailing" secondItem="foe-Qe-hug" secondAttribute="trailing" constant="8" id="AKW-3i-cRw"/>
                                             <constraint firstItem="PVI-3S-tUs" firstAttribute="top" secondItem="foe-Qe-hug" secondAttribute="bottom" constant="16" id="FXQ-RU-Sqo"/>
                                             <constraint firstItem="foe-Qe-hug" firstAttribute="leading" secondItem="FzT-Ir-Jry" secondAttribute="leading" constant="8" id="Fkc-Zq-bY2"/>
-                                            <constraint firstItem="8NV-pj-qnz" firstAttribute="top" secondItem="EoU-0j-3cA" secondAttribute="bottom" constant="4" id="K7K-pZ-uwc"/>
+                                            <constraint firstItem="8NV-pj-qnz" firstAttribute="top" secondItem="EoU-0j-3cA" secondAttribute="bottom" constant="12" id="K7K-pZ-uwc"/>
                                             <constraint firstItem="2Ps-on-kj6" firstAttribute="top" secondItem="GCE-AF-3Jb" secondAttribute="top" id="NRt-xg-5hd"/>
                                             <constraint firstItem="8NV-pj-qnz" firstAttribute="leading" secondItem="FzT-Ir-Jry" secondAttribute="leading" constant="8" id="RJI-Jn-qhX"/>
                                             <constraint firstAttribute="trailing" secondItem="PVI-3S-tUs" secondAttribute="trailing" constant="8" id="aJ2-wD-eLy"/>
@@ -565,10 +566,6 @@
                                             <constraint firstItem="EoU-0j-3cA" firstAttribute="centerX" secondItem="FzT-Ir-Jry" secondAttribute="centerX" id="u6D-dX-l4X"/>
                                             <constraint firstItem="PVI-3S-tUs" firstAttribute="leading" secondItem="FzT-Ir-Jry" secondAttribute="leading" constant="8" id="vyD-Du-EO4"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="bird"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -605,6 +602,7 @@
                         <outlet property="totalPriceLabel" destination="le8-iT-EMf" id="BAj-UF-Lfm"/>
                         <outlet property="totalWeightLabel" destination="y7D-EV-GdE" id="jAj-LS-FiF"/>
                         <outlet property="weightDesiredLabel" destination="Pag-zm-OgO" id="rYC-db-6yp"/>
+                        <outlet property="weightDesiredPriceLabel" destination="Jrj-RN-FqM" id="VD2-E8-lgy"/>
                         <outlet property="weightDesiredStackView" destination="OHe-OF-3x5" id="w8L-d6-VWZ"/>
                         <outlet property="weightSlider" destination="BFp-bo-op5" id="Swa-PP-zrC"/>
                     </connections>
@@ -784,10 +782,6 @@
                                             <constraint firstItem="Op8-Sp-gcy" firstAttribute="leading" secondItem="s00-Jh-PyP" secondAttribute="leading" constant="8" id="xAt-0F-PFT"/>
                                             <constraint firstAttribute="trailing" secondItem="rOA-pV-pcN" secondAttribute="trailing" constant="8" id="ySD-B2-peC"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="bird"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -851,7 +845,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selectionnez les villes dont vous voulez recevoir les notifications svp!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tap-vn-HYt">
-                                            <rect key="frame" x="16" y="29.666666666666668" width="382" height="40.666666666666657"/>
+                                            <rect key="frame" x="16" y="29.666666666666668" width="343" height="40.666666666666657"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.22352941179999999" green="0.3294117647" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2170,13 +2164,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7js-nO-Nhf">
-                                                    <rect key="frame" x="74" y="36" width="261" height="21"/>
+                                                    <rect key="frame" x="74" y="36" width="222" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-Th-t5P">
-                                                    <rect key="frame" x="351" y="16" width="32" height="32"/>
+                                                    <rect key="frame" x="312" y="16" width="32" height="32"/>
                                                     <color key="backgroundColor" red="0.22352941179999999" green="0.3294117647" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Mja-Th-t5P" secondAttribute="height" multiplier="1:1" id="0nE-Up-Ayf"/>
