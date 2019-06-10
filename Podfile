@@ -8,7 +8,10 @@ target 'Ouisend' do
   # Pods for Ouisend
   
   pod 'AFDateHelper'
+  pod 'Alamofire'
+  pod 'AlamofireObjectMapper'
   pod 'Crashlytics'
+  pod 'Disk'
   pod 'Eureka'
   pod 'Fabric'
   pod 'FacebookCore'
@@ -25,6 +28,7 @@ target 'Ouisend' do
   pod 'SCLAlertView'
   pod 'SDWebImage'
   pod 'SwiftDate'
+  pod 'SwiftyJSON'
   
 
 end

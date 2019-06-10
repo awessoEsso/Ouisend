@@ -11,6 +11,10 @@ import Firebase
 import FacebookCore
 import FacebookLogin
 import Fabric
+import Alamofire
+import SwiftyJSON
+import ObjectMapper
+import Disk
 import Crashlytics
 import UserNotifications
 import FirebaseMessaging
@@ -18,16 +22,16 @@ import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         registerRemoteNotifications(application)
         Messaging.messaging().delegate = self
-        let _ = Datas.shared.countries
+        _ = Datas.shared.cities
         
         let userDefaults = UserDefaults.standard
         
@@ -101,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
-
-
+    
+    
 }
 

@@ -33,16 +33,13 @@ class NewAlertViewController: FormViewController {
         
         view.addSubview(activityIndicatorView)
         
+        
         form +++ Section("Départ")
             <<< PickerInlineRow<String>("VilleDepart"){
                 $0.tag = "na_ville_depart"
                 $0.title = "Ville Départ"
                 if cities?.isEmpty == true {
-                    FirebaseManager.shared.cities(with: { (cities) in
-                        //$0.options = cities.map { $0.name ?? "" }
-                    }) { (error) in
-                        print(error ?? "error loading countries")
-                    }
+                    
                 }
                 else {
                     if let cities = cities {
@@ -66,11 +63,7 @@ class NewAlertViewController: FormViewController {
                 $0.title = "Ville Arrivée"
                 $0.add(rule: RuleRequired())
                 if cities?.isEmpty == true {
-                    FirebaseManager.shared.cities(with: { (cities) in
-                        
-                    }) { (error) in
-                        print(error ?? "error loading countries")
-                    }
+                    
                 }
                 else {
                     if let cities = cities {

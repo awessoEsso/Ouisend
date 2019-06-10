@@ -23,9 +23,9 @@ class SearchResultsViewController: UIViewController {
     
     var selectedBird: Bird!
     
-    var departureCity = ""
+    var departureCity:City?
     
-    var destinationCity = ""
+    var destinationCity:City?
     
     var searchCase: SearchCase = .all
 
@@ -101,7 +101,7 @@ class SearchResultsViewController: UIViewController {
             
         case .all:
             self.title = "\(departureCity)-\(destinationCity)"
-            FirebaseManager.shared.birdsObserveSingleWithDepartureAndDestination(departureCity: departureCity, destinationCity: destinationCity, success: { (birds) in
+            FirebaseManager.shared.birdsObserveSingleWithDepartureAndDestination(departureCity: departureCity!.name!, destinationCity: destinationCity!.name!, success: { (birds) in
                 self.reloadCollectionViewWithBirds(birds)
             }, failure: { (error) in
                 print(error?.localizedDescription ?? "Error loading birds")
@@ -109,7 +109,7 @@ class SearchResultsViewController: UIViewController {
             })
             
         case .onlyDestination:
-            FirebaseManager.shared.birdsObserveSingleWithDestination(destinationCity: destinationCity, success: { (birds) in
+            FirebaseManager.shared.birdsObserveSingleWithDestination(destinationCity: destinationCity!.name!, success: { (birds) in
                 self.reloadCollectionViewWithBirds(birds)
             }, failure: { (error) in
                 print(error?.localizedDescription ?? "Error loading birds")
@@ -117,7 +117,7 @@ class SearchResultsViewController: UIViewController {
             })
             
         case .onlyDeparture:
-            FirebaseManager.shared.birdsObserveSingleWithDeparture(departureCity: departureCity, success: { (birds) in
+            FirebaseManager.shared.birdsObserveSingleWithDeparture(departureCity: departureCity!.name!, success: { (birds) in
                 self.reloadCollectionViewWithBirds(birds)
             }, failure: { (error) in
                 print(error?.localizedDescription ?? "Error loading birds")

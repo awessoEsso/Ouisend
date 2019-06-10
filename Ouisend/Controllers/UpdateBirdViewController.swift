@@ -21,8 +21,6 @@ class UpdateBirdViewController: FormViewController {
     
     var activityIndicatorView: NVActivityIndicatorView!
     
-    var countries = Datas.shared.countries
-    
     var cities = Datas.shared.cities
     
     var delegate: UpdateBirdViewControllerDelegate?

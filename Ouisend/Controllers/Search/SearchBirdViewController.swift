@@ -174,7 +174,7 @@ extension SearchBirdViewController: SearchCityViewControllerDelegate {
             departureView.isHidden = false
             searchDepartureView.isHidden = true
             departureCityNameLabel.setTitle(city.name, for: .normal)
-            departureCountryNameLabel.text = city.countryName
+            departureCountryNameLabel.text = city.country
             
         }
         else {
@@ -182,7 +182,7 @@ extension SearchBirdViewController: SearchCityViewControllerDelegate {
             arrivalView.isHidden = false
             searchArriValView.isHidden = true
             arrivalCityNameLabel.setTitle(city.name, for: .normal)
-            arrivalCountryNameLabel.text = city.countryName
+            arrivalCountryNameLabel.text = city.country
         }
         
         updateBirds()

@@ -1,8 +1,8 @@
 //
-//  SearchCityViewController.swift
+//  ChooseDepartureViewController.swift
 //  Ouisend
 //
-//  Created by Esso Awesso on 17/03/2019.
+//  Created by Esso Awesso on 31/05/2019.
 //  Copyright © 2019 Esso Awesso. All rights reserved.
 //
 
@@ -11,11 +11,7 @@ import NVActivityIndicatorView
 import Disk
 import SwiftyJSON
 
-protocol SearchCityViewControllerDelegate {
-    func didSelect(city: City, for: Bool)
-}
-
-class SearchCityViewController: UIViewController {
+class ChooseDepartureViewController: UIViewController {
     
     @IBOutlet weak var citiesTableView: UITableView!
     
@@ -29,25 +25,19 @@ class SearchCityViewController: UIViewController {
     
     var filteredCities: [City] = [City]()
     
-    var delegate: SearchCityViewControllerDelegate?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
-        title = seachForDeparture ? "Ville de départ" : "Ville d'arrivée"
-        searchBar.placeholder = seachForDeparture ? "Départ" : "Arrivée"
-        
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: .orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
+        
+        view.addSubview(activityIndicatorView)
         
         cities = Datas.shared.cities
         
         filteredCities = Datas.shared.cities
         
-        view.addSubview(activityIndicatorView)
-        
-        searchBar.becomeFirstResponder()
         
     }
     
@@ -64,22 +54,18 @@ class SearchCityViewController: UIViewController {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
     }
-
+    
 }
 
-extension SearchCityViewController: UITableViewDataSource {
+extension ChooseDepartureViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredCities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let city = filteredCities[indexPath.row]
-        
         let cell =  tableView.dequeueReusableCell(withIdentifier: "cityTableViewCellId", for: indexPath)
-        
         cell.textLabel?.text = city.name
-        
         return cell
     }
     
@@ -87,16 +73,18 @@ extension SearchCityViewController: UITableViewDataSource {
 }
 
 
-extension SearchCityViewController: UITableViewDelegate {
+extension ChooseDepartureViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = filteredCities[indexPath.row]
-        delegate?.didSelect(city: city, for: seachForDeparture)
-        dismiss(animated: true, completion: nil)
+        //delegate?.didSelect(city: city, for: seachForDeparture)
+        //dismiss(animated: true, completion: nil)
+        
+        print(city.name ?? "Unknown city")
     }
 }
 
 
-extension SearchCityViewController: UISearchBarDelegate {
+extension ChooseDepartureViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

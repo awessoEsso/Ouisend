@@ -100,4 +100,24 @@ class Bird {
         
     }
     
+    init(birdTravelerName: String?, birdTravelerProfilePic: String?, departureCity: String, departureCountry: String? = "", departureDate: Date, arrivalCity: String, arrivalCountry: String? = "", birdWeight: Int, birdTotalPrice: Int, birdPricePerKilo: Int, currency: String = "€", creator: String, createdAt: Date = Date()) {
+        self.identifier = ""
+        self.birdTravelerName = birdTravelerName ?? ""
+        self.birderProfilePicUrl = URL(string: birdTravelerProfilePic ?? "")!
+        self.departureCity = departureCity
+        self.departureCountry = departureCountry ?? ""
+        self.departureDate = departureDate
+        self.arrivalCity = arrivalCity
+        self.arrivalCountry = arrivalCountry ?? ""
+        self.arrivalDate = departureDate
+        self.birdWeight = birdWeight
+        self.birdTotalPrice = birdTotalPrice
+        self.birdPricePerKilo = birdPricePerKilo
+        self.currency = currency
+        self.accepted = [String: Int]()
+        self.declined = [String: Int]()
+        self.creator = creator
+        self.createdAt = createdAt
+    }
+    
 }

@@ -11,28 +11,28 @@ import FirebaseDatabase
 
 extension FirebaseManager {
     
-    func cities(with success: @escaping (([City]) -> Void), failure: ((Error?) -> Void)?) {
-        citiesReference.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            guard let dictionary = snapshot.value as? [String: Any] else {
-                let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)
-                failure?(anError)
-                return
-            }
-            var cities = [City]()
-            for (key, item) in dictionary {
-                if let dict = item as? [String: Any] {
-                    let city = City(identifier: key, dictionary: dict)
-                    cities.append(city)
-                }
-            }
-            cities = cities.sorted(by: { (city1, city2) -> Bool in
-                let city1Name = city1.name ?? ""
-                let city2Name = city2.name ?? ""
-                return city1Name.localizedCaseInsensitiveCompare(city2Name) == ComparisonResult.orderedAscending
-            })
-            success(cities)
-        })
-    }
+//    func cities(with success: @escaping (([City]) -> Void), failure: ((Error?) -> Void)?) {
+//        citiesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+//            
+//            guard let dictionary = snapshot.value as? [String: Any] else {
+//                let anError = NSError(domain: "error occured: can't retreive cities", code: 30001, userInfo: nil)
+//                failure?(anError)
+//                return
+//            }
+//            var cities = [City]()
+//            for (key, item) in dictionary {
+//                if let dict = item as? [String: Any] {
+//                    let city = City(identifier: key, dictionary: dict)
+//                    cities.append(city)
+//                }
+//            }
+//            cities = cities.sorted(by: { (city1, city2) -> Bool in
+//                let city1Name = city1.name ?? ""
+//                let city2Name = city2.name ?? ""
+//                return city1Name.localizedCaseInsensitiveCompare(city2Name) == ComparisonResult.orderedAscending
+//            })
+//            success(cities)
+//        })
+//    }
     
 }

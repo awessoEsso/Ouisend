@@ -8,23 +8,40 @@
 
 import Foundation
 
-
-class City {
+class City: Decodable {
     
-    // MARK: properties
-    internal(set) var identifier: String
-    internal(set) var name: String?
-    internal(set) var countryCode: String?
-    internal(set) var countryName: String?
+    let name: String?
+    let country: String?
+    let geonameid: Int?
+    let subcountry: String?
     
-    init(identifier anIdentifier: String) {
-        identifier = anIdentifier
+    init(name: String, country: String, geonameid: Int, subcountry: String) {
+        self.name = name
+        self.country = country
+        self.geonameid = geonameid
+        self.subcountry = subcountry
     }
     
-    convenience init(identifier anIdentifier: String, dictionary: [String: Any]) {
-        self.init(identifier: anIdentifier)
-        name = dictionary["name"] as? String
-        countryCode = dictionary["countryCode"] as? String
-        countryName = dictionary["countryName"] as? String
+    deinit {
+        print("City with name \(name ?? "") is being deinitialised")
+    }
+    
+}
+
+extension City: SearchItem {
+    func matchesSearchQuery(_ query: String) -> Bool {
+        let textToSearch = query.removeAccents().lowercased()
+        let cityName = name?.removeAccents().lowercased() ?? ""
+        return cityName.contains(textToSearch)
+    }
+}
+extension City: Equatable {
+    static func == (lhs: City, rhs: City) -> Bool {
+        return lhs.geonameid == rhs.geonameid
+    }
+}
+extension City: CustomStringConvertible {
+    var description: String {
+        return name ?? ""
     }
 }

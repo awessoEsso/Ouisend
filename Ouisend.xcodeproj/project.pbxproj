@@ -27,8 +27,20 @@
 		6718526E2222A6E60044CE1E /* FirebaseManager+Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6718526D2222A6E60044CE1E /* FirebaseManager+Country.swift */; };
 		671852702222A8A90044CE1E /* Datas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6718526F2222A8A90044CE1E /* Datas.swift */; };
 		671852742222CE860044CE1E /* FirebaseManager+Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671852732222CE860044CE1E /* FirebaseManager+Bird.swift */; };
+		6725B45A229FE31D00908B25 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B459229FE31D00908B25 /* Datasource.swift */; };
+		6725B45C22A02A3C00908B25 /* ServerDatasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B45B22A02A3C00908B25 /* ServerDatasManager.swift */; };
+		6725B45E22A02B1A00908B25 /* JsonDecoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B45D22A02B1A00908B25 /* JsonDecoderHelper.swift */; };
+		6725B46122A0381C00908B25 /* LocalDatasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B46022A0381C00908B25 /* LocalDatasManager.swift */; };
+		6725B46322A0382700908B25 /* DatasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B46222A0382700908B25 /* DatasManager.swift */; };
+		6725B46622A11D0B00908B25 /* ChooseDepartureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B46522A11D0B00908B25 /* ChooseDepartureViewController.swift */; };
+		6725B46822A120A200908B25 /* Soundex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B46722A120A200908B25 /* Soundex.swift */; };
+		6725B46C22A12C1400908B25 /* SearchPushRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725B46B22A12C1400908B25 /* SearchPushRow.swift */; };
+		6725B46E22A157BC00908B25 /* world-cities.json in Resources */ = {isa = PBXBuildFile; fileRef = 6725B46D22A157BC00908B25 /* world-cities.json */; };
 		672AC49D222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AC49C222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift */; };
 		672AC49F222AD12D001F3B87 /* FrenchDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AC49E222AD12D001F3B87 /* FrenchDateFormatter.swift */; };
+		673137BA22A167C80028F7FE /* NewCreateBirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673137B922A167C80028F7FE /* NewCreateBirdViewController.swift */; };
+		673137BC22A24D900028F7FE /* ChooseDepartureDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673137BB22A24D900028F7FE /* ChooseDepartureDateViewController.swift */; };
+		673137BE22A253B20028F7FE /* ChoosePriceAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673137BD22A253B20028F7FE /* ChoosePriceAndWeightViewController.swift */; };
 		673A94EF224F0AC10036A94A /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94EE224F0AC10036A94A /* Channel.swift */; };
 		673A94F1224F12BC0036A94A /* FirebaseManager+Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */; };
 		673A94F3224F21770036A94A /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */; };
@@ -107,8 +119,20 @@
 		6718526D2222A6E60044CE1E /* FirebaseManager+Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Country.swift"; sourceTree = "<group>"; };
 		6718526F2222A8A90044CE1E /* Datas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datas.swift; sourceTree = "<group>"; };
 		671852732222CE860044CE1E /* FirebaseManager+Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Bird.swift"; sourceTree = "<group>"; };
+		6725B459229FE31D00908B25 /* Datasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
+		6725B45B22A02A3C00908B25 /* ServerDatasManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDatasManager.swift; sourceTree = "<group>"; };
+		6725B45D22A02B1A00908B25 /* JsonDecoderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonDecoderHelper.swift; sourceTree = "<group>"; };
+		6725B46022A0381C00908B25 /* LocalDatasManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDatasManager.swift; sourceTree = "<group>"; };
+		6725B46222A0382700908B25 /* DatasManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatasManager.swift; sourceTree = "<group>"; };
+		6725B46522A11D0B00908B25 /* ChooseDepartureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDepartureViewController.swift; sourceTree = "<group>"; };
+		6725B46722A120A200908B25 /* Soundex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soundex.swift; sourceTree = "<group>"; };
+		6725B46B22A12C1400908B25 /* SearchPushRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPushRow.swift; sourceTree = "<group>"; };
+		6725B46D22A157BC00908B25 /* world-cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "world-cities.json"; sourceTree = "<group>"; };
 		672AC49C222AA5DA001F3B87 /* MyBirdCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBirdCollectionViewCell.swift; sourceTree = "<group>"; };
 		672AC49E222AD12D001F3B87 /* FrenchDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchDateFormatter.swift; sourceTree = "<group>"; };
+		673137B922A167C80028F7FE /* NewCreateBirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateBirdViewController.swift; sourceTree = "<group>"; };
+		673137BB22A24D900028F7FE /* ChooseDepartureDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDepartureDateViewController.swift; sourceTree = "<group>"; };
+		673137BD22A253B20028F7FE /* ChoosePriceAndWeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePriceAndWeightViewController.swift; sourceTree = "<group>"; };
 		673A94EE224F0AC10036A94A /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		673A94F0224F12BC0036A94A /* FirebaseManager+Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseManager+Channel.swift"; sourceTree = "<group>"; };
 		673A94F2224F21770036A94A /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
@@ -263,6 +287,10 @@
 				6712B35F225E7D3100B802B1 /* CreatorBirdViewController.swift */,
 				6712B361225E932C00B802B1 /* UpdateBirdViewController.swift */,
 				6717F1A122962EAE009428A4 /* BirderProfileViewController.swift */,
+				6725B46522A11D0B00908B25 /* ChooseDepartureViewController.swift */,
+				673137B922A167C80028F7FE /* NewCreateBirdViewController.swift */,
+				673137BB22A24D900028F7FE /* ChooseDepartureDateViewController.swift */,
+				673137BD22A253B20028F7FE /* ChoosePriceAndWeightViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,6 +312,10 @@
 		671852552220F74E0044CE1E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6725B455229FE2D800908B25 /* Managers */,
+				6725B459229FE31D00908B25 /* Datasource.swift */,
+				6725B46B22A12C1400908B25 /* SearchPushRow.swift */,
+				6725B46722A120A200908B25 /* Soundex.swift */,
 				67F7B7E92220312B0006BD08 /* Extensions.swift */,
 				67185263222100910044CE1E /* OuisendStoryboard.swift */,
 				6718526F2222A8A90044CE1E /* Datas.swift */,
@@ -306,6 +338,33 @@
 				67E8F8D122570A74002E225B /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		6725B455229FE2D800908B25 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6725B45F22A0380300908B25 /* DataManager */,
+				6725B456229FE31400908B25 /* Server */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6725B456229FE31400908B25 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
+		6725B45F22A0380300908B25 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				6725B46222A0382700908B25 /* DatasManager.swift */,
+				6725B45D22A02B1A00908B25 /* JsonDecoderHelper.swift */,
+				6725B46022A0381C00908B25 /* LocalDatasManager.swift */,
+				6725B45B22A02A3C00908B25 /* ServerDatasManager.swift */,
+			);
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 		673A94F4225044740036A94A /* Onboarding */ = {
@@ -396,6 +455,7 @@
 				67EEE0DB2230246F00529AC5 /* AppDelegate+UNUserNotification.swift */,
 				67EEE0D92230242000529AC5 /* AppDelegate+MessagingDelegate.swift */,
 				67F7B7E1221FFF7A0006BD08 /* Info.plist */,
+				6725B46D22A157BC00908B25 /* world-cities.json */,
 				674A9B04222D300B004B1372 /* ouisendLoading.json */,
 				671852572220F90B0044CE1E /* Podfile */,
 				67F7B7DC221FFF7A0006BD08 /* Assets.xcassets */,
@@ -490,6 +550,7 @@
 				678BF882223E7FA5004DC0F1 /* Search.storyboard in Resources */,
 				6718524E2220A7B30044CE1E /* GoogleService-Info.plist in Resources */,
 				67F7B7DB221FFF790006BD08 /* Main.storyboard in Resources */,
+				6725B46E22A157BC00908B25 /* world-cities.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +606,10 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Ouisend/Pods-Ouisend-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -556,10 +620,12 @@
 				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -569,7 +635,10 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -580,10 +649,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -600,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6725B45C22A02A3C00908B25 /* ServerDatasManager.swift in Sources */,
 				673A94F1224F12BC0036A94A /* FirebaseManager+Channel.swift in Sources */,
 				6718526E2222A6E60044CE1E /* FirebaseManager+Country.swift in Sources */,
 				6718526C2222A6AD0044CE1E /* Country.swift in Sources */,
@@ -610,6 +682,7 @@
 				6712B360225E7D3100B802B1 /* CreatorBirdViewController.swift in Sources */,
 				67F2A6C822458EFE00F58067 /* SearchResultsViewController.swift in Sources */,
 				674A9B03222D2FC3004B1372 /* LaunchScreenViewController.swift in Sources */,
+				673137BC22A24D900028F7FE /* ChooseDepartureDateViewController.swift in Sources */,
 				67185264222100910044CE1E /* OuisendStoryboard.swift in Sources */,
 				6776A111222BBE800008870F /* FirebaseManager+Request.swift in Sources */,
 				6718525E2220FD1C0044CE1E /* Birder.swift in Sources */,
@@ -622,6 +695,7 @@
 				6747582F224358CB00161A6C /* PresenterController.swift in Sources */,
 				67EEE0E0223047AE00529AC5 /* FirebaseManager+Messaging.swift in Sources */,
 				6717F1A222962EAE009428A4 /* BirderProfileViewController.swift in Sources */,
+				6725B45A229FE31D00908B25 /* Datasource.swift in Sources */,
 				679A65F422351647003202B4 /* AcceptedRequestCollectionViewCell.swift in Sources */,
 				670E6206222F6E9E004EF5C5 /* ProfileViewController.swift in Sources */,
 				67875DF9225DA6FC006F75B3 /* CreatedBirdViewController.swift in Sources */,
@@ -631,9 +705,12 @@
 				6718525C2220FCAC0044CE1E /* FirebaseManager+User.swift in Sources */,
 				67F7B7EC222042E40006BD08 /* Bird.swift in Sources */,
 				675F389E2224CDB200676718 /* BirdViewController.swift in Sources */,
+				6725B46622A11D0B00908B25 /* ChooseDepartureViewController.swift in Sources */,
 				679A65F22233DEC6003202B4 /* FirebaseManager+Topic.swift in Sources */,
 				67F2A6C322456B5A00F58067 /* SimpleSearchViewController.swift in Sources */,
+				6725B46822A120A200908B25 /* Soundex.swift in Sources */,
 				6718526622226B1D0044CE1E /* CreateBirdViewController.swift in Sources */,
+				673137BE22A253B20028F7FE /* ChoosePriceAndWeightViewController.swift in Sources */,
 				6776A117222CC1310008870F /* MyBirdRequestsViewController.swift in Sources */,
 				6776A10F222BA8940008870F /* Request.swift in Sources */,
 				67F7B7D6221FFF790006BD08 /* AppDelegate.swift in Sources */,
@@ -641,15 +718,18 @@
 				67EEE0E222305A3A00529AC5 /* FirebaseManager+Notification.swift in Sources */,
 				679A65EC2233CD39003202B4 /* AlertsViewController.swift in Sources */,
 				678BF884223E810E004DC0F1 /* SearchCityViewController.swift in Sources */,
+				6725B46122A0381C00908B25 /* LocalDatasManager.swift in Sources */,
 				6776A113222BCC710008870F /* MyRequestsViewController.swift in Sources */,
 				67EEE0DC2230246F00529AC5 /* AppDelegate+UNUserNotification.swift in Sources */,
 				67507E98223CEB8A00CAB468 /* Lorem.swift in Sources */,
 				673A94F8225044EF0036A94A /* OnBoardingCollectionViewCell.swift in Sources */,
 				67F7B7E822200C1A0006BD08 /* BirdCollectionViewCell.swift in Sources */,
 				6712B362225E932C00B802B1 /* UpdateBirdViewController.swift in Sources */,
+				6725B46C22A12C1400908B25 /* SearchPushRow.swift in Sources */,
 				67EEE0D82230215E00529AC5 /* FirebaseManager+Token.swift in Sources */,
 				6776A119222CC55E0008870F /* MyBirdRequestsCollectionViewCell.swift in Sources */,
 				67EEE0E422306B2D00529AC5 /* SearchBirdViewController.swift in Sources */,
+				6725B45E22A02B1A00908B25 /* JsonDecoderHelper.swift in Sources */,
 				671852742222CE860044CE1E /* FirebaseManager+Bird.swift in Sources */,
 				679A65EA2233CD26003202B4 /* NewAlertViewController.swift in Sources */,
 				67F2A6CA2246DEAA00F58067 /* DiscussionsViewController.swift in Sources */,
@@ -657,11 +737,13 @@
 				673A94EF224F0AC10036A94A /* Channel.swift in Sources */,
 				67507E9B223CEBB400CAB468 /* UserDefaults+Settings.swift in Sources */,
 				67FA4CEE2222FDF200A52B8C /* MyBirdsViewController.swift in Sources */,
+				6725B46322A0382700908B25 /* DatasManager.swift in Sources */,
 				67507E8E223CE91800CAB468 /* ChatViewController.swift in Sources */,
 				67EEE0DE22302B5F00529AC5 /* NotificationsViewController.swift in Sources */,
 				6718526A2222A5980044CE1E /* City.swift in Sources */,
 				67507E99223CEB8A00CAB468 /* SampleData.swift in Sources */,
 				67507E9D223CFA3500CAB468 /* FirebaseManager+Message.swift in Sources */,
+				673137BA22A167C80028F7FE /* NewCreateBirdViewController.swift in Sources */,
 				67F7B7EA2220312B0006BD08 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

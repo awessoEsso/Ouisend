@@ -138,8 +138,6 @@ extension LoginViewController: LoginButtonDelegate {
             
             // Go to Main View
             self.performSegue(withIdentifier: "showMainStoryboardId", sender: self)
-            
-            let _ = Datas.shared.countries
         })
     }
     //SKeyedArchiver.archivedData(withRootObject: user)

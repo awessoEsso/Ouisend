@@ -23,9 +23,7 @@ class CreateBirdViewController: FormViewController {
     
     var activityIndicatorView: NVActivityIndicatorView!
     
-    var countries = Datas.shared.countries
-    
-    var cities = Datas.shared.cities
+    var cities = [City]()
     
     var delegate: CreateBirdViewControllerDelegate?
     
@@ -38,7 +36,6 @@ class CreateBirdViewController: FormViewController {
         
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: .orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
         
-        
         view.addSubview(activityIndicatorView)
         
         LabelRow.defaultCellUpdate = { cell, row in
@@ -46,28 +43,37 @@ class CreateBirdViewController: FormViewController {
             cell.textLabel?.textColor = .white
             cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 13)
             cell.textLabel?.textAlignment = .right
-            
         }
         
+        cities = Datas.shared.cities
         
         form +++ Section("Départ")
             
-            <<< PickerInlineRow<String>("VilleDepart"){ row in
-                row.tag = "cb_ville_depart"
-                row.title = "Ville Départ"
-                if cities?.isEmpty == true {
-                    FirebaseManager.shared.countries(with: { (cities) in
-                        row.options = cities.map { $0.name ?? "" }
-                    }) { (error) in
-                        print(error ?? "error loading cities")
-                    }
-                }
-                else {
-                    if let cities = cities {
-                        row.options = cities.map { $0.name ?? "" }
-                    }
-                }
-                }
+            <<< SearchPushRow<City>("VilleDepart") {
+                $0.title = "Ville Départ"
+                $0.tag = "cb_ville_depart"
+                //$0.options = cities
+                $0.optionsProvider = .lazy({ (form, completion) in
+                    let activityView = UIActivityIndicatorView(style: .gray)
+                    form.tableView.backgroundView = activityView
+                    activityView.startAnimating()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        form.tableView.backgroundView = nil
+                        completion(self.cities)
+                    })
+                })
+                $0.selectorTitle = "Choose a city!"
+            }
+            
+            <<< PushRow<String>("VilleDepart2") {
+                $0.title = "Ville Départ"
+                $0.tag = "cb_ville_depart2"
+                $0.options = cities.map { $0.name ?? "" }
+                $0.selectorTitle = "Choose a city!"
+                }.onPresent { from, to in
+                    to.dismissOnSelection = false
+                    to.dismissOnChange = false
+            }
             
             
             <<< DateRow(){
@@ -89,23 +95,18 @@ class CreateBirdViewController: FormViewController {
         form +++ Section("Arrivée")
             
             
-            <<< PickerInlineRow<String>("VilleArrivee"){ row in
-                row.tag = "cb_ville_arrivee"
-                row.title = "Ville Arrivée"
-                
-                if cities?.isEmpty == true {
-                    FirebaseManager.shared.countries(with: { (cities) in
-                        row.options = cities.map { $0.name ?? "" }
-                    }) { (error) in
-                        print(error ?? "error loading cities")
-                    }
-                }
-                else {
-                    if let cities = cities {
-                        row.options = cities.map { $0.name ?? "" }
-                    }
-                }
-            }
+//            <<< PickerInlineRow<String>("VilleArrivee"){ row in
+//                row.tag = "cb_ville_arrivee"
+//                row.title = "Ville Arrivée"
+//                
+//                if cities?.isEmpty == true {
+//                }
+//                else {
+//                    if let cities = cities {
+//                        row.options = cities.map { $0.name ?? "" }
+//                    }
+//                }
+//            }
             
             <<< DateRow(){
                 $0.tag = "cb_date_arrivee"
@@ -221,8 +222,8 @@ class CreateBirdViewController: FormViewController {
         var birdDictionnary = values
         let departureCityName = birdDictionnary["cb_ville_depart"] as? String ?? ""
         let arrivalCityName = birdDictionnary["cb_ville_arrivee"] as? String ?? ""
-        birdDictionnary["cb_pays_depart"] = cityWithName(departureCityName)?.countryName
-        birdDictionnary["cb_pays_arrivee"] = cityWithName(arrivalCityName)?.countryName
+        birdDictionnary["cb_pays_depart"] = cityWithName(departureCityName)?.country
+        birdDictionnary["cb_pays_arrivee"] = cityWithName(arrivalCityName)?.country
         birdDictionnary["creator"] = birder!.identifier
         birdDictionnary["birderName"] = birder!.displayName ?? ""
         birdDictionnary["birderProfilePicUrl"] = birder!.photoURL?.absoluteString ?? ""
@@ -301,13 +302,11 @@ class CreateBirdViewController: FormViewController {
     
     
     func cityWithName(_ cityName: String) -> City? {
-        return cities?.filter { $0.name == cityName}.first
+        return cities.filter { $0.name == cityName}.first
     }
     
     func cities(for countryName: String) -> [String] {
-        if let filteredCities = cities?.filter({ $0.countryName == countryName }) {
-            return filteredCities.map { $0.name ?? "" }
-        }
-        return [String]()
+        let filteredCities = cities.filter({ $0.country == countryName })
+        return filteredCities.map { $0.name ?? "" }
     }
 }
