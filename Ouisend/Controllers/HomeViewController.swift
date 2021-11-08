@@ -244,7 +244,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: SearchCityViewControllerDelegate {
     func didSelect(city: City, for departure: Bool) {
-        let title = "\(city.name ?? "") - \(city.countryName ?? "")"
+        let title = "\(city.name ?? "") - \(city.country ?? "")"
         if departure == true {
             departureCity = city.name ?? ""
             departureButton.setTitle(title, for: .normal)

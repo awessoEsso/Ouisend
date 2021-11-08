@@ -1,27 +1,25 @@
 //
-//  SimpleSearchViewController.swift
+//  NewCreateBirdViewController.swift
 //  Ouisend
 //
-//  Created by Esso Awesso on 22/03/2019.
+//  Created by Esso Awesso on 31/05/2019.
 //  Copyright © 2019 Esso Awesso. All rights reserved.
 //
 
 import UIKit
+import SCLAlertView
 
-class SimpleSearchViewController: UIViewController {
-    
-    
-    @IBOutlet weak var badgeButtonItem: BadgeBarButtonItem!
+class NewCreateBirdViewController: UIViewController {
     
     @IBOutlet weak var departureButton: UIButton!
     
     @IBOutlet weak var destinationButton: UIButton!
     
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
     
-    var departureCity: City?
+    var departureCity:City?
     
-    var destinationCity: City?
+    var destinationCity:City?
     
     var departureSelected = true
     
@@ -29,15 +27,8 @@ class SimpleSearchViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        FirebaseManager.shared.myChannelsUnreadCount({ (unreadCount) in
-            self.badgeButtonItem.badgeNumber = unreadCount
-        }) { (error) in
-            print(error?.localizedDescription ?? "")
-        }
-        
-        
     }
+    
     
     @IBAction func departureAction(_ sender: UIButton) {
         departureSelected = true
@@ -68,15 +59,20 @@ class SimpleSearchViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelFilters(_ sender: UIButton) {
+    @IBAction func nextAction(_ sender: UIButton) {
+        if departureCity != nil {
+            if destinationCity != nil  {
+                performSegue(withIdentifier: "showSelectDepartureDate", sender: nil)
+            }
+            else {
+                SCLAlertView().showError("Erreur", subTitle: "Veuillez renseigner la ville de départ svp.")
+            }
+        }
+        else {
+            SCLAlertView().showError("Erreur", subTitle: "Veuillez renseigner la ville de départ svp.")
+        }
         
-        departureButton.setTitle("Départ", for: .normal)
-        destinationButton.setTitle("Destination", for: .normal)
-        searchButton.setTitle("Voir tous les birds", for: .normal)
-        departureCity = nil
-        destinationCity = nil
     }
-    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +93,12 @@ class SimpleSearchViewController: UIViewController {
                 searchCityViewController.seachForDeparture = departureSelected
             }
             
+        case is ChooseDepartureDateViewController:
+            let chooseDepartureDateViewController = destination as! ChooseDepartureDateViewController
+            chooseDepartureDateViewController.departureCity = departureCity
+            chooseDepartureDateViewController.destinationCity = destinationCity
+            
+            
         case is SearchResultsViewController:
             let searchResultsViewController = destination as! SearchResultsViewController
             searchResultsViewController.departureCity = departureCity
@@ -107,14 +109,25 @@ class SimpleSearchViewController: UIViewController {
         default:
             print("Unknown Segue")
         }
+        
+    }
+    
+    func resetForm() {
+        departureButton.setTitle("Départ", for: .normal)
+        destinationButton.setTitle("Destination", for: .normal)
+        nextButton.isEnabled = false
+        nextButton.alpha = 0.5
+        departureCity = nil
+        destinationCity = nil
+        tabBarController?.selectedIndex = 1
     }
     
 }
 
 
-extension SimpleSearchViewController: SearchCityViewControllerDelegate {
+extension NewCreateBirdViewController: SearchCityViewControllerDelegate {
     func didSelect(city: City, for departure: Bool) {
-        searchButton.setTitle("Rechercher", for: .normal)
+        //searchButton.setTitle("Rechercher", for: .normal)
         let title = "\(city.name ?? "") - \(city.country ?? "")"
         if departure == true {
             departureCity = city
@@ -124,13 +137,11 @@ extension SimpleSearchViewController: SearchCityViewControllerDelegate {
             destinationCity = city
             destinationButton.setTitle(title, for: .normal)
         }
+        
+        if departureCity != nil && destinationCity != nil {
+            nextButton.isEnabled = true
+            nextButton.alpha = 1
+        }
     }
     
-}
-
-enum SearchCase {
-    case onlyDeparture
-    case onlyDestination
-    case any
-    case all
 }

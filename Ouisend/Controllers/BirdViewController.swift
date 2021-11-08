@@ -24,6 +24,8 @@ class BirdViewController: UIViewController {
     
     @IBOutlet weak var weightDesiredLabel: UILabel!
     
+    @IBOutlet weak var weightDesiredPriceLabel: UILabel!
+    
     @IBOutlet weak var birderNameLabel: UILabel!
     
     @IBOutlet weak var publishedDateLabel: UILabel!
@@ -42,13 +44,22 @@ class BirdViewController: UIViewController {
     
     var bird: Bird!
     
+    var birder: Birder!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.init(rawValue: 30), color: ouiSendBlueColor, padding: 20)
+        FirebaseManager.shared.user(with: bird.creator, success: { (birder) in
+            self.birder = birder
+        }) { (error) in
+            print(error?.localizedDescription ?? "Error getting birder")
+        }
+        
+        
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(origin: CGPoint(x: view.frame.width/2 - 40, y: view.frame.height/2 - 40), size: CGSize(width: 80, height: 80)), type: NVActivityIndicatorType.orbit, color: UIColor.Blue.ouiSendBlueColor, padding: 20)
         
         view.addSubview(activityIndicatorView)
         
@@ -69,6 +80,10 @@ class BirdViewController: UIViewController {
         totalPriceLabel.text = "\(bird.birdTotalPrice)\(bird.currency)"
         pricePerKiloLabel.text = "\(bird.birdPricePerKilo)\(bird.currency)"
         
+        
+        let weightDesiredPrice = weightValue * bird.birdPricePerKilo
+        weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
+        
     }
     
     
@@ -83,6 +98,20 @@ class BirdViewController: UIViewController {
                 ouiChatViewController.destinataireName = bird.birdTravelerName
                 ouiChatViewController.destinataireId = bird.creator
                 ouiChatViewController.destinataireUrl = bird.birderProfilePicUrl
+            }
+            
+            if let birderProfileViewController = navigationController.viewControllers.first as? BirderProfileViewController {
+                
+                if let birder = birder {
+                    birderProfileViewController.birder = birder
+                }
+                else {
+                    FirebaseManager.shared.user(with: bird.creator, success: { (birder) in
+                        birderProfileViewController.birder = birder
+                    }) { (error) in
+                        print(error?.localizedDescription ?? "Error getting birder")
+                    }
+                }    
             }
             
         default:
@@ -122,11 +151,15 @@ class BirdViewController: UIViewController {
     
     @IBAction func takeAllWeightChanged(_ sender: UISegmentedControl) {
         let value  = sender.selectedSegmentIndex
+        var weightDesiredPrice = weightValue * bird.birdPricePerKilo
         if value == 0 {
             weightDesiredStackView.isHidden = false
+             weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
         }
         else {
             weightDesiredStackView.isHidden = true
+            weightDesiredPrice = bird.birdTotalPrice
+            weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
         }
     }
     
@@ -135,7 +168,9 @@ class BirdViewController: UIViewController {
         let roundedValue = round(sender.value / step) * step
         sender.value = roundedValue
         weightValue = Int(roundedValue)
+        let weightDesiredPrice = weightValue * bird.birdPricePerKilo
         weightDesiredLabel.text = "\(weightValue) Kg"
+        weightDesiredPriceLabel.text = "\(weightDesiredPrice) \(bird.currency)"
     }
     
     
@@ -203,7 +238,7 @@ class BirdViewController: UIViewController {
     func handleRequestCreationSucceed() {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("Fermer", backgroundColor: ouiSendBlueColor, textColor: .white) {
+        alertView.addButton("Fermer", backgroundColor: UIColor.Blue.ouiSendBlueColor, textColor: .white) {
             self.navigationController?.popViewController(animated: true)
         }
         alertView.showInfo("Félicitations", subTitle: "Votre Demande a été envoyée avec succès")
@@ -220,7 +255,7 @@ extension BirdViewController: UITextViewDelegate {
         if (textView.text == "Précisez le contenu de votre colis")
         {
             textView.text = ""
-            textView.textColor = ouiSendBlueColor
+            textView.textColor = UIColor.Blue.ouiSendBlueColor
         }
         textView.becomeFirstResponder() //Optional
     }

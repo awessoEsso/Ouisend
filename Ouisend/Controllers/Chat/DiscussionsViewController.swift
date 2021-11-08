@@ -42,6 +42,11 @@ class DiscussionsViewController: UIViewController {
         loadChannels()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
     func loadChannels() {
         FirebaseManager.shared.myChannels({ (channels) in
             self.channels = channels
@@ -69,12 +74,6 @@ class DiscussionsViewController: UIViewController {
             print("JE sais pas où tuy vas mec")
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
     
     @IBAction func closeAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)

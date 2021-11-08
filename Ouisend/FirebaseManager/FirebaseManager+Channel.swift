@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import SwiftDate
 
 extension FirebaseManager {
     
@@ -53,6 +54,9 @@ extension FirebaseManager {
         })
         
         taskGroup.notify(queue: queue) {
+            if channels.count > 1 {
+                channels = channels.sorted(by: {$0.messages.last!.sentDate.isAfterDate($1.messages.last!.sentDate, granularity: Calendar.Component.nanosecond)  })
+            }
             success(channels)
         }
     }

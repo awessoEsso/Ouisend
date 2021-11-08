@@ -1,15 +1,15 @@
 //
-//  ProfileViewController.swift
+//  BirderProfileViewController.swift
 //  Ouisend
 //
-//  Created by Esso Awesso on 06/03/2019.
+//  Created by Esso Awesso on 23/05/2019.
 //  Copyright © 2019 Esso Awesso. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class ProfileViewController: UITableViewController {
+class BirderProfileViewController: UITableViewController {
     
     @IBOutlet weak var birderNameLabel: UILabel!
     
@@ -21,8 +21,6 @@ class ProfileViewController: UITableViewController {
     
     @IBOutlet weak var birderProfilePicImageView: UIImageView!
     
-    @IBOutlet weak var alertsNumberLabel: UILabel!
-    
     var birder: Birder!
     
     override func viewDidLoad() {
@@ -32,21 +30,6 @@ class ProfileViewController: UITableViewController {
         
         if let birder = birder {
             setupDatasWithBirder(birder)
-        }
-        else {
-            if let birderData = defaults.object(forKey: "birder") as? Data,
-                let birder = NSKeyedUnarchiver.unarchiveObject(with: birderData) as? Birder {
-                setupDatasWithBirder(birder)
-            }
-            else {
-                if let currentUser = Auth.auth().currentUser {
-                    FirebaseManager.shared.user(with: currentUser.uid, success: { (birder) in
-                        self.setupDatasWithBirder(birder)
-                    }) { (error) in
-                        print(error?.localizedDescription ?? "")
-                    }
-                }
-            }
         }
     }
     
@@ -58,7 +41,6 @@ class ProfileViewController: UITableViewController {
         FirebaseManager.shared.userJoins(success: { (results) in
             self.birdsNumberLabel.text = "\(results["birds"] ?? 0 )"
             self.requestsNumberLabel.text = "\(results["requests"] ?? 0 )"
-            self.alertsNumberLabel.text = "\(results["topics"] ?? 0 )"
         }) { (error) in
             print(error?.localizedDescription ?? "Error getting user Joins")
         }

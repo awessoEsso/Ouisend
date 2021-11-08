@@ -88,6 +88,14 @@ extension FirebaseManager {
         }
     }
     
+    func deleteRequest(_ request: Request) {
+        if let currentUser = Auth.auth().currentUser {
+            requestsReference.child(request.identifier).removeValue()
+            joinUsersReference.child(currentUser.uid).child("requests").child(request.identifier).removeValue()
+        }
+       
+    }
+    
     func declineRequest(_ request: Request) {
         requestsReference.child(request.identifier).child("status").setValue(2)
         birdsReference.child(request.bird).child("declined").updateChildValues([request.identifier: request.weight])

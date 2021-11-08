@@ -60,7 +60,7 @@ class Bird {
         self.departureDate = dictionnary["cb_date_depart"] as? Date ?? Date()
         self.arrivalCity = dictionnary["cb_ville_arrivee"] as? String ?? ""
         self.arrivalCountry = dictionnary["cb_pays_arrivee"] as? String ?? ""
-         self.arrivalDate = dictionnary["cb_date_arrivee"] as? Date ?? Date()
+        self.arrivalDate = dictionnary["cb_date_arrivee"] as? Date ?? Date()
         self.birdWeight = dictionnary["cb_bird_weight"] as? Int ?? 0
         self.birdTotalPrice = dictionnary["cb_bird_total_price"] as? Int ?? 0
         self.birdPricePerKilo = dictionnary["cb_bird_price_per_k"] as? Int ?? 0
@@ -75,7 +75,7 @@ class Bird {
         self.identifier = anIdentifier
         
         self.birdTravelerName = dictionary["birderName"] as? String ?? ""
-
+        
         self.birderProfilePicUrl = URL(string: (dictionary["birderProfilePicUrl"] as? String ?? "http://google.com"))!
         
         self.departureCity = dictionary["departureCity"] as? String ?? ""
@@ -85,7 +85,7 @@ class Bird {
         let arrivalDateTimestamp = dictionary["arrivalDate"] as? TimeInterval ?? 0
         
         self.departureDate = Date(timeIntervalSince1970: departureDateTimestamp / 1000)
-
+        
         self.arrivalCity = dictionary["arrivalCity"] as? String ?? ""
         self.arrivalCountry = dictionary["arrivalCountry"] as? String ?? ""
         self.arrivalDate = Date(timeIntervalSince1970: arrivalDateTimestamp / 1000)
@@ -98,6 +98,26 @@ class Bird {
         self.declined = dictionary["declined"] as? [String: Int] ?? [String: Int]()
         self.createdAt = Date(timeIntervalSince1970: ((dictionary["createdAt"] as? TimeInterval ?? 0) / 1000))
         
+    }
+    
+    init(birdTravelerName: String?, birdTravelerProfilePic: String?, departureCity: String, departureCountry: String? = "", departureDate: Date, arrivalCity: String, arrivalCountry: String? = "", birdWeight: Int, birdTotalPrice: Int, birdPricePerKilo: Int, currency: String = "€", creator: String, createdAt: Date = Date()) {
+        self.identifier = ""
+        self.birdTravelerName = birdTravelerName ?? ""
+        self.birderProfilePicUrl = URL(string: birdTravelerProfilePic ?? "")!
+        self.departureCity = departureCity
+        self.departureCountry = departureCountry ?? ""
+        self.departureDate = departureDate
+        self.arrivalCity = arrivalCity
+        self.arrivalCountry = arrivalCountry ?? ""
+        self.arrivalDate = departureDate
+        self.birdWeight = birdWeight
+        self.birdTotalPrice = birdTotalPrice
+        self.birdPricePerKilo = birdPricePerKilo
+        self.currency = currency
+        self.accepted = [String: Int]()
+        self.declined = [String: Int]()
+        self.creator = creator
+        self.createdAt = createdAt
     }
     
 }

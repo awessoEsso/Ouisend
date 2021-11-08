@@ -55,11 +55,44 @@ extension FirebaseManager {
         }
     }
     
+    
+    func updateBird(_ bird: Bird, success: ((Bird) -> Void)?, failure: ((Error?) -> Void)?) {
+        
+        let birdReference = birdsReference.child(bird.identifier)
+        
+        let newBird = [
+            "departureCity": bird.departureCity ,
+            "departureCountry": bird.departureCountry ,
+            "departureDate": bird.departureDate.timeIntervalSince1970 * 1000 ,
+            "arrivalCity": bird.arrivalCity,
+            "arrivalCountry": bird.arrivalCountry,
+            "departureCity_arrivalCity": "\(bird.departureCity)_\(bird.arrivalCity)",
+            "arrivalDate": bird.arrivalDate.timeIntervalSince1970 * 1000 ,
+            "birdWeight": bird.birdWeight,
+            "birdTotalPrice": bird.birdTotalPrice,
+            "birdPricePerKilo": bird.birdPricePerKilo,
+            "birderName": bird.birdTravelerName,
+            "birderProfilePicUrl": bird.birderProfilePicUrl.absoluteString,
+            "currency": bird.currency,
+            "createdAt": ServerValue.timestamp(),
+            "creator": bird.creator
+            ] as [String : Any]
+        
+        birdReference.setValue(newBird) { (error, reference) in
+            if (error == nil) {
+                success?(bird)
+            }
+            else {
+                failure?(error)
+            }
+        }
+    }
+    
     /// Get User by identifier
     ///
     /// - Parameter identifier: the identifier
     func bird(with identifier: String, success: @escaping ((Bird) -> Void), failure: ((Error?) -> Void)?) {
-        birdsReference.child(identifier).observe(.value, with: { (snapshot) in
+        birdsReference.child(identifier).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 let bird = Bird(identifier: snapshot.key, dictionary: dictionary)
                 success(bird)
@@ -290,8 +323,7 @@ extension FirebaseManager {
         var birds = [Bird]()
         let userIdentifier = currentUser.uid
         
-        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observe(DataEventType.value, with: { (snapshot) in
-            
+        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 let taskEvent = DispatchGroup()
                 taskEvent.enter()
@@ -321,6 +353,92 @@ extension FirebaseManager {
                 success(birds)
             }
 
+        })
+    }
+    
+    func myUpcomingBirdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            let error = NSError(domain: "user not loggedIn", code: 3001, userInfo: nil)
+            failure?(error)
+            return
+        }
+        var birds = [Bird]()
+        let userIdentifier = currentUser.uid
+        
+        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
+                taskEvent.enter()
+                birds.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the event noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let birdIdentifier = $0.key
+                    self.bird(with: birdIdentifier, success: { (bird) in
+                        if bird.departureDate > Date() {
+                            birds.append(bird)
+                        }
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    birds = birds.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(birds)
+                })
+            }
+            else {
+                success(birds)
+            }
+            
+        })
+    }
+    
+    func myOldBirdsObserveSingle(with success: @escaping (([Bird]) -> Void), failure: ((Error?) -> Void)?) {
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            let error = NSError(domain: "user not loggedIn", code: 3001, userInfo: nil)
+            failure?(error)
+            return
+        }
+        var birds = [Bird]()
+        let userIdentifier = currentUser.uid
+        
+        joinUsersReference.child(userIdentifier).child("birds").queryOrderedByValue().observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                let taskEvent = DispatchGroup()
+                taskEvent.enter()
+                birds.removeAll()
+                let dictionary = snapshot.value as? [String: Any]
+                // for each identifier we get the event noeud
+                dictionary?.forEach {
+                    taskEvent.enter()
+                    let birdIdentifier = $0.key
+                    self.bird(with: birdIdentifier, success: { (bird) in
+                        if bird.departureDate < Date() {
+                            birds.append(bird)
+                        }
+                        taskEvent.leave()
+                    }, failure: { (error) in
+                        failure?(error)
+                        taskEvent.leave()
+                    })
+                }
+                taskEvent.leave()
+                taskEvent.notify(queue: .main, execute: {
+                    birds = birds.sorted(by: {$0.departureDate < $1.departureDate})
+                    success(birds)
+                })
+            }
+            else {
+                success(birds)
+            }
+            
         })
     }
     

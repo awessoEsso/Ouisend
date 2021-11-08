@@ -19,12 +19,8 @@ class NotificationsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        FirebaseManager.shared.cities(with: { (cities) in
-            self.cities = cities
-            self.citiesTableView.reloadData()
-        }) { (error) in
-            print(error?.localizedDescription ?? "Error loading cities")
-        }
+        
+        cities = Datas.shared.cities
     }
     
 

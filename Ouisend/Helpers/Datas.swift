@@ -15,20 +15,14 @@ class Datas {
     // MARK: Singleton
     static let shared = Datas()
     
-    var countries: [Country]!
     var cities: [City]!
     
     var birder: Birder?
     
     init() {
-        FirebaseManager.shared.countries(with: { (countries) in
-            self.countries = countries
-        }) { (error) in
-            print(error?.localizedDescription ?? "Error loading countries")
-        }
         
-        FirebaseManager.shared.cities(with: { (cities) in
-            self.cities = cities
+        DatasManager().getCities(success: { (cities) in
+            self.cities = cities.sorted { $0.name ?? "" < $1.name ?? "" }
         }) { (error) in
             print(error?.localizedDescription ?? "Error loading cities")
         }

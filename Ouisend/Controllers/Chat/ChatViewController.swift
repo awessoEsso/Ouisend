@@ -51,6 +51,16 @@ class ChatViewController: MessagesViewController {
         configureMessageCollectionView()
         configureMessageInputBar()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
 
     
     @objc
@@ -70,8 +80,8 @@ class ChatViewController: MessagesViewController {
 
         messageInputBar.isTranslucent = true
         messageInputBar.separatorLine.isHidden = true
-        messageInputBar.inputTextView.tintColor = ouiSendBlueColor
-        messageInputBar.sendButton.tintColor = ouiSendBlueColor
+        messageInputBar.inputTextView.tintColor = UIColor.Blue.ouiSendBlueColor
+        messageInputBar.sendButton.tintColor = UIColor.Blue.ouiSendBlueColor
         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
@@ -98,7 +108,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.sendButton
             .onEnabled { item in
                 UIView.animate(withDuration: 0.3, animations: {
-                    item.imageView?.backgroundColor = ouiSendBlueColor
+                    item.imageView?.backgroundColor = UIColor.Blue.ouiSendBlueColor
                 })
             }.onDisabled { item in
                 UIView.animate(withDuration: 0.3, animations: {
